@@ -14,4 +14,14 @@ public class Film {
     private List<Rate> ratesList;
     private byte[] image;
 
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", rate=" + rate +
+                '}';
+    }
 }

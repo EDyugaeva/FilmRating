@@ -1,4 +1,4 @@
-package com.example.kinorate;
+package com.example.kinorate.servlets;
 
 import java.io.*;
 
