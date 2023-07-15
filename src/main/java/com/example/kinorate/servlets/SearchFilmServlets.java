@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "filmsServlets", value = "/films-servlets")
-public class FilmsServlets extends HttpServlet {
+@WebServlet(name = "search", value = "/search")
+public class SearchFilmServlets extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

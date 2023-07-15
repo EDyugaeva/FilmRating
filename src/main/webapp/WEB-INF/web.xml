@@ -11,5 +11,10 @@
         <servlet-name>MainServlet</servlet-name>
         <url-pattern/>
     </servlet-mapping>
+    
+    <context-param>
+        <param-name>dbURL</param-name>
+        <param-value>jdbc:postgresql://localhost:5432/FilmRating</param-value>
+    </context-param>
 
 </web-app>
