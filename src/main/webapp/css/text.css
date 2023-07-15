@@ -132,14 +132,14 @@
     }
 
     .text-black-center {
-
+        margin-top: 1rem;
+        text-align: center !important;
         font-style: italic;
         font-size: 2rem;
         color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
     }
 
     .text-black-left {
-
         font-size: 1rem;
         padding-left: 5rem;
         padding-bottom: 2rem;
@@ -166,6 +166,23 @@
         color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
     }
 
+    .text-blue-50 {
+        --bs-text-opacity: 0.5;
+        color: blue;
+    }
+    .text-blue-italic {
+        font-size: smaller;
+        font-style: italic;
+        color: blue;
+    }
+
+    .text-black-left-comment {
+        font-size: 1rem;
+        text-align: left;
+        color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
+    }
+
+
 
 }
 
@@ -174,6 +191,32 @@
     .display-4 {
         font-size: 3.5rem;
     }
+}
+
+.display-5 {: 10000 !important;
+
+}
+
+.section-film-card {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    height: 1000px;
+}
+
+.section-user-card {
+    margin-top: 2rem;
+    display: grid;
+    justify-content: center;
+    height: 1000px;
+}
+
+.section-comment {
+    margin-top: 2rem;
+    height: 150px;
+    width: 600px;
+    border: 1px solid #ddd; /* Add a grey border */
+
 }
 
 .topnav {
@@ -286,6 +329,23 @@
     border: 1px solid #ddd; /* Add a grey border */
     font-size: 18px; /* Increase font-size */
 
+}
+
+.poster {
+
+    width: 450px;
+    height: 600px;
+}
+
+.poster-text {
+    padding-left: 10px;
+    padding-bottom: 10px;
+
+
+}
+
+.checked {
+    color: orange;
 }
 
 

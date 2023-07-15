@@ -29,59 +29,53 @@
 <header class="bg-new py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Film rating</h1>
+            <h1 class="display-4">Film rating</h1>
             <p class="lead fw-normal text-white-50 mb-0">Log in and discuss all films with your friends</p>
         </div>
     </div>
 </header>
 <!-- Section-->
 
-<section>
-    <section id="search" class="text-black-left">
-        <header></header>
-        <div>
-            <h2>Search films</h2>
-            <form action="search" method="get">
-                <label>Search your film</label> <input
-                    type="search" name="search"> <input type="submit"
-                                                        value="Search">
-            </form>
+
+<form>
+    <div class="text-black-center "> Название фильма</div>
+    <div class="section-film-card ">
+        <img class="poster"
+             src="https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/2c159225-2a48-4d89-9af8-0f880fe1aea5/1920x"
+             vspace="5" hspace="5">
+        <div class="poster-text">
+            Описание <br>
+            Рейтинг: 7.9<br>
+            Количество голосов : <br>
+
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <div id="comment" class="section-comment">
+                <p>
+                    <h1 class="text-black-left-comment" style="">
+                        user name <br> </h1>
+
+                    <a class="text-blue-italic">and time <br> </a>
+
+                    <a class="text-black-left-comment">
+                        comment <br> </a>
+
+
+
+                </p>
+            </div>
+
         </div>
-    </section>
-
-    <form>
-        <table class="table" >
-            <tr>
-                <th width="40%">
-                    <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/2c159225-2a48-4d89-9af8-0f880fe1aea5/1920x" width="200" height="300">
-                </th>
-                <th>Переводчик <br>
-                <div > Описание <br> </div>
-                Рейтинг: 7.9
-                </th>
-
-            </tr>
-            <tr>
-                <th>Количество голосов :</th>
-            </tr>
-            <tr>
-            </tr>
-            <tr><th>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-
-            </th>
-            </tr>
-
-        </table>
-
-    </form>
-
-
     </div>
+
+
+</form>
+
+
+</div>
 
 
 </section>
