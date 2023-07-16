@@ -2,21 +2,19 @@ package com.example.kinorate.servlets;
 
 import com.example.kinorate.dao.UserDao;
 import com.example.kinorate.model.User;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import javax.swing.text.DateFormatter;
 import java.io.IOException;
 import java.io.Writer;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
 
-@WebServlet(name = "registerServlet", value = "/register")
+@WebServlet(name = "register", value = "/register")
 public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
 
     @Override
@@ -46,6 +44,15 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
             writer.write("User registration failed");
         }
 
+
+    }
+
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("RegisterServlet doGet");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("html/register.jsp");
+        dispatcher.include(req, resp);
 
     }
 }

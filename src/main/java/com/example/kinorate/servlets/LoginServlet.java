@@ -1,7 +1,6 @@
 package com.example.kinorate.servlets;
 
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,10 +15,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String html = "<html><h3>Please login</h3></html>";
-        resp.getWriter().write(html + " ");
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.html");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
         dispatcher.include(req, resp);
 
     }

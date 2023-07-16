@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "search", value = "/search")
@@ -26,20 +25,8 @@ public class SearchFilmServlets extends HttpServlet {
         FilmDao filmDao = new FilmDao();
 
         List<Film> films = filmDao.searchFilms(searchString);
-        System.out.println(films.size());
-
-        PrintWriter out = resp.getWriter();
-
-        for (Film film : films) {
-            out.write(film.toString());
-            out.write("<br/>");
-
-            System.out.println(film.toString());
-
-        }
-
-
-
+        req.setAttribute("films", films);
+        req.getRequestDispatcher("/html/searchfilms.jsp").forward(req, resp);
 
 
     }

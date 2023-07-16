@@ -365,10 +365,9 @@
     height: 600px;
 }
 
-.poster-text {
+.p-l-10 {
     padding-left: 10px;
     padding-bottom: 10px;
-
 
 }
 
@@ -427,6 +426,20 @@ input[type=text]:focus, input[type=password]:focus {
 hr {
     border: 1px solid #f1f1f1;
     margin-bottom: 25px;
+}
+
+
+.filmContainerItem {
+    margin-left: 10rem;
+    margin-bottom: 5rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: 45%;
+    border-collapse: collapse; /* Collapse borders */
+    border: 1px solid green; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
 }
 
 
