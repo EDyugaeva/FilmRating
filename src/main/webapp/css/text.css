@@ -139,9 +139,26 @@
         color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
     }
 
+    .text-black-about {
+        padding-top: 2rem;
+        text-align: left !important;
+        margin-left: 20rem;
+        margin-right: auto;
+        margin-bottom: 2rem;
+    }
+
     .text-black-left {
         font-size: 1rem;
         padding-left: 5rem;
+        padding-bottom: 2rem;
+        padding-top: 2rem;
+        text-align: left;
+        color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
+    }
+
+    .text-black-user {
+        font-size: 1rem;
+        padding-left: 15rem;
         padding-bottom: 2rem;
         padding-top: 2rem;
         text-align: left;
@@ -206,7 +223,7 @@
 
 .section-user-card {
     margin-top: 2rem;
-    display: grid;
+    display: flex;
     justify-content: center;
     height: 1000px;
 }
@@ -283,6 +300,7 @@
 
 
 .btn {
+    margin-top: 1rem;
     border: 2px solid black;
     background-color: white;
     color: black;
@@ -331,6 +349,16 @@
 
 }
 
+.user-container {
+    margin-top: 2rem;
+    margin-left: 15rem;
+    border-collapse: collapse; /* Collapse borders */
+    width: 60%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+
+}
+
 .poster {
 
     width: 450px;
@@ -346,6 +374,59 @@
 
 .checked {
     color: orange;
+}
+/* Set a style for the submit/register button */
+.registerbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.savebtn{
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    opacity: 0.9;
+
+}
+
+.registerbtn:hover {
+    opacity:1;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
 }
 
 

@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/text.css" rel="stylesheet"/>
+    <link href="../css/text.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- Navigation-->
@@ -20,7 +20,7 @@
         <div class="search-container">
             <button type="submit" class="fa fa-search search-container"><i></i></button>
             <input type="search" class="search" placeholder="Поиск..">
-            <a href="#!">Log in</a>
+            <a href="#!">Log out</a>
         </div>
     </div>
 
@@ -35,24 +35,42 @@
     </div>
 </header>
 <!-- Section-->
-<section class="text-center">
-    <p>
-    <div class="text-black-center"> Log in</div>
-    <div class="text-black-left">
-        <div> enter your email</div>
-        <input type="text" placeholder="Username">
-        <div> enter your password</div>
-        <input type="text" placeholder="password"> <br>
-        <button type="submit" class = "btn default">Log in</button>
 
-        <div>You can create new account, if you do not have it</div>
-        <button type="submit" class = "btn default">Register</button>
+<section>
+    <section id="search" class="text-black-left">
+        <header></header>
+        <div>
+            <h2>Search users</h2>
+            <form action="search" method="get">
+                <label>Search user by name or email</label> <input
+                    type="search" name="search"> <input type="submit"
+                                                        value="Search">
+            </form>
+        </div>
+    </section>
+
+    <form class="user-container text-black-left">
+        Имя <br>
+        Дата рождения <br>
+        Количество голосов :
+
+
+    </form>
+
+    <form class="user-container text-black-left">
+        Имя <br>
+        Дата рождения <br>
+        Количество голосов :
+
+
+    </form>
 
 
     </div>
 
 
-    </p>
+</section>
+<!-- #products -->
 
 
 </section>
