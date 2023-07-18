@@ -19,13 +19,18 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
         String name = req.getParameter("name");
-        String lastName = req.getParameter("lastName");
+        String lastName = req.getParameter("last-name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        LocalDate birthDate = LocalDate.parse(req.getParameter("birthDate"), formatter);
+        String passwordRepeated = req.getParameter("password-repeat");
+        LocalDate birthDate = LocalDate.parse(req.getParameter("birth-day"));
+
+        if (!password.equals(passwordRepeated)) {
+            System.out.println("Passwords don't match");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("html/error.jsp");
+            dispatcher.include(req, resp);
+        }
 
         User user = new User(name, lastName, email, password, birthDate);
 

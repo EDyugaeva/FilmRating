@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -29,13 +30,17 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         System.out.println(email);
         System.out.println(password);
+        HttpSession session = req.getSession();
 
         UserDao dao = new UserDao();
         User user = dao.loginUser(email, password);
+
         if (user != null) {
             System.out.println("User exist");
-            req.setAttribute("isAuthorised", true);
-            req.setAttribute("user", user);
+            session.setAttribute("isAuthorised", true);
+            session.setAttribute("user", user);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
+            dispatcher.include(req, resp);
 
         } else {
             System.out.println("User doesn't exist");

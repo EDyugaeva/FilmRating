@@ -16,11 +16,8 @@ public class FilmDao {
         List<Film> list = new ArrayList<>();
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
-
             String sql = "SELECT * FROM films WHERE title LIKE '%" + searchString + "%'";
-
             Statement statement = connection.createStatement();
-
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {

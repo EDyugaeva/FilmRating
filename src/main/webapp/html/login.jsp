@@ -17,7 +17,7 @@
 <%@ include file="header.jsp" %>
 
 <!-- Section-->
-<section class="text-center">
+<section>
     <p>
     <div class="text-black-center"> Log in</div>
     <div class="text-black-left">
@@ -28,16 +28,21 @@
             <input type="text" placeholder="password" name="password"> <br>
             <button type="submit" class="btn default">Log in</button>
         </form>
+        <%
+            if (session.getAttribute("isAuthorised") != null) {
+        %>
+        <div class="text-green">
+            You successfuly logged in! <br>
+        </div>
+        <% } else { %>
         <div>You can create new account, if you do not have it</div>
-        <button type="submit" class="btn default" href='register'>Register</button>
+        <br>
+        <a class="btn" href='register'>Register</a>
+        <% } %>
     </div>
-
-
     </p>
 
-
 </section>
-
 <!-- Footer-->
 <footer class="bg-new">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

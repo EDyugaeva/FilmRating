@@ -38,23 +38,25 @@ public class UserDao {
 
     //authorisation user method
     public User loginUser(String email, String password) {
-        User user = new User();
+        User user = null;
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
             String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                user = new User();
+
                 user.setId((long) resultSet.getInt("id"));
                 user.setName(resultSet.getString("name"));
                 user.setLastName(resultSet.getString("last_name"));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
-                System.out.println(user.toString());
 
             }
 
