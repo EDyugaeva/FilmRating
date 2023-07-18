@@ -1,11 +1,10 @@
 package com.example.kinorate.dao;
 
+import com.example.kinorate.model.Film;
+import com.example.kinorate.model.Role;
 import com.example.kinorate.model.User;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao {
 
@@ -36,4 +35,35 @@ public class UserDao {
 
 
     }
+
+    //authorisation user method
+    public User loginUser(String email, String password) {
+        User user = new User();
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+            String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                user.setId((long) resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
+                System.out.println(user.toString());
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+
 }

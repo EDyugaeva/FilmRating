@@ -27,9 +27,6 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
         String password = req.getParameter("password");
         LocalDate birthDate = LocalDate.parse(req.getParameter("birthDate"), formatter);
 
-        System.out.println(name);
-        System.out.println(lastName);
-
         User user = new User(name, lastName, email, password, birthDate);
 
         UserDao dao = new UserDao();

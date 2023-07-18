@@ -23,6 +23,8 @@ public class User {
     private int status;
     private boolean isBanned;
 
+    public User() {
+    }
 
     public User(String name, String lastName, String email, String password, LocalDate birthDate) {
         this.name = name;
@@ -39,4 +41,15 @@ public class User {
 
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }

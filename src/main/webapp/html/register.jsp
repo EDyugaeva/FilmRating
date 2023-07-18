@@ -18,7 +18,7 @@
 <%@ include file="header.jsp" %>
 
 
-<form>
+<form action="register" method="post">
     <div class="container">
         <h1>Register</h1>
         <p>Please fill in this form to create an account.</p>
@@ -42,11 +42,11 @@
         <button type="submit" class="registerbtn">Register</button>
     </div>
 
-    <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a>.</p>
-    </div>
 
 </form>
+<div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+</div>
 
 
 </div>

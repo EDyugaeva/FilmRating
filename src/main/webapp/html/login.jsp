@@ -21,16 +21,15 @@
     <p>
     <div class="text-black-center"> Log in</div>
     <div class="text-black-left">
-        <div> enter your email</div>
-        <input type="text" placeholder="Username">
-        <div> enter your password</div>
-        <input type="text" placeholder="password"> <br>
-        <button type="submit" class = "btn default">Log in</button>
-
+        <form action="login" method="post">
+            <div> enter your email</div>
+            <input type="text" placeholder="email" name="email">
+            <div> enter your password</div>
+            <input type="text" placeholder="password" name="password"> <br>
+            <button type="submit" class="btn default">Log in</button>
+        </form>
         <div>You can create new account, if you do not have it</div>
-        <button type="submit" class = "btn default" href='register'>Register</button>
-        <a href="register">Register</a>
-
+        <button type="submit" class="btn default" href='register'>Register</button>
     </div>
 
 
