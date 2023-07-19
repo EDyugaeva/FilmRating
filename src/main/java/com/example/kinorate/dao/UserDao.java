@@ -41,8 +41,11 @@ public class UserDao {
         User user = null;
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
+
             String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+
             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
 
@@ -57,6 +60,8 @@ public class UserDao {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
+                System.out.println(resultSet.getString("role"));
+                user.setRole(Role.valueOf(resultSet.getString("role")));
 
             }
 

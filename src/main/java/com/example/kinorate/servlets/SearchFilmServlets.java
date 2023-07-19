@@ -17,14 +17,15 @@ public class SearchFilmServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        System.out.println("doGet");
 
         String searchString = req.getParameter("search");
-        System.out.println("search: " + searchString);
+
+        System.out.println(searchString);
 
         FilmDao filmDao = new FilmDao();
 
         List<Film> films = filmDao.searchFilms(searchString);
+
         req.setAttribute("films", films);
         req.getRequestDispatcher("/html/searchfilms.jsp").forward(req, resp);
 

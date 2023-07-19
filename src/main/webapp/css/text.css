@@ -109,6 +109,16 @@
         padding-left: 1.5rem !important;
     }
 
+    .my-3 {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .sz{
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
     .my-5 {
         margin-top: 3rem !important;
         margin-bottom: 3rem !important;
@@ -126,6 +136,7 @@
     .fw-normal {
         font-weight: 400 !important;
     }
+
 
     .text-center {
         text-align: center !important;
@@ -269,6 +280,17 @@
     margin-top: 8px;
     margin-right: 16px;
     font-size: 17px;
+}
+
+.input[type=date] {
+    float: left;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+    width: 150px;
+    height: 150px;
 }
 
 .search-container button {

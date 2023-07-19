@@ -39,6 +39,8 @@ public class LoginServlet extends HttpServlet {
             System.out.println("User exist");
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
+            session.setAttribute("role", user.getRole());
+
             RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
             dispatcher.include(req, resp);
 
@@ -47,7 +49,6 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher dispatcher = req.getRequestDispatcher("html/error.jsp");
             dispatcher.include(req, resp);
         }
-
 
 
     }

@@ -31,8 +31,8 @@
         <%
             if (session.getAttribute("isAuthorised") != null) {
         %>
-        <div class="text-green">
-            You successfuly logged in! <br>
+        <div>
+            You successfully logged in! <br>
         </div>
         <% } else { %>
         <div>You can create new account, if you do not have it</div>

@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 @Data
 public class User {
@@ -13,9 +12,7 @@ public class User {
     private String name;
     private String lastName;
     private String email;
-
     private String password;
-
     private LocalDate birthDate;
     private Role role;
     private List<Comment> commentsList;

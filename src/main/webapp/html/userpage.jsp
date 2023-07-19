@@ -1,3 +1,4 @@
+<%@ page import="com.example.kinorate.model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,38 +11,21 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/text.css" rel="stylesheet"/>
+    <link href="css/text.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- Navigation-->
-<nav class="topnav">
-    <a href="#!">About</a>
-    <div class="topnav-right">
-        <div class="search-container">
-            <button type="submit" class="fa fa-search search-container"><i></i></button>
-            <input type="search" class="search" placeholder="Поиск..">
-            <a href="#!">Log in</a>
-        </div>
-    </div>
 
-</nav>
-<!-- Header-->
-<header class="bg-new py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4">Film rating</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Log in and discuss all films with your friends</p>
-        </div>
-    </div>
-</header>
-<!-- Section-->
+<%@ include file="header.jsp" %>
 
 
 <form>
-    <div class="text-black-center "> Имя пользователя</div>
+    <% User user = (User) session.getAttribute("user"); %>
+    <div class="text-black-center " title="<%=user.getName()%>">  <%=user.getName()%> </div>
     <div class="text-black-user">
-        Статус: <br>
-        Список любимых фильмов: <br>
+
+        Status: <br>
+        Your favourites films: <br>
+
         <p>
         <ol>1. Film 1</ol>
         <ol>2. Film 2</ol>
@@ -52,25 +36,29 @@
 
         <div id="personalpage">
 
-            <button type="button" class = "btn default">Get all rates</button> <br> <br>
+            <button type="button" class="btn default">Get all rates</button>
+            <br> <br>
 
-            Birthday : <br>
+            Birthday : <%=user.getBirthDate()%><br>
             <!--        <button class = "default">Change</button> <br>-->
-            Email :
+            Email : <%=user.getEmail()%>
             <!--        <button class = "default">Change</button> <br>-->
 
 
         </div>
+        <%if (session.getAttribute("role").equals(Role.ADMIN)) { %>}
 
         <div id="adminpage">
 
-
-            <button type="button" class = "btn default">Ban user</button> <br> <br>
-            <button type="button" class = "btn default">Up status</button> <br> <br>
-            <button type="button" class = "btn default">Down status</button> <br> <br>
-
+            <button type="button" class="btn default">Ban user</button>
+            <br> <br>
+            <button type="button" class="btn default">Up status</button>
+            <br> <br>
+            <button type="button" class="btn default">Down status</button>
+            <br> <br>
 
         </div>
+        <% } %>
 
     </div>
 
