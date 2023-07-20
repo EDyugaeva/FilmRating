@@ -11,12 +11,20 @@
         <servlet-name>MainServlet</servlet-name>
         <url-pattern/>
     </servlet-mapping>
-
-
     
     <context-param>
         <param-name>dbURL</param-name>
         <param-value>jdbc:postgresql://localhost:5432/FilmRating</param-value>
     </context-param>
+    
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.example.kinorate.filters.AuthenticationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 </web-app>

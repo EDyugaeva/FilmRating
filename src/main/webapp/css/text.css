@@ -195,8 +195,8 @@
     }
 
     .text-green {
-        --bs-text-opacity: 1;
-        color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+        --bs-text-opacity: 2;
+        color: green;
     }
 
     .text-blue-italic {

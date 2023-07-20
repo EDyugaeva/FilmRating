@@ -16,30 +16,26 @@
 <nav class="topnav">
     <a href='about'>About</a>
     <a href='home'>Main</a>
-    <form action="search" method="get">
-        <button type="submit" class="fa fa-search search-container"
-                href='search' value="search"><i></i></button>
-        <input type="search" class="search" name="search" placeholder="Search..">
-
-    </form>
     <div class="topnav-right">
-
-        <div class="search-container">
-            <%
-                if (session.getAttribute("isAuthorised") == null) {
-            %>
-            <a href='login'>Log in</a>
-            <% } else { %>
-            <a href='mypage'>My profile</a>
-            <a href='logout'>Log out</a>
-            <% }
-                if (session.getAttribute("role") != null && session.getAttribute("role").equals(Role.ADMIN)) { %>
-            <a href=''>Create new film</a>
-            <% } %>
-
+        <div action="search" method="get">
+            <button type="submit" class="fa fa-search search-container"
+                    href='search' value="search"><i></i></button>
+            <input type="search" class="search" name="search" placeholder="Search..">
         </div>
-    </div>
 
+
+    </div>
+    <%
+        if (session.getAttribute("isAuthorised") == null) {
+    %>
+    <a href='login'>Log in</a>
+    <% } else { %>
+    <a href='mypage'>My profile</a>
+    <a href='logout'>Log out</a>
+    <% }
+        if (session.getAttribute("role") != null && session.getAttribute("role").equals(Role.ADMIN)) { %>
+    <a href='filmCreating'>Create new film</a>
+    <% } %>
 </nav>
 
 <!-- Header-->

@@ -13,32 +13,11 @@
     <link href="../css/text.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- Navigation-->
-<nav class="topnav">
-    <a href="#!">About</a>
-    <div class="topnav-right">
-        <div class="search-container">
-            <button type="submit" class="fa fa-search search-container"><i></i></button>
-            <input type="search" class="search" placeholder="Поиск..">
-            <a href="#!">Log in</a>
-        </div>
-    </div>
-
-</nav>
 <!-- Header-->
-<header class="bg-new py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4">Film rating</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Log in and discuss all films with your friends</p>
-        </div>
-    </div>
-</header>
+<%@ include file="header.jsp" %>
 <!-- Section-->
-
-
 <form>
-    <div class="text-black-center "> Название фильма</div>
+    <div class="text-black-center "> Название фильма ${product.title}</div>
     <div class="section-film-card ">
         <img class="poster"
              src="https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/2c159225-2a48-4d89-9af8-0f880fe1aea5/1920x"
