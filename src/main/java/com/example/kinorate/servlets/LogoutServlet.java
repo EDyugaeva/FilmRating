@@ -18,6 +18,7 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute("isAuthorised", null);
         session.setAttribute("user", null);
+        session.setAttribute("role", null);
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/logout.jsp");
         dispatcher.include(req, resp);
 

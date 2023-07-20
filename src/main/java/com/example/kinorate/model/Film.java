@@ -1,9 +1,11 @@
 package com.example.kinorate.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 @Data
+@NoArgsConstructor
 public class Film {
 
     private Long id;
@@ -12,8 +14,13 @@ public class Film {
     private List<Comment> commentsList;
     private int rate;
     private List<Rate> ratesList;
-    private byte[] image;
+    private String image;
 
+    public Film(String title, String description, String image) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+    }
 
     @Override
     public String toString() {

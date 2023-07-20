@@ -42,7 +42,6 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
         if (row == 1) {
             writer.write("User registered successfully");
         } else {
-
             writer.write("User registration failed");
         }
 

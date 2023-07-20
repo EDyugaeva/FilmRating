@@ -17,7 +17,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
         dispatcher.include(req, resp);
 
@@ -28,15 +27,15 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        System.out.println(email);
-        System.out.println(password);
+
         HttpSession session = req.getSession();
 
         UserDao dao = new UserDao();
-        User user = dao.loginUser(email, password);
+        boolean isValid = dao.validateUser(email, password);
 
-        if (user != null) {
+        if (isValid) {
             System.out.println("User exist");
+            User user = dao.loginUser(email, password);
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
@@ -46,7 +45,11 @@ public class LoginServlet extends HttpServlet {
 
         } else {
             System.out.println("User doesn't exist");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("html/error.jsp");
+
+            String html = "<html><h3>Please check your credentials</h3></html>";
+            resp.getWriter().write(html+" ");
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
             dispatcher.include(req, resp);
         }
 

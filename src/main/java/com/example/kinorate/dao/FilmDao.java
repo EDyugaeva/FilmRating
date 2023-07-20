@@ -2,10 +2,7 @@ package com.example.kinorate.dao;
 
 import com.example.kinorate.model.Film;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +34,26 @@ public class FilmDao {
         return list;
 
 
+    }
+
+
+    //write DAO method post film
+    public int createFilm(Film film) {
+        int rowsAffected = 0;
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+            String sql = "INSERT INTO films (title, description, image) VALUES (?, ?, ?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, film.getTitle());
+            statement.setString(2, film.getDescription());
+            statement.setString(3, String.valueOf(film.getImage()));
+
+            rowsAffected = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowsAffected;
     }
 }

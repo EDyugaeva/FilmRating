@@ -16,9 +16,13 @@ public class MyPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println(req.getRequestURI());
         HttpSession session = req.getSession();
+
+
         if (session.getAttribute("role").equals(Role.ADMIN)) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("html/adminpage.html");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("html/adminpage.jsp");
             dispatcher.include(req, resp);
         } else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("html/userpage.jsp");

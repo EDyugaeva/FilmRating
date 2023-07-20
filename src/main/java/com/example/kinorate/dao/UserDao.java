@@ -1,6 +1,5 @@
 package com.example.kinorate.dao;
 
-import com.example.kinorate.model.Film;
 import com.example.kinorate.model.Role;
 import com.example.kinorate.model.User;
 
@@ -40,17 +39,8 @@ public class UserDao {
     public User loginUser(String email, String password) {
         User user = null;
         try {
-            Connection connection = DBConnection.getConnectionToDataBase();
 
-            String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
-
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
+            ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
             while (resultSet.next()) {
                 user = new User();
 
@@ -70,6 +60,34 @@ public class UserDao {
             e.printStackTrace();
         }
         return user;
+    }
+
+    private static PreparedStatement getPreparedStatementForValidatingUser(String email, String password) throws SQLException {
+        Connection connection = DBConnection.getConnectionToDataBase();
+
+        String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+
+        preparedStatement.setString(1, email);
+        preparedStatement.setString(2, password);
+        return preparedStatement;
+    }
+
+    //validation method
+    public boolean validateUser(String email, String password) {
+        try {
+
+            ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
