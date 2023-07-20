@@ -4,6 +4,8 @@ import com.example.kinorate.model.Role;
 import com.example.kinorate.model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
 
@@ -39,22 +41,10 @@ public class UserDao {
     public User loginUser(String email, String password) {
         User user = null;
         try {
-
             ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
             while (resultSet.next()) {
-                user = new User();
-
-                user.setId((long) resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
-                System.out.println(resultSet.getString("role"));
-                user.setRole(Role.valueOf(resultSet.getString("role")));
-
+                user = getUser(resultSet);
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,6 +79,91 @@ public class UserDao {
         }
         return false;
     }
+
+
+    public List<User> searchUserByNameAndLastName(String name, String lastName) {
+        User user = null;
+        List<User> list = new ArrayList<>();
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+            String sql = "SELECT * FROM users WHERE name LIKE '%" + name + "%' AND last_name LIKE '%" + lastName + "%'";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                user = getUser(rs);
+                list.add(user);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+
+    }
+
+    private User getUser(ResultSet rs) throws SQLException {
+        User user;
+        user = new User();
+        user.setId((long) rs.getInt("id"));
+        user.setName(rs.getString("name"));
+        user.setLastName(rs.getString("last_name"));
+        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        user.setBirthDate(rs.getDate("birth_date").toLocalDate());
+        user.setRole(Role.valueOf(rs.getString("role")));
+        user.setStatus(Integer.parseInt(rs.getString("status")));
+        return user;
+    }
+
+    //find user by id
+    public User findUserById(Long id) {
+        User user = null;
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+
+            String sql = "SELECT * FROM users WHERE id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                user = getUser(rs);
+            }
+
+            return user;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //find 5 Users with max status
+    public List<User> findTop5Users() {
+        List<User> list = new ArrayList<>();
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+
+            String sql = "SELECT * FROM users ORDER BY status DESC LIMIT 5";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                User user = getUser(rs);
+                list.add(user);
+            }
+
+            return list;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
 
 
 }

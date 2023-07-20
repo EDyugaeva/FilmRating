@@ -12,7 +12,7 @@ public class Film {
     private String title;
     private String description;
     private List<Comment> commentsList;
-    private int rate;
+    private float rate;
     private List<Rate> ratesList;
     private String image;
 

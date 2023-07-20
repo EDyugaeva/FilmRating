@@ -1,12 +1,37 @@
 package com.example.kinorate.dao;
 
 import com.example.kinorate.model.Film;
+import com.example.kinorate.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FilmDao {
+
+    public Film findFilmById(long filmId) {
+        Film film = null;
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+            String sql = "SELECT * FROM films WHERE id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, filmId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                film = getFilmFromRS(rs);
+            }
+
+            return film;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
 
     public List<Film> searchFilms(String searchString) {
         Film film = null;
@@ -18,12 +43,7 @@ public class FilmDao {
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                film = new Film();
-                film.setId((long) rs.getInt("id"));
-                film.setTitle(rs.getString("title"));
-                film.setDescription(rs.getString("description"));
-                film.setRate(rs.getInt("rate"));
-
+                film = getFilmFromRS(rs);
                 list.add(film);
 
             }
@@ -34,6 +54,15 @@ public class FilmDao {
         return list;
 
 
+    }
+
+    private static Film getFilmFromRS(ResultSet rs) throws SQLException {
+        Film film = new Film();
+        film.setId((long) rs.getInt("id"));
+        film.setTitle(rs.getString("title"));
+        film.setDescription(rs.getString("description"));
+        film.setRate(rs.getInt("rate"));
+        return film;
     }
 
 
@@ -56,4 +85,28 @@ public class FilmDao {
         }
         return rowsAffected;
     }
+
+
+    //find 5 films with max status
+    public List<Film> findTop5Films() {
+        List<Film> list = new ArrayList<>();
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+
+            String sql = "SELECT * FROM films ORDER BY rate DESC LIMIT 5";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Film film = getFilmFromRS(rs);
+                list.add(film);
+            }
+
+            return list;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
