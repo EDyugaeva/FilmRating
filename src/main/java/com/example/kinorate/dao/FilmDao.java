@@ -1,15 +1,18 @@
 package com.example.kinorate.dao;
 
 import com.example.kinorate.model.Film;
-import com.example.kinorate.model.User;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class FilmDao {
 
+
     public Film findFilmById(long filmId) {
+        log.info("searching film by id {}", filmId);
         Film film = null;
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
@@ -26,14 +29,16 @@ public class FilmDao {
             return film;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warn("SQL exception while finding film by id");
+            throw new RuntimeException("SQL exception while finding film by id");
         }
-
-
-
     }
 
-    public List<Film> searchFilms(String searchString) {
+
+
+
+    public List<Film> searchFilmsByTitle(String searchString) {
+        log.info("searching film by title");
         Film film = null;
         List<Film> list = new ArrayList<>();
         try {
@@ -48,26 +53,32 @@ public class FilmDao {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.warn("SQL exception while finding film by title");
         }
-
         return list;
 
 
     }
 
     private static Film getFilmFromRS(ResultSet rs) throws SQLException {
+        log.info("Get film from rs");
+
         Film film = new Film();
         film.setId((long) rs.getInt("id"));
         film.setTitle(rs.getString("title"));
         film.setDescription(rs.getString("description"));
+        film.setImage(rs.getString("image"));
         film.setRate(rs.getInt("rate"));
+
+        log.info("return {}", film);
         return film;
     }
 
 
     //write DAO method post film
     public int createFilm(Film film) {
+        log.info("Creating new film");
+
         int rowsAffected = 0;
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
@@ -81,6 +92,7 @@ public class FilmDao {
             rowsAffected = statement.executeUpdate();
 
         } catch (SQLException e) {
+            log.warn("SQL exception while creating new film");
             e.printStackTrace();
         }
         return rowsAffected;
@@ -89,6 +101,8 @@ public class FilmDao {
 
     //find 5 films with max status
     public List<Film> findTop5Films() {
+        log.info("Finding 5 top films");
+
         List<Film> list = new ArrayList<>();
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
@@ -97,6 +111,7 @@ public class FilmDao {
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
                 Film film = getFilmFromRS(rs);
                 list.add(film);
@@ -105,6 +120,7 @@ public class FilmDao {
             return list;
 
         } catch (SQLException e) {
+            log.warn("SQL exception while finding top 5 films");
             throw new RuntimeException(e);
         }
     }
