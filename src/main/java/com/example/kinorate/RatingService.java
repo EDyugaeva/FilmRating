@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class RatingService {
 
-    public static boolean setRating(Rate rate) {
+    public static void setRating(Rate rate) {
 
         log.info("Set new rate to film");
         FilmDao filmDao = new FilmDao();
@@ -43,12 +43,10 @@ public class RatingService {
             throw new RuntimeException("exception in setting new rating to film");
         }
 
-        int rowAffectedInUsers = userDao.updateStatus(user);
+        int rowAffectedInUsers = userDao.updateUser(user);
         if (rowAffectedInUsers != 1) {
             throw new RuntimeException("exception in setting new status to user");
         }
 
-
-        return false;
     }
 }

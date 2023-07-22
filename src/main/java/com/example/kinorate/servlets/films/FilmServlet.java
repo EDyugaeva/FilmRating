@@ -1,9 +1,12 @@
-package com.example.kinorate.servlets;
+package com.example.kinorate.servlets.films;
 
 import com.example.kinorate.dao.CommentDao;
 import com.example.kinorate.dao.FilmDao;
+import com.example.kinorate.dao.RateDao;
 import com.example.kinorate.model.Comment;
 import com.example.kinorate.model.Film;
+import com.example.kinorate.model.Rate;
+import com.example.kinorate.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +20,7 @@ import java.util.List;
 public class FilmServlet extends HttpServlet {
     FilmDao filmDao = new FilmDao();
     CommentDao commentDao = new CommentDao();
+    RateDao rateDao = new RateDao();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get the product ID from the request parameter
@@ -31,6 +35,15 @@ public class FilmServlet extends HttpServlet {
         for (Comment comment:
              commentList) {
             System.out.println(comment);
+
+        }
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user != null) {
+            Rate rate = rateDao.findRatesByUserIdAndFilmId(filmId, user.getId());
+            if (rate != null) {
+                request.setAttribute("rate", rate.getRate());
+            }
 
         }
 

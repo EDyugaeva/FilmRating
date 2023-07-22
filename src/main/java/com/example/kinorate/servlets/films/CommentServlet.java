@@ -1,4 +1,4 @@
-package com.example.kinorate.servlets;
+package com.example.kinorate.servlets.films;
 
 import com.example.kinorate.dao.CommentDao;
 import com.example.kinorate.dao.FilmDao;
@@ -23,7 +23,7 @@ public class CommentServlet extends HttpServlet {
     CommentDao commentDao = new CommentDao();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
         log.info("Send new comment to film");
 
         String textComment = req.getParameter("comment");
@@ -31,13 +31,7 @@ public class CommentServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         Film film = filmDao.findFilmById(film_id);
-        User user = new User();
-        user.setName("name setted");
-        user.setId(7L);
-        if (session.getAttribute("user") != null) {
-
-           user = (User) session.getAttribute("user");
-        }
+        User user = (User) session.getAttribute("user");
 
         Comment comment = new Comment();
         comment.setFilm(film);
@@ -47,7 +41,7 @@ public class CommentServlet extends HttpServlet {
         System.out.println(comment);
         commentDao.addComment(comment);
 
-        resp.sendRedirect("film?id="+film_id);
+        resp.sendRedirect("film?id=" + film_id);
 
     }
 }

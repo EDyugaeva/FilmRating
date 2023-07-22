@@ -1,4 +1,4 @@
-package com.example.kinorate.servlets;
+package com.example.kinorate.servlets.films;
 
 import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.model.Film;

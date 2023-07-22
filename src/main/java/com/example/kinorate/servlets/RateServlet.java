@@ -6,7 +6,6 @@ import com.example.kinorate.dao.RateDao;
 import com.example.kinorate.model.Film;
 import com.example.kinorate.model.Rate;
 import com.example.kinorate.model.User;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,15 +32,31 @@ public class RateServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("user");
 
-        Long film_id = Long.valueOf(req.getParameter("film_id"));
+        System.out.println(user);
 
-        Film film = filmDao.findFilmById(film_id);
-        Rate rate = new Rate();
-        rate.setRate(grade);
-        rate.setFilm(film);
-        rate.setUser(user);
+        long film_id = Long.valueOf(req.getParameter("film_id"));
 
-        int rowAffected = rateDao.createRate(rate);
+        Rate rate = rateDao.findRatesByUserIdAndFilmId(film_id, user.getId());
+        int rowAffected = 0;
+        if (rate == null) {
+            log.info("Creating new rate");
+            Film film = filmDao.findFilmById(film_id);
+            rate = new Rate();
+            rate.setRate(grade);
+            rate.setFilm(film);
+            rate.setUser(user);
+
+            rowAffected = rateDao.createRate(rate);
+
+        } else {
+            log.info("Rewriting old rate");
+            rate.setRate(grade);
+            rowAffected = rateDao.updateRate(rate);
+            req.setAttribute("rewriting", true);
+
+        }
+
+
         if (rowAffected != 1) {
             req.getRequestDispatcher("/html/error.jsp").include(req, resp);
             return;

@@ -1,4 +1,4 @@
-package com.example.kinorate.servlets;
+package com.example.kinorate.servlets.users;
 
 import com.example.kinorate.dao.UserDao;
 import com.example.kinorate.model.User;

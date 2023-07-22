@@ -1,4 +1,4 @@
-package com.example.kinorate.servlets;
+package com.example.kinorate.servlets.users;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
