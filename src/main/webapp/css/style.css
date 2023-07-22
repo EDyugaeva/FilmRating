@@ -206,9 +206,14 @@
     }
 
     .text-black-left-comment {
-        font-size: 1rem;
+        font-size: 20px;
         text-align: left;
-        color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
+        color: rgba(var(--bs-pink), var(--bs-text-opacity)) !important;
+    }
+
+    .text-red {
+        color: rgba(var(--bs-red), var(--bs-text-opacity)) !important;
+
     }
 
 }
@@ -228,11 +233,15 @@
     margin-top: 2rem;
     display: flex;
     justify-content: center;
-    height: 500px;
+    height: 700px;
 }
 
 .section-center {
-    align-content: center;
+    left: 50%;
+    margin-left: 15rem;
+    padding-left: 2rem;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .section-user-card {
@@ -243,11 +252,12 @@
 }
 
 .section-comment {
-    margin-top: 2rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     height: 150px;
     width: 600px;
     border: 1px solid #ddd; /* Add a grey border */
-
 
 }
 
@@ -326,7 +336,7 @@
 
 
 .btn {
-    border: 2px solid black;
+    border: 1px solid black;
     background-color: white;
     color: black;
     padding: 10px 14px;

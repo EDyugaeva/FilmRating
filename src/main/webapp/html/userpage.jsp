@@ -1,4 +1,6 @@
 <%@ page import="com.example.kinorate.model.User" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,68 +13,46 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/text.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
 
 <%@ include file="header.jsp" %>
 
+<section>
 
-<form>
-    <% User user = (User) session.getAttribute("user"); %>
-    <div class="text-black-center " title="<%=user.getName()%>">  <%=user.getName()%> </div>
+    <div class="text-black-center "> ${user.name} ${user.lastName}
+    </div>
     <div class="text-black-user">
 
-        Status: <br>
-        Your favourites films: <br>
+        Status: ${user.status}<br>
 
-        <p>
-        <ol>1. Film 1</ol>
-        <ol>2. Film 2</ol>
-        <ol>3. Film 3</ol>
-        <ol>4. Film 4</ol>
-        <ol>5. Film 5</ol>
-        </p>
+        <c:if test="${user.banned==true}">
+            <div class="text-red">User is banned! <br>
+            </div>
+        </c:if>
+        <%--        Your favourites films: <br>--%>
 
-        <div id="personalpage">
+        <%--        <p>--%>
+        <%--        <ol>1. Film 1</ol>--%>
+        <%--        <ol>2. Film 2</ol>--%>
+        <%--        <ol>3. Film 3</ol>--%>
+        <%--        <ol>4. Film 4</ol>--%>
+        <%--        <ol>5. Film 5</ol>--%>
 
-            <button type="button" class="btn default">Get all rates</button>
-            <br> <br>
+        <%--        </p>--%>
 
-            Birthday : <%=user.getBirthDate()%><br>
-            <!--        <button class = "default">Change</button> <br>-->
-            Email : <%=user.getEmail()%>
-            <!--        <button class = "default">Change</button> <br>-->
-
-
-        </div>
-        <%if (session.getAttribute("role").equals(Role.ADMIN)) { %>}
-
-        <div id="adminpage">
-
-            <button type="button" class="btn default">Ban user</button>
-            <br> <br>
-            <button type="button" class="btn default">Up status</button>
-            <br> <br>
-            <button type="button" class="btn default">Down status</button>
-            <br> <br>
-
-        </div>
-        <% } %>
+        <button type="button" class="btn default">Get all rates</button>
+        <br> <br>
+        Birthday : ${user.birthDate}%><br>
+        <!--        <button class = "default">Change</button> <br>-->
+        Email : ${user.email}
+        <!--        <button class = "default">Change</button> <br>-->
 
     </div>
 
-</form>
-
-
-</div>
-
-
 </section>
 <!-- #products -->
-
-
-</section>
 
 <!-- Footer-->
 <footer class="bg-new">

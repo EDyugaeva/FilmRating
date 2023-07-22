@@ -7,11 +7,11 @@
     <meta name="description" content=""/>
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
+    <!-- Core theme CSS-->
+    <link rel="stylesheet" href="css/style.css"/>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/text.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- Header-->
@@ -35,6 +35,11 @@
                 <input type="radio" name="star" value="4"> 4
                 <input type="radio" name="star" value="5"> 5
                 <button type="submit"> Submit</button>
+                <br>
+                <c:if test="${rate!=null}">
+                    Your grade to this film is: ${rate}
+                </c:if>
+
 
             </form>
         </div>
@@ -43,29 +48,27 @@
 
 </section>
 
-<section class="fa-align-center">
-
+<section>
     <c:if test="${requestScope.comments!=null}">
-        <p>
         <c:forEach items="${requestScope.comments}"
                    var="comment" varStatus="Loop">
             <div class="section-comment">
-                <h1 class="text-black-left-comment" style="">
-                        ${comment.author.name} <br></h1>
+                <a class="text-black-left-comment"
+                   href="${pageContext.request.contextPath}/user?id=${comment.author.id}">
+                        ${comment.author.name} </a><br>
                 <a class="text-blue-italic">${comment.date} <br> </a>
                 <div class="text-black-left-comment">
                         ${comment.text}<br></div>
-                </p>
-            </div>
 
+            </div>
         </c:forEach>
     </c:if>
-    <h1>You can send your thought about this movie!</h1>
+    <div class="text-center">You can send your thoughts about this movie!</div>
     <div class="section-comment">
         <form action="comment" method="POST">
             <input type="hidden" name="film_id" value="${film.id}"/>
-            <label for="comment">Review of ${film.title}:</label>
-            <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea>
+            <label for="comment">Review of ${film.title}:</label> <br>
+            <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea> <br>
             <input type="submit" value="Submit">
         </form>
 
@@ -84,3 +87,4 @@
 <script src="js/scripts.js"></script>
 </body>
 </html>
+</<![CDATA[jsp:root>]]>

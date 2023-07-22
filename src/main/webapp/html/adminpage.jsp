@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/text.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- Navigation-->
@@ -23,12 +23,14 @@
 
         <div id="adminpage">
 
-            <button type="button" class="btn default">Create new film</button>
+            <a href="filmCreating" class="btn default">Create new film</a>
             <br> <br>
 
-            <input type="search" class="search" placeholder="Find a user..">
-            <button type="submit" class="fa fa-search search-container"><i></i></button>
-
+            //TODO
+            <form method="get" action="usersearch">
+                <input type="search" class="search" placeholder="Find a user..">
+                <button type="submit" class="fa fa-search search-container"><i></i></button>
+            </form>
 
         </div>
 
