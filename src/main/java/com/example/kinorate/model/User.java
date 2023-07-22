@@ -19,7 +19,6 @@ public class User {
     private List<Rate> ratesList;
     private int status;
     private boolean isBanned;
-
     public User() {
     }
 
@@ -47,6 +46,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", birthDate=" + birthDate +
+                ", role=" + role +
+                ", status=" + status +
+                ", isBanned=" + isBanned +
                 '}';
     }
 }

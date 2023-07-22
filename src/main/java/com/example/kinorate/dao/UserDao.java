@@ -81,7 +81,6 @@ public class UserDao {
         return false;
     }
 
-
     public List<User> searchUserByNameAndLastName(String name, String lastName) {
         log.info("Searching for user with name = {} and last name = {}", name, lastName);
         User user = null;
@@ -118,6 +117,7 @@ public class UserDao {
         user.setBirthDate(rs.getDate("birth_date").toLocalDate());
         user.setRole(Role.valueOf(rs.getString("role")));
         user.setStatus(Integer.parseInt(rs.getString("status")));
+        user.setBanned(rs.getBoolean("isBanned"));
         return user;
     }
 
@@ -170,17 +170,26 @@ public class UserDao {
             e.printStackTrace();        }
         return list;
     }
-    public int updateStatus(User user) {
-        log.info("Updating status");
+    public int updateUser(User user) {
+        log.info("Updating user with id = {}", user.getId());
 
         int rowsAffected = 0;
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
-            String sql = "UPDATE users SET  status = ? where id = ?";
+            String sql = "UPDATE users SET name = ?, last_name = ?, email = ?, " +
+                    "password = ?, birth_date = ?,  status = ?, isbanned = ? where id = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setFloat(1, user.getStatus());
-            statement.setLong(2, user.getId());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getPassword());
+            statement.setDate(5, Date.valueOf(user.getBirthDate()));
+
+
+            statement.setInt(6, user.getStatus());
+            statement.setBoolean(7, user.isBanned());
+            statement.setLong(8, user.getId());
 
             rowsAffected = statement.executeUpdate();
 
@@ -190,8 +199,6 @@ public class UserDao {
         }
         return rowsAffected;
     }
-
-
 
 
 }
