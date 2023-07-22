@@ -24,6 +24,7 @@ public class AuthenticationFilter implements Filter {
         log.info("Authentification filter");
         if (request.getRequestURI().startsWith("/kinorate/mypage") ||
                 request.getRequestURI().startsWith("/kinorate/filmCreating") ||
+                request.getRequestURI().startsWith("/kinorate/comment") ||
                 request.getRequestURI().startsWith("kinorate/rate")
         ) {
             log.info("Checking credentials");
@@ -35,7 +36,6 @@ public class AuthenticationFilter implements Filter {
         }
 
         arg2.doFilter(arg0, arg1);
-
 
     }
 
