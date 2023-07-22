@@ -114,7 +114,7 @@
         margin-bottom: 1rem !important;
     }
 
-    .sz{
+    .sz {
         padding-top: 2rem;
         padding-bottom: 2rem;
     }
@@ -228,7 +228,11 @@
     margin-top: 2rem;
     display: flex;
     justify-content: center;
-    height: 1000px;
+    height: 500px;
+}
+
+.section-center {
+    align-content: center;
 }
 
 .section-user-card {
@@ -243,6 +247,7 @@
     height: 150px;
     width: 600px;
     border: 1px solid #ddd; /* Add a grey border */
+
 
 }
 
@@ -396,6 +401,7 @@
 .checked {
     color: orange;
 }
+
 /* Set a style for the submit/register button */
 .registerbtn {
     background-color: #04AA6D;
@@ -408,7 +414,7 @@
     opacity: 0.9;
 }
 
-.savebtn{
+.savebtn {
     background-color: #04AA6D;
     color: white;
     padding: 16px 20px;
@@ -421,7 +427,7 @@
 }
 
 .registerbtn:hover {
-    opacity:1;
+    opacity: 1;
 }
 
 /* Add padding to containers */

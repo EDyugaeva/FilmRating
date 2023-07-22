@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,58 +11,68 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/text.css" rel="stylesheet"/>
+    <link href="css/text.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- Header-->
-<%@ include file="header.jsp" %>
+<jsp:include page="header.jsp"></jsp:include>
 <!-- Section-->
-<form>
-    <div class="text-black-center "> Название фильма ${product.title}</div>
+<section>
+    <div class="text-black-center "> ${film.title} </div>
     <div class="section-film-card ">
-        <img class="poster"
-             src="https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/2c159225-2a48-4d89-9af8-0f880fe1aea5/1920x"
-             vspace="5" hspace="5">
+        <img src="${film.image}" class="poster">
         <div class="p-l-10">
-            Описание <br>
-            Рейтинг: 7.9<br>
-            Количество голосов : <br>
+            ${film.description} <br>
+            Rating: ${film.rate}<br>
+            <%--               Количество голосов : <br>--%>
+            <form action="rate" method="post">
+                <div>Give your grade to the film!</div>
+                <input type="hidden" name="film_id" value="${film.id}"/>
 
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <div id="comment" class="section-comment">
-                <p>
-                    <h1 class="text-black-left-comment" style="">
-                        user name <br> </h1>
+                <input type="radio" name="star" value="1"> 1
+                <input type="radio" name="star" value="2"> 2
+                <input type="radio" name="star" value="3"> 3
+                <input type="radio" name="star" value="4"> 4
+                <input type="radio" name="star" value="5"> 5
+                <button type="submit"> Submit</button>
 
-                    <a class="text-blue-italic">and time <br> </a>
+            </form>
+        </div>
 
-                    <a class="text-black-left-comment">
-                        comment <br> </a>
+    </div>
 
+</section>
 
+<section class="fa-align-center">
 
+    <c:if test="${requestScope.comments!=null}">
+        <p>
+        <c:forEach items="${requestScope.comments}"
+                   var="comment" varStatus="Loop">
+            <div class="section-comment">
+                <h1 class="text-black-left-comment" style="">
+                        ${comment.author.name} <br></h1>
+                <a class="text-blue-italic">${comment.date} <br> </a>
+                <div class="text-black-left-comment">
+                        ${comment.text}<br></div>
                 </p>
             </div>
 
-        </div>
+        </c:forEach>
+    </c:if>
+    <h1>You can send your thought about this movie!</h1>
+    <div class="section-comment">
+        <form action="comment" method="POST">
+            <input type="hidden" name="film_id" value="${film.id}"/>
+            <label for="comment">Review of ${film.title}:</label>
+            <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea>
+            <input type="submit" value="Submit">
+        </form>
+
+        <p>Click the "Submit" button and your comment will be sent to a page.</p>
     </div>
-
-
-</form>
-
-
-</div>
-
-
 </section>
-<!-- #products -->
 
-
-</section>
 
 <!-- Footer-->
 <footer class="bg-new">

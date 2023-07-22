@@ -24,7 +24,7 @@ public class SearchFilmServlets extends HttpServlet {
 
         FilmDao filmDao = new FilmDao();
 
-        List<Film> films = filmDao.searchFilms(searchString);
+        List<Film> films = filmDao.searchFilmsByTitle(searchString);
 
         req.setAttribute("films", films);
         req.getRequestDispatcher("/html/searchfilms.jsp").forward(req, resp);

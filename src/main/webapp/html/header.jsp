@@ -17,11 +17,11 @@
     <a href='about'>About</a>
     <a href='home'>Main</a>
     <div class="topnav-right">
-        <div action="search" method="get">
+        <form action="search" method="get">
             <button type="submit" class="fa fa-search search-container"
                     href='search' value="search"><i></i></button>
             <input type="search" class="search" name="search" placeholder="Search..">
-        </div>
+        </form>
 
 
     </div>

@@ -36,13 +36,12 @@
         <%
             List<Film> films = (List<Film>) request.getAttribute("films");
             Iterator<Film> iterator = films.iterator();
-
             while (iterator.hasNext()) {
                 Film film = iterator.next();
 
         %>
-        <form class="filmContainerItem">
-            <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/2c159225-2a48-4d89-9af8-0f880fe1aea5/1920x"
+        <div class="filmContainerItem  ">
+            <img src="<%=film.getImage()%>"
                  width="200" height="300">
             <div class="text-black-left">
                 <%=film.getTitle()%> <br>
@@ -55,7 +54,10 @@
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
             </div>
-        </form>
+            <a href="${pageContext.request.contextPath}/film?id=<%=film.getId()%>">Get more information </a>
+
+
+        </div>
         <%
             }
         %>

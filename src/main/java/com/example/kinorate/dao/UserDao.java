@@ -2,19 +2,18 @@ package com.example.kinorate.dao;
 
 import com.example.kinorate.model.Role;
 import com.example.kinorate.model.User;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 public class UserDao {
 
     public int registerUser(User user) {
-
+        log.info("register new user");
         int rowsAffected = 0;
         try {
-
-            //get connection to database
             Connection connection = DBConnection.getConnectionToDataBase();
 
             String insertQuery = "INSERT INTO users (name, last_name, email, password, birth_date) VALUES (?,?,?,?,?)";
@@ -29,16 +28,14 @@ public class UserDao {
 
             rowsAffected = preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            log.warn("exception during saving new user in database");
             e.printStackTrace();
         }
-
         return rowsAffected;
-
-
     }
 
-    //authorisation user method
     public User loginUser(String email, String password) {
+        log.info("login user with email = {}", email);
         User user = null;
         try {
             ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
@@ -47,12 +44,14 @@ public class UserDao {
             }
 
         } catch (SQLException e) {
+            log.warn("exception during login");
             e.printStackTrace();
         }
         return user;
     }
 
     private static PreparedStatement getPreparedStatementForValidatingUser(String email, String password) throws SQLException {
+        log.info("Prepared statement for validation");
         Connection connection = DBConnection.getConnectionToDataBase();
 
         String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
@@ -66,6 +65,7 @@ public class UserDao {
 
     //validation method
     public boolean validateUser(String email, String password) {
+        log.info("user validation with email {} ", email);
         try {
 
             ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
@@ -75,6 +75,7 @@ public class UserDao {
             }
 
         } catch (SQLException e) {
+            log.warn("exception during user validation");
             e.printStackTrace();
         }
         return false;
@@ -82,6 +83,7 @@ public class UserDao {
 
 
     public List<User> searchUserByNameAndLastName(String name, String lastName) {
+        log.info("Searching for user with name = {} and last name = {}", name, lastName);
         User user = null;
         List<User> list = new ArrayList<>();
         try {
@@ -96,6 +98,7 @@ public class UserDao {
 
             }
         } catch (SQLException e) {
+            log.warn("exception searching user");
             e.printStackTrace();
         }
 
@@ -120,6 +123,7 @@ public class UserDao {
 
     //find user by id
     public User findUserById(Long id) {
+        log.info("Searching user with id = {}", id);
         User user = null;
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
@@ -136,12 +140,15 @@ public class UserDao {
             return user;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warn("exception searching user with id = {}", id);
+            e.printStackTrace();
         }
+        return user;
     }
 
     //find 5 Users with max status
     public List<User> findTop5Users() {
+        log.info("Finding top 5 users");
         List<User> list = new ArrayList<>();
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
@@ -158,10 +165,31 @@ public class UserDao {
             return list;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+            log.warn("Exception during getting top 5 users");
 
+            e.printStackTrace();        }
+        return list;
+    }
+    public int updateStatus(User user) {
+        log.info("Updating status");
+
+        int rowsAffected = 0;
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+            String sql = "UPDATE users SET  status = ? where id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setFloat(1, user.getStatus());
+            statement.setLong(2, user.getId());
+
+            rowsAffected = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.warn("SQL exception while setting new status to user {}", user);
+            e.printStackTrace();
+        }
+        return rowsAffected;
+    }
 
 
 

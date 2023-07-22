@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SavingFiles {
-    private static String savePath = "D:/java/project/";
+    private static String savePath = "C:/Users/ekaterina/IdeaProjects/KinoRate/src/main/webapp/";
 
 
     // Save the file to the server
@@ -14,8 +14,13 @@ public class SavingFiles {
 
         String fileName = replaceSpaces(title) + ".jpg";
 
+        System.out.println("file name" + fileName);
+
         // Specify the directory where you want to save the uploaded files
         String fullPath = savePath + type;
+
+        System.out.println("full path" + fullPath);
+
         // Create the save directory if it does not exist
         File fileSaveDir = new File(fullPath);
         if (!fileSaveDir.exists()) {
@@ -23,9 +28,13 @@ public class SavingFiles {
         }
         String filePath = fullPath + File.separator + fileName;
 
+        System.out.println("file Path" + filePath);
+
+        String imageUrl = type + File.separator + fileName;
+
         part.write(filePath);
 
-        return filePath;
+        return imageUrl;
     }
 
 

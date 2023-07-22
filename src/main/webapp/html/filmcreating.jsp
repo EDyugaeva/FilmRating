@@ -18,7 +18,7 @@
 <%@ include file="header.jsp" %>
 <!-- Section-->
 
-<form action="filmCreatin" method="post" enctype="multipart/form-data">
+<form action="filmCreating" method="post" enctype="multipart/form-data">
     <div class="container">
         <h1>Create a new film</h1>
         <p>Please fill in this form to create a new film.</p>

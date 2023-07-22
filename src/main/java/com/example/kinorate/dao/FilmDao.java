@@ -11,7 +11,7 @@ import java.util.List;
 public class FilmDao {
 
 
-    public Film findFilmById(long filmId) {
+    public Film findFilmById(Long filmId) {
         log.info("searching film by id {}", filmId);
         Film film = null;
         try {
@@ -68,7 +68,7 @@ public class FilmDao {
         film.setTitle(rs.getString("title"));
         film.setDescription(rs.getString("description"));
         film.setImage(rs.getString("image"));
-        film.setRate(rs.getInt("rate"));
+        film.setRate(rs.getFloat("rate"));
 
         log.info("return {}", film);
         return film;
@@ -124,5 +124,29 @@ public class FilmDao {
             throw new RuntimeException(e);
         }
     }
+
+    public int updateRating(Film film) {
+        log.info("Updating ratings");
+
+        int rowsAffected = 0;
+        try {
+            Connection connection = DBConnection.getConnectionToDataBase();
+            String sql = "UPDATE films SET rate = ?" +
+                    "WHERE id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setFloat(1, film.getRate());
+            statement.setLong(2, film.getId());
+
+            rowsAffected = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.warn("SQL exception while setting new rating to {}", film);
+            e.printStackTrace();
+        }
+        return rowsAffected;
+    }
+
+
 
 }

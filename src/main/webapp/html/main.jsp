@@ -17,11 +17,14 @@
     <div class=" row">
         <div class="column">
             <p class=text-black-center> Best movies <br>
+
+            <form action="top-film" method="get">
             <ol>1. Film 1</ol>
             <ol>2. Film 2</ol>
             <ol>3. Film 3</ol>
             <ol>4. Film 4</ol>
             <ol>5. Film 5</ol>
+        </form>
             </p>
         </div>
         <div class="column">
