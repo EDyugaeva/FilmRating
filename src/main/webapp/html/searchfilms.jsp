@@ -1,6 +1,6 @@
-<%@ page import="com.example.kinorate.model.Film" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" errorPage="error.jsp" isErrorPage="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -19,7 +19,7 @@
 <%@ include file="header.jsp" %>
 
 <section>
-    <section id="search" class="text-black-left">
+    <div id="search" class="text-black-left">
         <header></header>
         <div>
             <h2>Search films</h2>
@@ -31,42 +31,34 @@
                        value="Search">
             </form>
         </div>
-    </section>
-    <section>
-        <%
-            List<Film> films = (List<Film>) request.getAttribute("films");
-            Iterator<Film> iterator = films.iterator();
-            while (iterator.hasNext()) {
-                Film film = iterator.next();
-
-        %>
-        <div class="filmContainerItem  ">
-            <img src="<%=film.getImage()%>"
-                 width="200" height="300">
-            <div class="text-black-left">
-                <%=film.getTitle()%> <br>
-                <%=film.getDescription()%> <br>
-                Rate: <%=film.getRate()%><br>
-                Numbers of votes: <br>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-            </div>
-            <a href="${pageContext.request.contextPath}/film?id=<%=film.getId()%>">Get more information </a>
+    </div>
+    <div>
+        <c:if test="${requestScope.films!=null}">
+            <c:forEach items="${requestScope.films}"
+                       var="film" varStatus="Loop">
+                <div class="filmContainerItem  ">
+                    <img src="${film.image}"
+                         width="200" height="300">
+                    <div class="text-black-left">
+                        <p class="fa-2x"> ${film.title} </p><br>
+                            ${film.description}<br>
+                        Rate: ${film.rate} <br>
+                        <c:set var="ratesList" value="${film.ratesList}" />
+                        Numbers of votes: ${fn:length(ratesList)}<br>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <a href="${pageContext.request.contextPath}/film?id=${film.id}">Get more information </a>
 
 
-        </div>
-        <%
-            }
-        %>
+                </div>
 
-        </div>
-
-
-    </section>
-    <!-- #products -->
+            </c:forEach>
+        </c:if>
+    </div>
 
 
 </section>

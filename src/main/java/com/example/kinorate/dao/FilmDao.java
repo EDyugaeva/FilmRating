@@ -59,6 +59,7 @@ public class FilmDao {
                 list.add(film);
 
             }
+            log.info("Film was found");
         } catch (SQLException e) {
             log.warn("SQL exception while finding film by title");
         }

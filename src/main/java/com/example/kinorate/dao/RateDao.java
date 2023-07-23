@@ -56,6 +56,7 @@ public class RateDao {
 
             while (rs.next()) {
                 rates.add(mapper.getRate(rs));
+
             }
 
         } catch (SQLException e) {

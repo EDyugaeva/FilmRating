@@ -1,0 +1,22 @@
+package com.example.kinorate.utills;
+
+public class SearchString {
+
+    public static String[] divideString(String str) {
+        str = str.trim();
+        String[] arr = new String[2];
+        if (!str.contains(" ")) {
+            arr[0] = str;
+            arr[1] = "";
+        }
+        else {
+            String str1 = str.substring(0, str.indexOf("0"));
+            String str2 = str.substring(str.indexOf("0"));
+
+            arr[0] = str1;
+            arr[1] = str2;
+        }
+
+        return arr;
+    }
+}

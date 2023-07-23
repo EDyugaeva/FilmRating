@@ -1,4 +1,3 @@
-<%@ page import="com.example.kinorate.model.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -21,35 +20,44 @@
 
 <section>
 
+    </div>
     <div class="text-black-center "> ${user.name} ${user.lastName}
     </div>
-    <div class="text-black-user">
+    <table class="table">
+        <tr>
+            <td>Status</td>
+            <td>${user.status}</td>
+        </tr>
+        <tr>
+            <td> Birthday :</td>
+            <td> ${user.birthDate} </td>
+        </tr>
+        <tr>
+            <td>Email :</td>
+            <td> ${user.email} </td>
+        </tr>
+    </table>
 
-        Status: ${user.status}<br>
+    <c:if test="${user.banned==true}">
+        <div class="text-center">
+            You are banned! <br>
+        </div>
+    </c:if>
 
-        <c:if test="${user.banned==true}">
-            <div class="text-red">User is banned! <br>
-            </div>
-        </c:if>
-        <%--        Your favourites films: <br>--%>
 
-        <%--        <p>--%>
-        <%--        <ol>1. Film 1</ol>--%>
-        <%--        <ol>2. Film 2</ol>--%>
-        <%--        <ol>3. Film 3</ol>--%>
-        <%--        <ol>4. Film 4</ol>--%>
-        <%--        <ol>5. Film 5</ol>--%>
+    <%--        Your favourites films: <br>--%>
 
-        <%--        </p>--%>
+    <%--        <p>--%>
+    <%--        <ol>1. Film 1</ol>--%>
+    <%--        <ol>2. Film 2</ol>--%>
+    <%--        <ol>3. Film 3</ol>--%>
+    <%--        <ol>4. Film 4</ol>--%>
+    <%--        <ol>5. Film 5</ol>--%>
 
-        <button type="button" class="btn default">Get all rates</button>
-        <br> <br>
-        Birthday : ${user.birthDate}%><br>
-        <!--        <button class = "default">Change</button> <br>-->
-        Email : ${user.email}
-        <!--        <button class = "default">Change</button> <br>-->
+    <%--        </p>--%>
 
-    </div>
+    <%--        <button type="button" class="btn default">Get all rates</button>--%>
+
 
 </section>
 <!-- #products -->

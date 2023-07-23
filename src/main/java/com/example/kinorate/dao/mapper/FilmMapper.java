@@ -30,9 +30,17 @@ public class FilmMapper {
 
             List<Comment> commentList = commentDao.findCommentsByFilmId(id);
             List<Rate> rateList = rateDao.findRatesByFilmId(id);
+            if (commentList.size() != 0) {
+                film.setCommentsList(commentList);
+                System.out.println(commentList);
+            }
+            if (rateList.size() != 0) {
+                film.setRatesList(rateList);
+                System.out.println(rateList);
 
-            film.setCommentsList(commentList);
-            film.setRatesList(rateList);
+            }
+
+            System.out.println(film);
 
 
         } catch (SQLException e) {

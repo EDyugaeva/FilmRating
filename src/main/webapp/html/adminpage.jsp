@@ -18,18 +18,23 @@
 <%@ include file="header.jsp" %>
 
 <form>
-    <div class="text-black-center "> Имя пользователя</div>
+    <div class="text-black-center "> ${user.name} ${user.lastName}</div>
     <div class="text-black-user">
 
         <div id="adminpage">
 
             <a href="filmCreating" class="btn default">Create new film</a>
             <br> <br>
+            <p>You can find user by name and lastname to get more information about him</p>
+            <br>
 
-            //TODO
-            <form method="get" action="usersearch">
-                <input type="search" class="search" placeholder="Find a user..">
-                <button type="submit" class="fa fa-search search-container"><i></i></button>
+            <form action="userSearch" method="get">
+            </form>
+
+            <form action="userSearch" method="get">
+                <button type="submit" class="fa fa-search search-container"
+                        href='search' value="search"><i></i></button>
+                <input type="search" class="search" name="search" placeholder="Search..">
             </form>
 
         </div>

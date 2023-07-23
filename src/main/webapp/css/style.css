@@ -376,8 +376,9 @@
     margin-right: 1rem;
 }
 
-.table {
+.table, th, td {
     margin-top: 2rem;
+    margin-bottom: 2rem;
     margin-left: 15rem;
     border-collapse: collapse; /* Collapse borders */
     width: 80%; /* Full-width */

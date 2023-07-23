@@ -42,7 +42,7 @@
 
         Birthday : ${user.birthDate} <br>
         Email : ${user.email} <br>
-        User: ${user}
+        isBanned: ${user.banned}
 
     </div>
 

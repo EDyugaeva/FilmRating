@@ -15,7 +15,7 @@ public class UserDao {
 
     private static final String INSERT = "INSERT INTO users (name, last_name, email, password, birth_date) VALUES (?,?,?,?,?)";
     private static final String FIND_BY_PASSWORD_AND_EMAIL = "SELECT * FROM users WHERE email = ? AND password = ?";
-    private static final String FIND_BY_NAME_AND_LAST_NAME = "SELECT * FROM users WHERE name LIKE ? AND last_name LIKE ?";
+    private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name LIKE ? OR last_name LIKE ?";
 
     private static final String FIND_BY_ID = "SELECT * FROM users WHERE id = ?";
 
@@ -92,14 +92,14 @@ public class UserDao {
         return false;
     }
 
-    public List<User> searchUserByNameAndLastName(String name, String lastName) {
+    public List<User> searchUserByNameOrLastName(String name, String lastName) {
         log.info("Searching for user with name = {} and last name = {}", name, lastName);
         User user = null;
         List<User> list = new ArrayList<>();
         try {
             Connection connection = DBConnection.getConnectionToDataBase();
 
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME_AND_LAST_NAME);
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME_OR_LAST_NAME);
 
             preparedStatement.setString(1, "%" + name + "%");
             preparedStatement.setString(2, "%" + lastName + "%");
