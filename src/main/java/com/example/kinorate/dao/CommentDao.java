@@ -12,7 +12,7 @@ import java.util.List;
 public class CommentDao {
 
     private final CommentMapper mapper = new CommentMapper();
-    private static final String INSERT = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation) VALUES (?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation, author_name) VALUES (?, ?, ?, ?, ?)";
     private static final String FIND_BY_FILM_ID = "SELECT * from comments where film_id =?";
     private static final String FIND_BY_USER_ID = "SELECT * from comments where user_id =?";
 
@@ -26,6 +26,7 @@ public class CommentDao {
             preparedStatement.setLong(2, comment.getFilm());
             preparedStatement.setString(3, comment.getText());
             preparedStatement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.setString(5, comment.getAuthorName());
 
             return preparedStatement.executeUpdate();
 

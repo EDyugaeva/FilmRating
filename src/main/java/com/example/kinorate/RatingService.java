@@ -14,15 +14,19 @@ import java.util.List;
 @Slf4j
 public class RatingService {
 
-    public static void setRating(Rate rate) {
 
-        log.info("Set new rate to film");
+    public static void setRating(Rate rate) {
         FilmDao filmDao = new FilmDao();
         UserDao userDao = new UserDao();
         RateDao rateDao = new RateDao();
 
-        Film film = rate.getFilm();
-        User user = rate.getUser();
+        log.info("Set new rate to film");
+
+        Long film_id = rate.getFilm();
+        Long user_id = rate.getUser();
+
+        Film film = filmDao.findFilmById(film_id);
+        User user = userDao.findUserById(user_id);
 
         float grade = film.getRate();
         int status = user.getStatus();

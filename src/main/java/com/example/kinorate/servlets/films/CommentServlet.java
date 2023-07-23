@@ -32,8 +32,10 @@ public class CommentServlet extends HttpServlet {
         comment.setFilm(film_id);
         comment.setAuthor(user.getId());
         comment.setText(textComment);
+        comment.setAuthorName(user.getName() + " " + user.getLastName());
 
-        System.out.println(comment);
+        log.warn(comment.getAuthorName());
+
         commentDao.addComment(comment);
 
         resp.sendRedirect("film?id=" + film_id);

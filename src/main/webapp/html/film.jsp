@@ -54,8 +54,8 @@
                    var="comment" varStatus="Loop">
             <div class="section-comment">
                 <a class="text-black-left-comment"
-                   href="${pageContext.request.contextPath}/user?id=${comment.author.id}">
-                        ${comment.author.name} </a><br>
+                   href="${pageContext.request.contextPath}/user?id=${comment.author}">
+                        ${comment.authorName} </a><br>
                 <a class="text-blue-italic">${comment.date} <br> </a>
                 <div class="text-black-left-comment">
                         ${comment.text}<br></div>

@@ -11,4 +11,6 @@ public class Comment {
     private Long film;
     private String text;
     private LocalDateTime date;
+    private String authorName;
+
 }
