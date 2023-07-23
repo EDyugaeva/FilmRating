@@ -1,9 +1,7 @@
 package com.example.kinorate.servlets;
 
 import com.example.kinorate.RatingService;
-import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.dao.RateDao;
-import com.example.kinorate.model.Film;
 import com.example.kinorate.model.Rate;
 import com.example.kinorate.model.User;
 import jakarta.servlet.ServletException;
@@ -20,7 +18,6 @@ import java.io.IOException;
 @Slf4j
 public class RateServlet extends HttpServlet {
     RateDao rateDao = new RateDao();
-    FilmDao filmDao = new FilmDao();
 
 
     @Override
@@ -34,17 +31,16 @@ public class RateServlet extends HttpServlet {
 
         System.out.println(user);
 
-        long film_id = Long.valueOf(req.getParameter("film_id"));
+        long film_id = Long.parseLong(req.getParameter("film_id"));
 
         Rate rate = rateDao.findRatesByUserIdAndFilmId(film_id, user.getId());
         int rowAffected = 0;
         if (rate == null) {
             log.info("Creating new rate");
-            Film film = filmDao.findFilmById(film_id);
             rate = new Rate();
             rate.setRate(grade);
-            rate.setFilm(film);
-            rate.setUser(user);
+            rate.setFilm(film_id);
+            rate.setUser(user.getId());
 
             rowAffected = rateDao.createRate(rate);
 

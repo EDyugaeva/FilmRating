@@ -31,7 +31,7 @@ public class FilmServlet extends HttpServlet {
         Film film = filmDao.findFilmById(filmId);
 
 
-        List<Comment> commentList = commentDao.findCommentsByFilmId(film);
+        List<Comment> commentList = commentDao.findCommentsByFilmId(filmId);
         for (Comment comment:
              commentList) {
             System.out.println(comment);
