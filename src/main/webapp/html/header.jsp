@@ -39,7 +39,7 @@
 </nav>
 
 <!-- Header-->
-<header class="bg-new py-5">
+<header class="bg-new py-5 background">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Film rating</h1>
@@ -47,6 +47,7 @@
         </div>
     </div>
 </header>
+
 
 </body>
 </html>

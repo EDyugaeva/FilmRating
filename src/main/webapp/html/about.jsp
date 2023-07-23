@@ -21,6 +21,7 @@
       <div class="text-black-center "> About us</div>
 
     <div class="text-black-about">
+
         This is a capstone project. <br>
         Main goal was to create a web app to a site with films rates. <br>
         Users can write a comments and give rates to the film. If the score is closer to the common, their status is getting better. <br>
@@ -34,12 +35,6 @@
 </section>
 
 <!-- Footer-->
-<footer class="bg-new">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<%@ include file="footer.jsp" %>
 </body>
 </html>

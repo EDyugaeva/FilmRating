@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SavingFiles {
-    private static String savePath = "C:/Users/ekaterina/IdeaProjects/KinoRate/src/main/webapp/";
+    private static String savePath = "C:/Users/ekaterina/IdeaProjects/KinoRate/src/main/webapp/images";
 
 
     // Save the file to the server

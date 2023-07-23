@@ -19,6 +19,29 @@
 
 <form>
     <div class="text-black-center "> ${user.name} ${user.lastName}</div>
+    </div>
+    <table class="table">
+        <tr>
+            <td>Status</td>
+            <td>${user.status}</td>
+        </tr>
+        <tr>
+            <td> Birthday :</td>
+            <td> ${user.birthDate} </td>
+        </tr>
+        <tr>
+            <td>Email :</td>
+            <td> ${user.email} </td>
+        </tr>
+    </table>
+
+    <c:if test="${user.banned==true}">
+        <div class="text-center">
+            You are banned! <br>
+        </div>
+    </c:if>
+
+
     <div class="text-black-user">
 
         <div id="adminpage">
@@ -54,13 +77,10 @@
 
 </section>
 
+
 <!-- Footer-->
-<footer class="bg-new">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<%@ include file="footer.jsp" %>
+
+
 </body>
 </html>
