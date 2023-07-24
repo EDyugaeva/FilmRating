@@ -7,18 +7,19 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 @WebServlet(name = "register", value = "/register")
+@Slf4j
 public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Register new user");
+
         String name = req.getParameter("name");
         String lastName = req.getParameter("last-name");
         String email = req.getParameter("email");
@@ -36,15 +37,20 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
 
         UserDao dao = new UserDao();
 
-        Writer writer = resp.getWriter();
 
         int row = dao.registerUser(user);
         if (row == 1) {
-            writer.write("User registered successfully");
-        } else {
-            writer.write("User registration failed");
-        }
+            log.info("Register is OK");
+            req.setAttribute("info", "You created account, now you can log in");
+            req.getRequestDispatcher("html/OK.jsp").include(req, resp);
+            req.getRequestDispatcher("html/login.jsp").include(req, resp);
 
+        } else {
+            log.warn("Some error occurred during the registration");
+            req.setAttribute("error", "Maybe you are registered before");
+            req.getRequestDispatcher("html/error.jsp").include(req, resp);
+            req.getRequestDispatcher("html/register.jsp").include(req, resp);
+        }
 
     }
 

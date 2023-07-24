@@ -18,7 +18,7 @@
 <%@ include file="header.jsp" %>
 <!-- Section-->
 
-<form action="filmCreating" method="post" enctype="multipart/form-data">
+<form action="film-creating" method="post" enctype="multipart/form-data">
     <div class="container">
         <h1>Create a new film</h1>
         <p>Please fill in this form to create a new film.</p>
@@ -28,8 +28,7 @@
 
             <label for="description"><b>Description</b></label>
             <input type="text" placeholder="Enter description" name="description" id="description" required>
-
-            <input type="file" id="file" name="file">
+            <input type="file" id="file" name="file" required>
 
             <button type="submit" class="savebtn">Save!</button>
         </form>
@@ -47,13 +46,10 @@
 
 </section>
 
+
 <!-- Footer-->
-<footer class="bg-new">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<%@ include file="footer.jsp" %>
+
+
 </body>
 </html>

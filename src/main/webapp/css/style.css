@@ -49,9 +49,6 @@
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-body-font-size: 1rem;
-    --bs-body-font-weight: 400;
-    --bs-body-line-height: 1.5;
-    --bs-body-color: #212529;
     --bs-body-bg: #fff;
     --bs-border-width: 1px;
     --bs-border-style: solid;
@@ -63,10 +60,6 @@
     --bs-border-radius-xl: 1rem;
     --bs-border-radius-2xl: 2rem;
     --bs-border-radius-pill: 50rem;
-    --bs-link-color: #0d6efd;
-    --bs-link-hover-color: #0a58ca;
-    --bs-code-color: #d63384;
-    --bs-highlight-bg: #fff3cd;
 }
 
 *,
@@ -80,13 +73,17 @@
     width: 50%;
 }
 
+.l-150 {
+    text-align: left;
+    padding-left: 150px;
+}
+
 
 .row:after {
     content: "";
     display: table;
     clear: both;
 }
-
 
 @media (min-width: 992px) {
     .px-lg-5 {
@@ -101,7 +98,8 @@
 
     .bg-new {
         --bs-bg-opacity: 1;
-        background-color: rgba(var(--bs-info-rgb), var(--bs-bg-opacity)) !important;
+        background-image: url('images/background.jpg');
+
     }
 
     .px-4 {
@@ -156,6 +154,7 @@
         margin-left: 20rem;
         margin-right: auto;
         margin-bottom: 2rem;
+        font-size: 18px;
     }
 
     .text-black-left {
@@ -262,10 +261,20 @@
 }
 
 .topnav {
-    background-color: #0dcaf0;
-    /*overflow: hidden;*/
+    background-image: url('../images/background.jpg');
+    overflow: hidden;
 
 }
+
+
+.background {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+
 
 /* Style the links inside the navigation bar */
 .topnav a {
@@ -346,6 +355,7 @@
     margin-bottom: 1rem;
 }
 
+
 .default {
     border-color: #e7e7e7;
     color: black;
@@ -355,7 +365,6 @@
     display: none;
 }
 
-.container,
 .container-fluid,
 .container-xxl,
 .container-xl,
@@ -376,11 +385,12 @@
     margin-right: 1rem;
 }
 
-.table {
+.table, th, td {
     margin-top: 2rem;
+    margin-bottom: 2rem;
     margin-left: 15rem;
     border-collapse: collapse; /* Collapse borders */
-    width: 80%; /* Full-width */
+    width: 50%; /* Full-width */
     border: 1px solid #ddd; /* Add a grey border */
     font-size: 18px; /* Increase font-size */
 

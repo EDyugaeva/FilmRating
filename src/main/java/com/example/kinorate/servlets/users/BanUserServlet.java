@@ -45,4 +45,5 @@ public class BanUserServlet extends HttpServlet {
         }
 
     }
+
 }

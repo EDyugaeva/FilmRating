@@ -25,15 +25,14 @@ public class BanFilter implements Filter {
 
 
         log.info("Ban filter");
-        if (request.getServletPath().startsWith("/comment")) {
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("user");
-            if (user.isBanned()) {
-                log.info("Forwarding, user is banned");
-                request.setAttribute("error", "You can not send a comment, because you are banned. Please, try again later");
-                request.getRequestDispatcher("html/error.jsp").forward(request, arg1);
-            }
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user.isBanned()) {
+            log.info("Forwarding, user is banned");
+            request.setAttribute("error", "You can not do this, because you are banned. Please, try again later");
+            request.getRequestDispatcher("html/error.jsp").forward(request, arg1);
         }
+
 
         arg2.doFilter(arg0, arg1);
     }

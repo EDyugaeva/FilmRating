@@ -14,27 +14,35 @@ import java.util.List;
 @Slf4j
 public class RatingService {
 
-    public static void setRating(Rate rate) {
 
-        log.info("Set new rate to film");
+    public static void setRating(Rate rate) {
         FilmDao filmDao = new FilmDao();
         UserDao userDao = new UserDao();
         RateDao rateDao = new RateDao();
 
-        Film film = rate.getFilm();
-        User user = rate.getUser();
+
+        Long film_id = rate.getFilm();
+        Long user_id = rate.getUser();
+        log.info("Set new rate to film with id = {}", film_id);
+
+        Film film = filmDao.findFilmById(film_id);
+        User user = userDao.findUserById(user_id);
 
         float grade = film.getRate();
         int status = user.getStatus();
-        log.info("recalculating user status");
+        log.info("recalculating user status, previous was = {}", status);
 
-        user.setStatus(Calculating.calculateStatus(status, grade, rate.getRate()));
-
-
-        log.info("recalculating film rating");
         List<Rate> filmRatingList = rateDao.findRatesByFilmId(film.getId());
 
-        film.setRate(Calculating.calculateNewFilmRating(filmRatingList, rate));
+        int newStatus =Calculating.calculateStatus(status, grade, rate.getRate(), filmRatingList.size()) ;
+        log.info("recalculating user status, new status is = {}", newStatus);
+        user.setStatus(newStatus);
+
+
+        log.info("recalculating film rating, before = {} ", grade);
+        float newGrade = Calculating.calculateNewFilmRating(filmRatingList, rate);
+        log.info("recalculating film rating, new = {} ", newGrade);
+        film.setRate(newGrade);
 
 
         int rowAffectedInFilm = filmDao.updateRating(film);

@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
 public class Comment {
 
     private Long id;
-    private User author;
-    private Film film;
+    private Long author;
+    private Long film;
     private String text;
     private LocalDateTime date;
+    private String authorName;
+
 }

@@ -22,18 +22,16 @@ public class AuthenticationFilter implements Filter {
 
 
         log.info("Authentification filter");
-        if (request.getRequestURI().startsWith("/kinorate/mypage") ||
-                request.getRequestURI().startsWith("/kinorate/filmCreating") ||
-                request.getRequestURI().startsWith("/kinorate/comment") ||
-                request.getRequestURI().startsWith("kinorate/rate")
-        ) {
-            log.info("Checking credentials");
-            HttpSession session = request.getSession();
-            if (session.getAttribute("user") == null) {
-                log.info("Forwarding");
-                request.getRequestDispatcher("html/login.jsp").forward(request, arg1);
-            }
+
+        log.info("Checking credentials");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("user") == null) {
+            log.info("Forwarding");
+            request.setAttribute("error", "To do this, you need to log in");
+            request.getRequestDispatcher("html/error.jsp").include(request, arg1);
+            request.getRequestDispatcher("html/login.jsp").include(request, arg1);
         }
+
 
         arg2.doFilter(arg0, arg1);
 

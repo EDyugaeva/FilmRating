@@ -6,8 +6,8 @@ import lombok.Data;
 public class Rate {
 
     private Long id;
-    private User user;
-    private Film film;
+    private Long user;
+    private Long film;
     private int rate;
 
 

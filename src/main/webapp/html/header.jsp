@@ -1,4 +1,5 @@
-<%@ page import="com.example.kinorate.model.Role" %><%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
   Created by IntelliJ IDEA.
   User: ekaterina
   Date: 16.07.2023
@@ -25,21 +26,22 @@
 
 
     </div>
-    <%
-        if (session.getAttribute("isAuthorised") == null) {
-    %>
-    <a href='login'>Log in</a>
-    <% } else { %>
-    <a href='mypage'>My profile</a>
-    <a href='logout'>Log out</a>
-    <% }
-        if (session.getAttribute("role") != null && session.getAttribute("role").equals(Role.ADMIN)) { %>
-    <a href='filmCreating'>Create new film</a>
-    <% } %>
+    <c:set var="isAuthorised" value="${sessionScope.isAuthorised}"/>
+    <c:if test="${!isAuthorised}">
+        <a href='login'>Log in</a>
+    </c:if>
+    <c:if test="${isAuthorised}">
+        <a href='mypage'>My profile</a>
+        <a href='logout'>Log out</a>
+        <c:set var="role" value="${sessionScope.role}"/>
+        <c:if test="${role eq 'ADMIN'}">
+            <a href='film-creating'>Create new film</a>
+        </c:if>
+    </c:if>
 </nav>
 
 <!-- Header-->
-<header class="bg-new py-5">
+<header class="bg-new py-5 background">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Film rating</h1>
@@ -47,6 +49,7 @@
         </div>
     </div>
 </header>
+
 
 </body>
 </html>
