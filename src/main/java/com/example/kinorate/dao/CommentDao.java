@@ -8,8 +8,10 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 public class CommentDao {
+    Connection connection = DBConnection.getConnectionToDataBase();
 
     private final CommentMapper mapper = new CommentMapper();
     private static final String INSERT = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation, author_name) VALUES (?, ?, ?, ?, ?)";
@@ -18,10 +20,8 @@ public class CommentDao {
 
     public int addComment(Comment comment) {
         log.info("Creating new comment");
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT);) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
             preparedStatement.setLong(1, comment.getAuthor());
             preparedStatement.setLong(2, comment.getFilm());
             preparedStatement.setString(3, comment.getText());
@@ -42,10 +42,7 @@ public class CommentDao {
         List<Comment> commentList = new ArrayList<>();
 
         log.info("Searching for comments to film with id = {}", filmId);
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
-
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_FILM_ID);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_FILM_ID)) {
 
             preparedStatement.setLong(1, filmId);
 
@@ -69,15 +66,11 @@ public class CommentDao {
         List<Comment> commentList = new ArrayList<>();
 
         log.info("Searching for comments to user with id = {}", userId);
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
-
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_FILM_ID);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)) {
 
             preparedStatement.setLong(1, userId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            UserDao userDao = new UserDao();
 
             while (resultSet.next()) {
                 comment = mapper.getComment(resultSet);
