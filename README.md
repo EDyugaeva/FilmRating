@@ -23,7 +23,7 @@ Logging is made with @Slf4g
 1. Create a database :
    `docker-compose up`
 2. Run [data/init.sql](data/init.sql)
-3. Start app using Tomcat
+3. Start app using Tomcat 10.1.11
 
 #### How it works
 

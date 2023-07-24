@@ -45,7 +45,7 @@
     <c:if test="${role eq 'ADMIN'}">
         <div class="text-black-user">
             <div id="adminpage">
-                <a href="filmCreating" class="btn default">Create new film</a>
+                <a href="film-creating" class="btn default">Create new film</a>
                 <br> <br>
                 <p>You can find user by name and lastname to get more information about him</p>
                 <br>
