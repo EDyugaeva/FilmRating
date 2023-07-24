@@ -9,10 +9,7 @@
     <meta name="description" content=""/>
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
@@ -24,7 +21,7 @@
     <header></header>
     <div>
         <h2>Search users</h2>
-        <form action="userSearch" method="get">
+        <form action="user-search" method="get">
             <label>Search user by name and lastname</label> <input
                 type="search" name="search">
             <input type="submit"
@@ -39,8 +36,7 @@
             <c:set var="ratesList" value="${user.ratesList}"/>
 
             <div class="user-container text-black-left">
-                    <%--        <a href="${pageContext.request.contextPath}/user?id=${user.id}">--%>
-                    <%--            ></a>--%>
+
                     ${user.name} ${user.lastName} <br>
                 Birthday: ${user.birthDate} <br>
                 Numbers of votes: ${fn:length(ratesList)} <br>

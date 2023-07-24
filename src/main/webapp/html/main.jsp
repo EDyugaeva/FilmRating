@@ -7,7 +7,6 @@
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css"/>
 </head>

@@ -18,64 +18,74 @@
 <jsp:include page="header.jsp"></jsp:include>
 <!-- Section-->
 <section>
-    <div class="text-black-center "> ${film.title} </div>
-    <div class="section-film-card ">
-        <img src="${film.image}" class="poster">
-        <div class="p-l-10">
-            ${film.description} <br>
-            Rating: ${film.rate}<br>
-            <%--               Количество голосов : <br>--%>
-            <form action="rate" method="post">
-                <div>Give your grade to the film!</div>
-                <input type="hidden" name="film_id" value="${film.id}"/>
+    <div>
+        <c:if test="${film!=null}">
+        <div class="text-black-center "> ${film.title} </div>
+        <div class="section-film-card ">
+            <img src="${film.image}" class="poster">
+            <div class="p-l-10">
+                    ${film.description} <br>
+                Rating: ${film.rate}<br>
+                    <%--               Количество голосов : <br>--%>
+                <form action="rate" method="post">
+                    <div>Give your grade to the film!</div>
+                    <input type="hidden" name="film_id" value="${film.id}"/>
 
-                <input type="radio" name="star" value="1"> 1
-                <input type="radio" name="star" value="2"> 2
-                <input type="radio" name="star" value="3"> 3
-                <input type="radio" name="star" value="4"> 4
-                <input type="radio" name="star" value="5"> 5
-                <button type="submit"> Submit</button>
-                <br>
-                <c:if test="${rate!=null}">
-                    Your grade to this film is: ${rate}
-                </c:if>
+                    <input type="radio" name="star" value="1"> 1
+                    <input type="radio" name="star" value="2"> 2
+                    <input type="radio" name="star" value="3"> 3
+                    <input type="radio" name="star" value="4"> 4
+                    <input type="radio" name="star" value="5"> 5
+                    <button type="submit"> Submit</button>
+                    <br>
+                    <c:if test="${rate!=null}">
+                        Your grade to this film is: ${rate}
+                    </c:if>
 
+                </form>
+            </div>
 
-            </form>
         </div>
 
+
+    </div>
+    <div>
+
+
+        <c:if test="${requestScope.comments!=null}">
+            <c:forEach items="${requestScope.comments}"
+                       var="comment" varStatus="Loop">
+                <div class="section-comment">
+                    <a class="text-black-left-comment"
+                       href="${pageContext.request.contextPath}/user?id=${comment.author}">
+                            ${comment.authorName} </a><br>
+                    <a class="text-blue-italic">${comment.date} <br> </a>
+                    <div class="text-black-left-comment">
+                            ${comment.text}<br></div>
+
+                </div>
+            </c:forEach>
+        </c:if>
+        <div class="text-center">You can send your thoughts about this movie!</div>
+        <div class="section-comment">
+            <form action="comment" method="POST">
+                <input type="hidden" name="film_id" value="${film.id}"/>
+                <label for="comment">Review of ${film.title}:</label> <br>
+                <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea> <br>
+                <input type="submit" value="Submit">
+            </form>
+
+            <p>Click the "Submit" button and your comment will be sent to a page.</p>
+        </div>
     </div>
 
-</section>
-
-<section>
-    <c:if test="${requestScope.comments!=null}">
-        <c:forEach items="${requestScope.comments}"
-                   var="comment" varStatus="Loop">
-            <div class="section-comment">
-                <a class="text-black-left-comment"
-                   href="${pageContext.request.contextPath}/user?id=${comment.author}">
-                        ${comment.authorName} </a><br>
-                <a class="text-blue-italic">${comment.date} <br> </a>
-                <div class="text-black-left-comment">
-                        ${comment.text}<br></div>
-
-            </div>
-        </c:forEach>
     </c:if>
-    <div class="text-center">You can send your thoughts about this movie!</div>
-    <div class="section-comment">
-        <form action="comment" method="POST">
-            <input type="hidden" name="film_id" value="${film.id}"/>
-            <label for="comment">Review of ${film.title}:</label> <br>
-            <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea> <br>
-            <input type="submit" value="Submit">
-        </form>
+    <c:if test="${film==null}">
+        <div class="text-black-center sz ">We do not have this film</div>
+    </c:if>
 
-        <p>Click the "Submit" button and your comment will be sent to a page.</p>
-    </div>
+
 </section>
-
 
 
 <!-- Footer-->
@@ -84,4 +94,3 @@
 
 </body>
 </html>
-</<![CDATA[jsp:root>]]>

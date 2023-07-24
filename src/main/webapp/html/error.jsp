@@ -7,8 +7,7 @@
     <title>Insert title here</title>
 </head>
 <body>
-<p>Sorry, error occurred, please try again later: <br>
-    ${error}</p>
-
+<h1 class="text-red">Sorry, error occurred, please try again later <br>
+    ${error}</h1>
 </body>
 </html>

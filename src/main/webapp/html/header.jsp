@@ -1,4 +1,5 @@
-<%@ page import="com.example.kinorate.model.Role" %><%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
   Created by IntelliJ IDEA.
   User: ekaterina
   Date: 16.07.2023
@@ -25,17 +26,18 @@
 
 
     </div>
-    <%
-        if (session.getAttribute("isAuthorised") == null) {
-    %>
-    <a href='login'>Log in</a>
-    <% } else { %>
-    <a href='mypage'>My profile</a>
-    <a href='logout'>Log out</a>
-    <% }
-        if (session.getAttribute("role") != null && session.getAttribute("role").equals(Role.ADMIN)) { %>
-    <a href='filmCreating'>Create new film</a>
-    <% } %>
+    <c:set var="isAuthorised" value="${sessionScope.isAuthorised}"/>
+    <c:if test="${!isAuthorised}">
+        <a href='login'>Log in</a>
+    </c:if>
+    <c:if test="${isAuthorised}">
+        <a href='mypage'>My profile</a>
+        <a href='logout'>Log out</a>
+        <c:set var="role" value="${sessionScope.role}"/>
+        <c:if test="${role eq 'ADMIN'}">
+            <a href='filmCreating'>Create new film</a>
+        </c:if>
+    </c:if>
 </nav>
 
 <!-- Header-->

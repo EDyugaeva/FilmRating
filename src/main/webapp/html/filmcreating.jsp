@@ -29,7 +29,7 @@
             <label for="description"><b>Description</b></label>
             <input type="text" placeholder="Enter description" name="description" id="description" required>
 
-            <input type="file" id="file" name="file">
+            <input type="file" id="file" name="file" required>
 
             <button type="submit" class="savebtn">Save!</button>
         </form>

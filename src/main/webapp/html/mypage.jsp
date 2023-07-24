@@ -8,20 +8,17 @@
     <meta name="description" content=""/>
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-
+<!-- Navigation-->
+<!-- Header-->
 <%@ include file="header.jsp" %>
 
 <section>
-
-    </div>
-    <div class="text-black-center "> ${user.name} ${user.lastName}
+    <div class="text-black-center "> ${user.name} ${user.lastName}</div>
     </div>
     <table class="table">
         <tr>
@@ -44,22 +41,38 @@
         </div>
     </c:if>
 
+    <c:set var="role" value="${sessionScope.role}"/>
+    <c:if test="${role eq 'ADMIN'}">
+        <div class="text-black-user">
+            <div id="adminpage">
+                <a href="filmCreating" class="btn default">Create new film</a>
+                <br> <br>
+                <p>You can find user by name and lastname to get more information about him</p>
+                <br>
+                <form action="user-search" method="get">
+                </form>
+                <form action="user-search" method="get">
+                    <button type="submit" class="fa fa-search search-container"
+                            href='search' value="search"><i></i></button>
+                    <input type="search" class="search" name="search" placeholder="Search..">
+                </form>
+            </div>
+        </div>
+    </c:if>
 
-    <%--        Your favourites films: <br>--%>
+</section>
 
-    <%--        <p>--%>
-    <%--        <ol>1. Film 1</ol>--%>
-    <%--        <ol>2. Film 2</ol>--%>
-    <%--        <ol>3. Film 3</ol>--%>
-    <%--        <ol>4. Film 4</ol>--%>
-    <%--        <ol>5. Film 5</ol>--%>
 
-    <%--        </p>--%>
-
-    <%--        <button type="button" class="btn default">Get all rates</button>--%>
+</div>
 
 
 </section>
+<!-- #products -->
+
+
+</section>
+
+
 <!-- Footer-->
 <%@ include file="footer.jsp" %>
 
