@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/userSearch")
+@WebServlet("/user-search")
 @Slf4j
 public class UserSearchServlet extends HttpServlet {
     @Override
@@ -21,11 +21,8 @@ public class UserSearchServlet extends HttpServlet {
         log.info("Searching for user");
         String searchString = req.getParameter("search");
 
-        System.out.println(searchString);
-
         UserDao userDao = new UserDao();
         String[] searchArr = SearchString.divideString(searchString);
-
 
         List<User> users = userDao.searchUserByNameOrLastName(searchArr[0], searchArr[1]);
 

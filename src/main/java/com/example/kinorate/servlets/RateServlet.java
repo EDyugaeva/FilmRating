@@ -29,8 +29,6 @@ public class RateServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("user");
 
-        System.out.println(user);
-
         long film_id = Long.parseLong(req.getParameter("film_id"));
 
         Rate rate = rateDao.findRatesByUserIdAndFilmId(film_id, user.getId());
@@ -54,14 +52,14 @@ public class RateServlet extends HttpServlet {
 
 
         if (rowAffected != 1) {
+            req.setAttribute("error", "Error while saving data to database");
             req.getRequestDispatcher("/html/error.jsp").include(req, resp);
             return;
 
         }
-        System.out.println(rate);
+        log.info("New rate to film = {} is {}", film_id, rate);
 
         RatingService.setRating(rate);
-
         resp.sendRedirect("film?id="+film_id);
 
 

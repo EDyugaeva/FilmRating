@@ -9,10 +9,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
 @WebServlet("/login")
+@Slf4j
 public class LoginServlet extends HttpServlet {
 
     @Override
@@ -22,11 +24,11 @@ public class LoginServlet extends HttpServlet {
 
     }
 
-    //write login to the web-site method
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        log.info("Login with email = {}" ,email);
 
         HttpSession session = req.getSession();
 
@@ -34,24 +36,22 @@ public class LoginServlet extends HttpServlet {
         boolean isValid = dao.validateUser(email, password);
 
         if (isValid) {
-            System.out.println("User exist");
+            log.info("User exist");
             User user = dao.loginUser(email, password);
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
-            dispatcher.include(req, resp);
+            log.warn("User role = {}", user.getRole());
 
         } else {
-            System.out.println("User doesn't exist");
+            log.warn("User doesn't exist");
 
-            String html = "<html><h3>Please check your credentials</h3></html>";
-            resp.getWriter().write(html+" ");
+            req.setAttribute("error", "Please check your credentials");
+            req.getRequestDispatcher("html/error.jsp").include(req, resp);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
-            dispatcher.include(req, resp);
         }
+        req.getRequestDispatcher("html/login.jsp").include(req, resp);
 
 
     }

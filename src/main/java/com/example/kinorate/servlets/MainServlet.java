@@ -2,7 +2,6 @@ package com.example.kinorate.servlets;
 
 import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.dao.UserDao;
-import com.example.kinorate.model.Film;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.List;
 
 @Slf4j
 public class MainServlet extends HttpServlet {

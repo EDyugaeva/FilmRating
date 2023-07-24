@@ -15,6 +15,7 @@ import java.util.List;
 @WebServlet(name = "search", value = "/search")
 @Slf4j
 public class SearchFilmServlets extends HttpServlet {
+    FilmDao filmDao = new FilmDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -23,15 +24,11 @@ public class SearchFilmServlets extends HttpServlet {
         log.info("Searching film by {} ", searchString);
 
 
-        FilmDao filmDao = new FilmDao();
-
         List<Film> films = filmDao.searchFilmsByTitle(searchString);
         log.info("It was found {} films ", films.size());
 
         req.setAttribute("films", films);
-        log.info("atributes are added: {}", films);
         req.getRequestDispatcher("/html/searchfilms.jsp").include(req, resp);
-        log.info("include");
 
 
     }
