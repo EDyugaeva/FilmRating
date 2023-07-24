@@ -15,7 +15,7 @@ public class DBConnection {
             Class.forName("org.postgresql.Driver");
 
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/FilmRating", "Ekaterina", "password");
+                    "jdbc:postgresql://localhost:5433/filmdatabase", "postgres", "password");
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -25,9 +25,6 @@ public class DBConnection {
             System.out.println("Connection established successfully");
         }
         return connection;
-
-
-
 
     }
 

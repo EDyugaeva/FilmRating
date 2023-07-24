@@ -1,24 +1,35 @@
 package com.example.kinorate.dao;
 
-import com.example.kinorate.model.Role;
+import com.example.kinorate.dao.mapper.UserMapper;
 import com.example.kinorate.model.User;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 public class UserDao {
+    Connection connection = DBConnection.getConnectionToDataBase();
+
+    private final UserMapper mapper = new UserMapper();
+
+    private static final String INSERT = "INSERT INTO users (name, last_name, email, password, birth_date) VALUES (?,?,?,?,?)";
+    private static final String FIND_BY_PASSWORD_AND_EMAIL = "SELECT * FROM users WHERE email = ? AND password = ?";
+    private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name ILIKE ? OR last_name LIKE ?";
+
+    private static final String FIND_BY_ID = "SELECT * FROM users WHERE id = ?";
+
+    private static final String FIND_TOP_5 = "SELECT * FROM users ORDER BY status DESC LIMIT 5";
+
+    private static final String UPDATE = "UPDATE users SET name = ?, last_name = ?, email = ?, password = ?, birth_date = ?, " +
+            " status = ?, isbanned = ? where id = ?";
+
 
     public int registerUser(User user) {
         log.info("register new user");
         int rowsAffected = 0;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
-
-            String insertQuery = "INSERT INTO users (name, last_name, email, password, birth_date) VALUES (?,?,?,?,?)";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
 
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLastName());
@@ -37,10 +48,10 @@ public class UserDao {
     public User loginUser(String email, String password) {
         log.info("login user with email = {}", email);
         User user = null;
-        try {
-            ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
+        try (ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery()) {
+
             while (resultSet.next()) {
-                user = getUser(resultSet);
+                user = mapper.getUser(resultSet);
             }
 
         } catch (SQLException e) {
@@ -50,13 +61,10 @@ public class UserDao {
         return user;
     }
 
-    private static PreparedStatement getPreparedStatementForValidatingUser(String email, String password) throws SQLException {
+    private PreparedStatement getPreparedStatementForValidatingUser(String email, String password) throws SQLException {
         log.info("Prepared statement for validation");
-        Connection connection = DBConnection.getConnectionToDataBase();
 
-        String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+        PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_PASSWORD_AND_EMAIL);
 
         preparedStatement.setString(1, email);
         preparedStatement.setString(2, password);
@@ -66,9 +74,7 @@ public class UserDao {
     //validation method
     public boolean validateUser(String email, String password) {
         log.info("user validation with email {} ", email);
-        try {
-
-            ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
+        try (ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery()) {
 
             if (resultSet.next()) {
                 return true;
@@ -81,18 +87,20 @@ public class UserDao {
         return false;
     }
 
-    public List<User> searchUserByNameAndLastName(String name, String lastName) {
+    public List<User> searchUserByNameOrLastName(String name, String lastName) {
         log.info("Searching for user with name = {} and last name = {}", name, lastName);
         User user = null;
         List<User> list = new ArrayList<>();
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
-            String sql = "SELECT * FROM users WHERE name LIKE '%" + name + "%' AND last_name LIKE '%" + lastName + "%'";
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME_OR_LAST_NAME)) {
+
+
+            preparedStatement.setString(1, "%" + name + "%");
+            preparedStatement.setString(2, "%" + lastName + "%");
+
+            ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                user = getUser(rs);
+                user = mapper.getUser(rs);
                 list.add(user);
 
             }
@@ -102,39 +110,19 @@ public class UserDao {
         }
 
         return list;
-
-
     }
 
-    private User getUser(ResultSet rs) throws SQLException {
-        User user;
-        user = new User();
-        user.setId((long) rs.getInt("id"));
-        user.setName(rs.getString("name"));
-        user.setLastName(rs.getString("last_name"));
-        user.setEmail(rs.getString("email"));
-        user.setPassword(rs.getString("password"));
-        user.setBirthDate(rs.getDate("birth_date").toLocalDate());
-        user.setRole(Role.valueOf(rs.getString("role")));
-        user.setStatus(Integer.parseInt(rs.getString("status")));
-        user.setBanned(rs.getBoolean("isBanned"));
-        return user;
-    }
 
-    //find user by id
     public User findUserById(Long id) {
         log.info("Searching user with id = {}", id);
         User user = null;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
 
-            String sql = "SELECT * FROM users WHERE id = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
-                user = getUser(rs);
+                user = mapper.getUser(rs);
             }
 
             return user;
@@ -150,36 +138,27 @@ public class UserDao {
     public List<User> findTop5Users() {
         log.info("Finding top 5 users");
         List<User> list = new ArrayList<>();
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_TOP_5)) {
 
-            String sql = "SELECT * FROM users ORDER BY status DESC LIMIT 5";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                User user = getUser(rs);
+                User user = mapper.getUser(rs);
                 list.add(user);
             }
-
-            return list;
 
         } catch (SQLException e) {
             log.warn("Exception during getting top 5 users");
 
-            e.printStackTrace();        }
+            e.printStackTrace();
+        }
         return list;
     }
+
     public int updateUser(User user) {
         log.info("Updating user with id = {}", user.getId());
-
         int rowsAffected = 0;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
-            String sql = "UPDATE users SET name = ?, last_name = ?, email = ?, " +
-                    "password = ?, birth_date = ?,  status = ?, isbanned = ? where id = ?";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());

@@ -1,28 +1,32 @@
 package com.example.kinorate.dao;
 
+import com.example.kinorate.dao.mapper.CommentMapper;
 import com.example.kinorate.model.Comment;
-import com.example.kinorate.model.Film;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 public class CommentDao {
+    Connection connection = DBConnection.getConnectionToDataBase();
+
+    private final CommentMapper mapper = new CommentMapper();
+    private static final String INSERT = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation, author_name) VALUES (?, ?, ?, ?, ?)";
+    private static final String FIND_BY_FILM_ID = "SELECT * from comments where film_id =?";
+    private static final String FIND_BY_USER_ID = "SELECT * from comments where user_id =?";
 
     public int addComment(Comment comment) {
         log.info("Creating new comment");
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT);) {
 
-            String sql = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation) VALUES (?, ?, ?, ?)";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, comment.getAuthor().getId());
-            preparedStatement.setLong(2, comment.getFilm().getId());
+            preparedStatement.setLong(1, comment.getAuthor());
+            preparedStatement.setLong(2, comment.getFilm());
             preparedStatement.setString(3, comment.getText());
             preparedStatement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.setString(5, comment.getAuthorName());
 
             return preparedStatement.executeUpdate();
 
@@ -33,36 +37,46 @@ public class CommentDao {
         }
     }
 
-    public List<Comment> findCommentsByFilmId(Film film) {
+    public List<Comment> findCommentsByFilmId(Long filmId) {
         Comment comment = null;
         List<Comment> commentList = new ArrayList<>();
 
-        log.info("Searching for comments to film with id = {}", film.getId());
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        log.info("Searching for comments to film with id = {}", filmId);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_FILM_ID)) {
 
-            String sql = "SELECT * from comments where film_id =? ";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-            preparedStatement.setLong(1, film.getId());
+            preparedStatement.setLong(1, filmId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             UserDao userDao = new UserDao();
 
             while (resultSet.next()) {
-                comment = new Comment();
-                comment.setText(resultSet.getString("comment"));
-                comment.setAuthor(userDao.findUserById(resultSet.getLong("user_id")));
-                comment.setFilm(film);
-                comment.setId(Long.valueOf(resultSet.getString("id")));
-
-                Timestamp timestamp = resultSet.getTimestamp("date_time_of_creation");
-                comment.setDate(timestamp.toLocalDateTime());
-
+                comment = mapper.getComment(resultSet);
                 commentList.add(comment);
             }
             return commentList;
 
+        } catch (SQLException e) {
+            log.warn("SQL exception during finding comments");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Comment> findCommentsByUserId(Long userId) {
+        Comment comment = null;
+        List<Comment> commentList = new ArrayList<>();
+
+        log.info("Searching for comments to user with id = {}", userId);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)) {
+
+            preparedStatement.setLong(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                comment = mapper.getComment(resultSet);
+                commentList.add(comment);
+            }
+            return commentList;
 
         } catch (SQLException e) {
             log.warn("SQL exception during finding comments");

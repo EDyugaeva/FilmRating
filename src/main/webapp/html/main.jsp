@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,34 +7,45 @@
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/text.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 <%@ include file="header.jsp" %>
 <!-- Section-->
-<section class="text-center">
+<section class="text-center colored">
     <div class=" row">
         <div class="column">
             <p class=text-black-center> Best movies <br>
+                <c:if test="${requestScope.topFilms!=null}">
+                <c:forEach items="${requestScope.topFilms}"
+                           var="film" varStatus="Loop">
+            <div>
+                <p class="l-150 fa-lg">
+                    <a href="${pageContext.request.contextPath}/film?id=${film.id}">
+                            ${Loop.count}. ${film.title} </a>
+                </p>
 
-            <form action="top-film" method="get">
-            <ol>1. Film 1</ol>
-            <ol>2. Film 2</ol>
-            <ol>3. Film 3</ol>
-            <ol>4. Film 4</ol>
-            <ol>5. Film 5</ol>
-        </form>
+            </div>
+            </c:forEach>
+            </c:if>
             </p>
         </div>
         <div class="column">
-            <p class=text-black-center> Most popular users <br>
-            <ol>1. User 1</ol>
-            <ol>2. User 2</ol>
-            <ol>3. User 3</ol>
-            <ol>4. User 4</ol>
-            <ol>5. User 5</ol>
+            <p class=text-black-center> Users with highest status <br>
+                <c:if test="${requestScope.topUsers!=null}">
+                <c:forEach items="${requestScope.topUsers}"
+                           var="user" varStatus="Loop">
+            <div>
+                <p class="l-150 fa-lg">
+                    <a href="${pageContext.request.contextPath}/user?id=${user.id}">
+                            ${Loop.count}. ${user.name} ${user.lastName} </a>
+                </p>
+
+            </div>
+            </c:forEach>
+            </c:if>
+            </p>
             </p>
         </div>
     </div>
@@ -41,12 +53,7 @@
 </section>
 
 <!-- Footer-->
-<footer class="bg-new">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<%@ include file="footer.jsp" %>
+
 </body>
 </html>

@@ -41,8 +41,11 @@ public class StatusChangingServlet extends HttpServlet {
             resp.sendRedirect("user?id=" + userId);
         } else {
             log.warn("Error during updating user");
+            req.setAttribute("error", "Error while saving data in database");
             req.getRequestDispatcher("html/error.jsp").include(req, resp);
         }
 
     }
+
+
 }

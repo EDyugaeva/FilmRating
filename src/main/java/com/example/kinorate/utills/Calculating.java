@@ -12,14 +12,14 @@ public class Calculating {
       * @param status - user status
      * @param rate - film general rate
      * @param grade - rate from user
+     * @param countOfRatesFromFilm  - quantity of rates, if there is not enough rates, status will not be changed
      * @return new status level
      */
 
-    public static int calculateStatus(int status, float rate, int grade) {
-        if (status == 0 || status == 100) {
+    public static int calculateStatus(int status, float rate, int grade, int countOfRatesFromFilm) {
+        if (status == 0 || status == 100 || countOfRatesFromFilm < 10) {
             return status;
         }
-
         double difference = Math.abs(rate - grade);
         if (difference < 1) {
             return status + 1;
@@ -34,6 +34,12 @@ public class Calculating {
 
     }
 
+    /**
+     * Calculate new rating to film
+     * @param rateList from Film model
+     * @param rate - new rate
+     * @return
+     */
     public static float calculateNewFilmRating(List<Rate> rateList, Rate rate) {
         if (rateList == null) {
             rateList = new ArrayList<>();
