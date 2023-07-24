@@ -10,12 +10,13 @@ import java.util.List;
 
 @Slf4j
 public class UserDao {
+    Connection connection = DBConnection.getConnectionToDataBase();
 
     private final UserMapper mapper = new UserMapper();
 
     private static final String INSERT = "INSERT INTO users (name, last_name, email, password, birth_date) VALUES (?,?,?,?,?)";
     private static final String FIND_BY_PASSWORD_AND_EMAIL = "SELECT * FROM users WHERE email = ? AND password = ?";
-    private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name LIKE ? OR last_name LIKE ?";
+    private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name ILIKE ? OR last_name LIKE ?";
 
     private static final String FIND_BY_ID = "SELECT * FROM users WHERE id = ?";
 
@@ -28,10 +29,7 @@ public class UserDao {
     public int registerUser(User user) {
         log.info("register new user");
         int rowsAffected = 0;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
-
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
 
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLastName());
@@ -50,8 +48,8 @@ public class UserDao {
     public User loginUser(String email, String password) {
         log.info("login user with email = {}", email);
         User user = null;
-        try {
-            ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
+        try (ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery()) {
+
             while (resultSet.next()) {
                 user = mapper.getUser(resultSet);
             }
@@ -65,7 +63,6 @@ public class UserDao {
 
     private PreparedStatement getPreparedStatementForValidatingUser(String email, String password) throws SQLException {
         log.info("Prepared statement for validation");
-        Connection connection = DBConnection.getConnectionToDataBase();
 
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_PASSWORD_AND_EMAIL);
 
@@ -77,9 +74,7 @@ public class UserDao {
     //validation method
     public boolean validateUser(String email, String password) {
         log.info("user validation with email {} ", email);
-        try {
-
-            ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery();
+        try (ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery()) {
 
             if (resultSet.next()) {
                 return true;
@@ -96,10 +91,8 @@ public class UserDao {
         log.info("Searching for user with name = {} and last name = {}", name, lastName);
         User user = null;
         List<User> list = new ArrayList<>();
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME_OR_LAST_NAME)) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME_OR_LAST_NAME);
 
             preparedStatement.setString(1, "%" + name + "%");
             preparedStatement.setString(2, "%" + lastName + "%");
@@ -123,10 +116,8 @@ public class UserDao {
     public User findUserById(Long id) {
         log.info("Searching user with id = {}", id);
         User user = null;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID);
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -147,10 +138,8 @@ public class UserDao {
     public List<User> findTop5Users() {
         log.info("Finding top 5 users");
         List<User> list = new ArrayList<>();
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_TOP_5)) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_TOP_5);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 User user = mapper.getUser(rs);
@@ -169,10 +158,7 @@ public class UserDao {
         log.info("Updating user with id = {}", user.getId());
         int rowsAffected = 0;
 
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
-
-            PreparedStatement statement = connection.prepareStatement(UPDATE);
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());

@@ -15,11 +15,11 @@ public class FilmDao {
 
     private final FilmMapper mapper = new FilmMapper();
     private static final String FIND_BY_ID = "SELECT * FROM films WHERE id = ?";
-    private static final String FIND_BY_TITLE = "SELECT * FROM films WHERE title LIKE ?";
+    private static final String FIND_BY_TITLE = "SELECT * FROM films WHERE title ILIKE ?";
     private static final String INSERT = "INSERT INTO films (title, description, image) VALUES (?, ?, ?)";
     private static final String FIND_TOP_5 = "SELECT * FROM films ORDER BY rate DESC LIMIT 5";
     private static final String UPDATE_RATING = "UPDATE films SET rate = ? WHERE id = ?";
-    private static final String DELETE_FILM_BY_ID = "DELETE from films WHERE id = ?";
+    private static final String DELETE_FILM_BY_ID = "DELETE  from films WHERE id = ?";
 
 
     public Film findFilmById(Long filmId) {

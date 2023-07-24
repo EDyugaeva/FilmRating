@@ -14,6 +14,8 @@ import java.util.List;
 @Slf4j
 public class RateDao {
 
+    Connection connection = DBConnection.getConnectionToDataBase();
+
     private final RateMapper mapper = new RateMapper();
     private final static String INSERT = "INSERT INTO rates (user_id, film_id, rate) VALUES (?, ?, ?)";
     private final static String FIND_BY_FILM_ID = "SELECT * FROM rates WHERE film_id = ?";
@@ -25,10 +27,8 @@ public class RateDao {
     public int createRate(Rate rate) {
         log.info("Creating new rate: {}", rate);
         int rowAffected = 0;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
             preparedStatement.setLong(1, rate.getUser());
             preparedStatement.setLong(2, rate.getFilm());
             preparedStatement.setInt(3, rate.getRate());
@@ -42,14 +42,11 @@ public class RateDao {
         return rowAffected;
     }
 
-    //find all rates by film id
     public List<Rate> findRatesByFilmId(long filmId) {
         log.info("Searching for rates with film id = {}", filmId);
         List<Rate> rates = new ArrayList<>();
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_FILM_ID)) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_FILM_ID);
             preparedStatement.setLong(1, filmId);
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -72,11 +69,8 @@ public class RateDao {
     public List<Rate> findRatesByUserId(long userId) {
         log.info("Searching for rates with user id = {}", userId);
         List<Rate> rates = new ArrayList<>();
-        try {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)){
 
-            Connection connection = DBConnection.getConnectionToDataBase();
-
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID);
             preparedStatement.setLong(1, userId);
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -97,10 +91,8 @@ public class RateDao {
     public Rate findRatesByUserIdAndFilmId(long filmId, long userId) {
         log.info("Searching for rate with user id = {} and film id = {}", userId, filmId);
         Rate rate = null;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID_AND_FILM_ID)) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID_AND_FILM_ID);
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, filmId);
 
@@ -122,10 +114,8 @@ public class RateDao {
     public int updateRate(Rate rate) {
         log.info("Updating rate with id = {}", rate.getId());
         int rowAffected = 0;
-        try {
-            Connection connection = DBConnection.getConnectionToDataBase();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
             preparedStatement.setLong(1, rate.getUser());
             preparedStatement.setLong(2, rate.getFilm());
             preparedStatement.setInt(3, rate.getRate());
