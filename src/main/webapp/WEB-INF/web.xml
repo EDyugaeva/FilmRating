@@ -28,7 +28,8 @@
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/comment</url-pattern>
-        <url-pattern>/filmCreating</url-pattern>
+        <url-pattern>/film-creating</url-pattern>
+        <url-pattern>/film-deleting</url-pattern>
         <url-pattern>/ban</url-pattern>
         <url-pattern>/mypage</url-pattern>
         <url-pattern>/status</url-pattern>
@@ -45,7 +46,8 @@
     <filter-mapping>
         <filter-name>BanFilter</filter-name>
         <url-pattern>/comment</url-pattern>
-        <url-pattern>/filmCreating</url-pattern>
+        <url-pattern>/film-creating</url-pattern>
+        <url-pattern>/film-deleting</url-pattern>
         <url-pattern>/ban</url-pattern>
         <url-pattern>/user-search</url-pattern>
     </filter-mapping>
@@ -57,7 +59,8 @@
 
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
-        <url-pattern>/filmCreating</url-pattern>
+        <url-pattern>/film-creating</url-pattern>
+        <url-pattern>/film-deleting</url-pattern>
         <url-pattern>/ban</url-pattern>
         <url-pattern>/user-search</url-pattern>
     </filter-mapping>
