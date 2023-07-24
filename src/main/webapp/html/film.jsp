@@ -42,7 +42,16 @@
                         Your grade to this film is: ${rate}
                     </c:if>
 
+
                 </form>
+
+                <c:set var="role" value="${sessionScope.role}"/>
+                <c:if test="${role eq 'ADMIN'}">
+                    <form action="film-deleting" method="POST">
+                        <input type="hidden" name="film_id" value="${film.id}"/>
+                        <button type="submit">Delete this film</button>
+                    </form>
+                </c:if>
             </div>
 
         </div>

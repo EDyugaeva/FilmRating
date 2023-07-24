@@ -35,7 +35,7 @@
         <a href='logout'>Log out</a>
         <c:set var="role" value="${sessionScope.role}"/>
         <c:if test="${role eq 'ADMIN'}">
-            <a href='film-editing'>Create new film</a>
+            <a href='film-creating'>Create new film</a>
         </c:if>
     </c:if>
 </nav>

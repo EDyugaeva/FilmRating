@@ -2,7 +2,7 @@ package com.example.kinorate.servlets.films;
 
 import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.model.Film;
-import com.example.kinorate.utills.SavingFiles;
+import com.example.kinorate.utills.FileUtills;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -14,10 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 
-@WebServlet("/film-editing")
+@WebServlet("/film-creating")
 @Slf4j
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 20 * 1024 * 1024)
-public class FilmEditingServlet extends HttpServlet {
+public class FilmCreatingServlet extends HttpServlet {
+    FilmDao dao = new FilmDao();
 
 
     @Override
@@ -39,7 +40,7 @@ public class FilmEditingServlet extends HttpServlet {
         String type = "films";
 
 //         Save the file to the server
-        String path = SavingFiles.saveImage(filePart, title, type, getServletContext().getRealPath("/images/" + type));
+        String path = FileUtills.saveImage(filePart, title, type, getServletContext().getRealPath("/images/" + type));
         if (path == null) {
             log.warn("Error during file upload");
             dispatcher = req.getRequestDispatcher("html/error.jsp");
@@ -48,7 +49,6 @@ public class FilmEditingServlet extends HttpServlet {
             return;
         }
 
-        FilmDao dao = new FilmDao();
         Film film = new Film(title, description, path);
 
         int affectedRow = dao.createFilm(film);
@@ -82,4 +82,6 @@ public class FilmEditingServlet extends HttpServlet {
         String mimeType = getServletContext().getMimeType(part.getSubmittedFileName());
         return mimeType != null && mimeType.startsWith("image/");
     }
+
+
 }

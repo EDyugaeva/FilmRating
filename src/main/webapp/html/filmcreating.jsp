@@ -18,7 +18,7 @@
 <%@ include file="header.jsp" %>
 <!-- Section-->
 
-<form action="film-editing" method="post" enctype="multipart/form-data">
+<form action="film-creating" method="post" enctype="multipart/form-data">
     <div class="container">
         <h1>Create a new film</h1>
         <p>Please fill in this form to create a new film.</p>
@@ -28,7 +28,6 @@
 
             <label for="description"><b>Description</b></label>
             <input type="text" placeholder="Enter description" name="description" id="description" required>
-
             <input type="file" id="file" name="file" required>
 
             <button type="submit" class="savebtn">Save!</button>
