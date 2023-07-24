@@ -39,11 +39,13 @@ create table rates
 (
     id      serial primary key,
     user_id integer references users,
-    film_id integer references films,
+    film_id integer references films ON DELETE CASCADE,
     rate    integer,
     constraint unique_films_and_users
         unique (film_id, user_id)
 );
+
+TRUNCATE rates CASCADE;
 
 insert into users (name, last_name, email, password, birth_date, role)
 VALUES ('Ekaterina', 'Radomskaya', 'ekaterina@mail.com', 'password', '1995-08-24', 'ADMIN');
