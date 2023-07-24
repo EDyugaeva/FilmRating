@@ -8,8 +8,6 @@ import java.io.IOException;
 
 @Slf4j
 public class SavingFiles {
-    private static final String savePath = "C:/Users/ekaterina/IdeaProjects/KinoRate/src/main/webapp/images/";
-
 
     /**
      * Saving images to the filesystem.
@@ -20,20 +18,19 @@ public class SavingFiles {
      * @return url to save in database
      * @throws IOException
      */
-    public static String saveImage(Part part, String title, String type) throws IOException {
+    public static String saveImage(Part part, String title, String type, String absoluteSavePath ) throws IOException {
         log.info("Saving images to folder {} ", type);
 
         String fileName = replaceExtras(title) + ".jpg";
 
-        // Specify the directory where you want to save the uploaded files
-        String fullPath = savePath + type;
 
         // Create the save directory if it does not exist
-        File fileSaveDir = new File(fullPath);
+        File fileSaveDir = new File(absoluteSavePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdirs();
         }
-        String filePath = fullPath + File.separator + fileName;
+
+        String filePath = absoluteSavePath + File.separator + fileName;
 
         String imageUrl = "images" + File.separator + type + File.separator + fileName;
 

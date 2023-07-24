@@ -1,4 +1,4 @@
-CREATE database filmDataBase;
+-- CREATE database filmDataBase;
 
 create type user_role as enum ('ADMIN', 'USER');
 

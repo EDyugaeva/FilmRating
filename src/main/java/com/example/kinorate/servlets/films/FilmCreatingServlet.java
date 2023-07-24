@@ -36,9 +36,10 @@ public class FilmCreatingServlet extends HttpServlet {
             dispatcher.include(req, resp);
             return;
         }
+        String type = "films";
 
-        // Save the file to the server
-        String path = SavingFiles.saveImage(filePart, title, "films");
+//         Save the file to the server
+        String path = SavingFiles.saveImage(filePart, title, type, getServletContext().getRealPath("/images/" + type));
         if (path == null) {
             log.warn("Error during file upload");
             dispatcher = req.getRequestDispatcher("html/error.jsp");
