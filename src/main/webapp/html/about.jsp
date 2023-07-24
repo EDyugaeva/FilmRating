@@ -18,16 +18,29 @@
 
 
 <section>
-      <div class="text-black-center "> About us</div>
+    <div class="text-center fa-2x my-3"> About this site</div>
 
     <div class="text-black-about">
 
-        This is a capstone project. <br>
-        Main goal was to create a web app to a site with films rates. <br>
-        Users can write a comments and give rates to the film. If the score is closer to the common, their status is getting better. <br>
-        Admin can add new films, ban bad-behaved users and change their rating.
+        This is a capstone project for Epam-training. <br>
+        Main goal was to create a web app using Java Servlets and html UI. <br>
+        The administrator creates (manages) a list of films, serials.
+        The user rates (once) the movie and can leave a review. <br>
+        His status automatically increases (downgrades) if after a certain number of ratings (10) of other Users,
+        if his rating is close (far) from the overall rating. <br>
+        The administrator manages users: raises or lowers the status, puts bans.<br>
 
     </div>
+
+    <div class="text-center fa-2x my-3"> About me</div>
+
+    <div class="text-black-about">
+
+        My name is Ekaterina Radomskaya. I am a Junior Java Developer.
+        You can find me on <a href="redirect">LinkedIn</a>
+
+    </div>
+
 </section>
 <!-- #products -->
 

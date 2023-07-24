@@ -14,10 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 
-@WebServlet("/filmCreating")
+@WebServlet("/film-editing")
 @Slf4j
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 20 * 1024 * 1024)
-public class FilmCreatingServlet extends HttpServlet {
+public class FilmEditingServlet extends HttpServlet {
 
 
     @Override
