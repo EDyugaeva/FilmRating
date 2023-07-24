@@ -1,5 +1,3 @@
--- CREATE database filmDataBase;
-
 create type user_role as enum ('ADMIN', 'USER');
 
 create table users
