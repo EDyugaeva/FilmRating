@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
     <display-name>HPlusSample</display-name>
 
     <servlet>
@@ -10,13 +12,14 @@
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern/>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
-    
+
     <context-param>
         <param-name>dbURL</param-name>
         <param-value>jdbc:postgresql://localhost:5432/FilmRating</param-value>
     </context-param>
-    
+
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>com.example.kinorate.filters.AuthenticationFilter</filter-class>
@@ -24,7 +27,14 @@
 
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/comment</url-pattern>
+        <url-pattern>/filmCreating</url-pattern>
+        <url-pattern>/ban</url-pattern>
+        <url-pattern>/mypage</url-pattern>
+        <url-pattern>/status</url-pattern>
+        <url-pattern>/user</url-pattern>
+        <url-pattern>/user-search</url-pattern>
+        <url-pattern>/rate</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -35,6 +45,21 @@
     <filter-mapping>
         <filter-name>BanFilter</filter-name>
         <url-pattern>/comment</url-pattern>
+        <url-pattern>/filmCreating</url-pattern>
+        <url-pattern>/ban</url-pattern>
+        <url-pattern>/user-search</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.example.kinorate.filters.AdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/filmCreating</url-pattern>
+        <url-pattern>/ban</url-pattern>
+        <url-pattern>/user-search</url-pattern>
     </filter-mapping>
 
 </web-app>
