@@ -1,6 +1,11 @@
 package com.example.kinorate.utills;
 
 public class SearchString {
+    /**
+     * Operates with string from search-user servlet, to use it in searching by name and last name
+     * @param str - parameter from request (search)
+     * @return array with 2 elements: name and last name. Last name could be empty
+     */
 
     public static String[] divideString(String str) {
         str = str.trim();

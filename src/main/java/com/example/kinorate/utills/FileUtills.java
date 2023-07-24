@@ -5,9 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.*;
 
 @Slf4j
-public class SavingFiles {
+public class FileUtills {
 
     /**
      * Saving images to the filesystem.
@@ -46,5 +47,28 @@ public class SavingFiles {
         return title.replaceAll("\\s+", "_").replaceAll(":", "");
     }
 
+    /**
+     * Delete file by relative path
+     * @param path relative path
+     */
+    public static void deleteFile(String path) {
+        String baseDirectory = System.getProperty("user.dir");
+
+        try {
+            // Combine the base directory and the relative file path to get the absolute file path
+            Path fileToDelete = Paths.get(baseDirectory, path);
+
+            // Delete the file
+            Files.delete(fileToDelete);
+
+            System.out.println("File deleted successfully.");
+        } catch (NoSuchFileException e) {
+            System.err.println("File not found: " + e.getMessage());
+        } catch (DirectoryNotEmptyException e) {
+            System.err.println("Cannot delete: Directory is not empty.");
+        } catch (IOException e) {
+            System.err.println("Error deleting file: " + e.getMessage());
+        }
+    }
 
 }

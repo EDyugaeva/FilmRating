@@ -34,6 +34,12 @@ public class Calculating {
 
     }
 
+    /**
+     * Calculate new rating to film
+     * @param rateList from Film model
+     * @param rate - new rate
+     * @return
+     */
     public static float calculateNewFilmRating(List<Rate> rateList, Rate rate) {
         if (rateList == null) {
             rateList = new ArrayList<>();
