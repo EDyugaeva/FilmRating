@@ -30,7 +30,6 @@ public class FilmServlet extends HttpServlet {
 
         Film film = filmDao.findFilmById(filmId);
 
-
         List<Comment> commentList = commentDao.findCommentsByFilmId(filmId);
 
         User user = (User) request.getSession().getAttribute("user");

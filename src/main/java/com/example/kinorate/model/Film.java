@@ -26,13 +26,5 @@ public class Film {
         commentsList = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "Film{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", rate=" + rate +
-                '}';
-    }
+
 }

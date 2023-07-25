@@ -17,19 +17,25 @@ public class Calculating {
      */
 
     public static int calculateStatus(int status, float rate, int grade, int countOfRatesFromFilm) {
-        if (status == 0 || status == 100 || countOfRatesFromFilm < 10) {
+        if (countOfRatesFromFilm < 10) {
             return status;
         }
         double difference = Math.abs(rate - grade);
+        int resultStatus;
         if (difference < 1) {
-            return status + 1;
+            resultStatus = status + 1;
         } else if (difference < 2) {
-            return status;
+            resultStatus = status;
         } else if (difference < 3) {
-            return status - 1;
+            resultStatus = status - 1;
         } else {
-            return status - 2;
+            resultStatus = status - 2;
         }
+        if (resultStatus < 0 || resultStatus > 100) {
+            return status;
+        }
+
+        return resultStatus;
 
 
     }
@@ -38,7 +44,7 @@ public class Calculating {
      * Calculate new rating to film
      * @param rateList from Film model
      * @param rate - new rate
-     * @return
+     * @return new general rate for film
      */
     public static float calculateNewFilmRating(List<Rate> rateList, Rate rate) {
         if (rateList == null) {
@@ -56,6 +62,20 @@ public class Calculating {
 
         System.out.println((float) sum / rateList.size());
 
+        return (float) sum / rateList.size();
+
+    }
+
+    /**
+     * Calculate general rating from rate list
+     * @param rateList - rate list from Film model
+     * @return new general rating for film
+     */
+    public static float calculateFilmRating(List<Rate> rateList) {
+        int sum = 0;
+        for (int i = 0; i < rateList.size(); i++) {
+            sum = sum + rateList.get(i).getRate();
+        }
         return (float) sum / rateList.size();
 
     }

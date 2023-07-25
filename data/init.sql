@@ -20,7 +20,7 @@ create table films
     title       varchar(255) unique                            not null,
     description text                                           not null,
     image       varchar(255)     default ''::character varying not null,
-    rate        double precision default 3
+    rate        double precision default 0
 );
 
 create table comments
@@ -47,6 +47,36 @@ TRUNCATE rates CASCADE;
 
 insert into users (name, last_name, email, password, birth_date, role)
 VALUES ('Ekaterina', 'Radomskaya', 'ekaterina@mail.com', 'password', '1995-08-24', 'ADMIN');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Iurii', 'Radomskaii', 'iurii@mail.com', 'password', '1994-06-30', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Natalia', 'Zeller', 'natalia@mail.com', 'password', '1973-09-20', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Max', 'Schwarz', 'max@mail.com', 'password', '1970-01-21', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Alex', 'Smith', 'alex@mail.com', 'password', '1990-05-21', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Karl', 'Brent', 'karl@mail.com', 'password', '1996-08-28', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Rupert', 'Green', 'rupert@mail.com', 'password', '1988-08-24', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Emma', 'Watson', 'emma@mail.com', 'password', '1990-04-15', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Thomas', 'Felton', 'thomas@mail.com', 'password', '1987-09-22', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Daniel', 'Radcliffe', 'daniel@mail.com', 'password', '1989-07-23', 'USER');
+
+insert into users (name, last_name, email, password, birth_date, role)
+VALUES ('Matthew', 'Lewis', 'mattew@mail.com', 'password', '1989-06-27', 'USER');
 
 insert into films (title, description, image)
 VALUES ('avatar',
@@ -103,3 +133,135 @@ VALUES ('harry potter and the deathly hallows: part 2',
 insert into films (title, description, image)
 VALUES ('little Woman', 'Four sisters come of age in America during the aftermath of the Civil War.',
         'images\films\Little_Woman.jpg');
+
+
+insert into rates (user_id, film_id, rate) values ('2','1','4');
+insert into rates (user_id, film_id, rate) values ('3','1','5');
+insert into rates (user_id, film_id, rate) values ('4','1','4');
+insert into rates (user_id, film_id, rate) values ('5','1','3');
+insert into rates (user_id, film_id, rate) values ('6','1','4');
+insert into rates (user_id, film_id, rate) values ('7','1','1');
+insert into rates (user_id, film_id, rate) values ('8','1','4');
+insert into rates (user_id, film_id, rate) values ('9','1','5');
+insert into rates (user_id, film_id, rate) values ('10','1','4');
+insert into rates (user_id, film_id, rate) values ('11','1','1');
+
+insert into rates (user_id, film_id, rate) values ('11','2','4');
+insert into rates (user_id, film_id, rate) values ('2','2','1');
+insert into rates (user_id, film_id, rate) values ('3','2','2');
+insert into rates (user_id, film_id, rate) values ('4','2','5');
+insert into rates (user_id, film_id, rate) values ('5','2','4');
+insert into rates (user_id, film_id, rate) values ('6','2','1');
+insert into rates (user_id, film_id, rate) values ('7','2','4');
+insert into rates (user_id, film_id, rate) values ('8','2','5');
+insert into rates (user_id, film_id, rate) values ('9','2','4');
+insert into rates (user_id, film_id, rate) values ('10','2','3');
+
+
+insert into rates (user_id, film_id, rate) values ('11','3','4');
+insert into rates (user_id, film_id, rate) values ('2','3','1');
+insert into rates (user_id, film_id, rate) values ('3','3','2');
+insert into rates (user_id, film_id, rate) values ('4','3','5');
+insert into rates (user_id, film_id, rate) values ('5','3','4');
+insert into rates (user_id, film_id, rate) values ('6','3','1');
+insert into rates (user_id, film_id, rate) values ('7','3','4');
+insert into rates (user_id, film_id, rate) values ('8','3','5');
+insert into rates (user_id, film_id, rate) values ('9','3','4');
+insert into rates (user_id, film_id, rate) values ('10','3','3');
+
+insert into rates (user_id, film_id, rate) values ('2','4','1');
+insert into rates (user_id, film_id, rate) values ('3','4','2');
+insert into rates (user_id, film_id, rate) values ('4','4','5');
+insert into rates (user_id, film_id, rate) values ('5','4','4');
+insert into rates (user_id, film_id, rate) values ('6','4','1');
+insert into rates (user_id, film_id, rate) values ('7','4','4');
+insert into rates (user_id, film_id, rate) values ('8','4','5');
+insert into rates (user_id, film_id, rate) values ('9','4','4');
+insert into rates (user_id, film_id, rate) values ('10','4','3');
+insert into rates (user_id, film_id, rate) values ('11','4','4');
+
+
+
+insert into rates (user_id, film_id, rate) values ('2','5','1');
+insert into rates (user_id, film_id, rate) values ('3','5','2');
+insert into rates (user_id, film_id, rate) values ('4','5','5');
+insert into rates (user_id, film_id, rate) values ('5','5','4');
+insert into rates (user_id, film_id, rate) values ('6','5','1');
+insert into rates (user_id, film_id, rate) values ('7','5','4');
+insert into rates (user_id, film_id, rate) values ('8','5','5');
+insert into rates (user_id, film_id, rate) values ('9','5','4');
+insert into rates (user_id, film_id, rate) values ('10','5','3');
+insert into rates (user_id, film_id, rate) values ('11','5','4');
+
+
+insert into rates (user_id, film_id, rate) values ('2','6','1');
+insert into rates (user_id, film_id, rate) values ('3','6','2');
+insert into rates (user_id, film_id, rate) values ('4','6','5');
+insert into rates (user_id, film_id, rate) values ('5','6','4');
+insert into rates (user_id, film_id, rate) values ('6','6','1');
+insert into rates (user_id, film_id, rate) values ('7','6','4');
+insert into rates (user_id, film_id, rate) values ('8','6','5');
+insert into rates (user_id, film_id, rate) values ('9','6','4');
+insert into rates (user_id, film_id, rate) values ('10','6','3');
+insert into rates (user_id, film_id, rate) values ('11','6','4');
+
+
+
+insert into rates (user_id, film_id, rate) values ('2','7','1');
+insert into rates (user_id, film_id, rate) values ('3','7','2');
+insert into rates (user_id, film_id, rate) values ('4','7','5');
+insert into rates (user_id, film_id, rate) values ('5','7','4');
+insert into rates (user_id, film_id, rate) values ('6','7','1');
+insert into rates (user_id, film_id, rate) values ('7','7','4');
+insert into rates (user_id, film_id, rate) values ('8','7','5');
+insert into rates (user_id, film_id, rate) values ('9','7','4');
+insert into rates (user_id, film_id, rate) values ('10','7','3');
+insert into rates (user_id, film_id, rate) values ('11','7','4');
+
+
+insert into rates (user_id, film_id, rate) values ('2','8','1');
+insert into rates (user_id, film_id, rate) values ('3','8','2');
+insert into rates (user_id, film_id, rate) values ('4','8','5');
+insert into rates (user_id, film_id, rate) values ('5','8','4');
+insert into rates (user_id, film_id, rate) values ('6','8','1');
+insert into rates (user_id, film_id, rate) values ('7','8','4');
+insert into rates (user_id, film_id, rate) values ('8','8','5');
+insert into rates (user_id, film_id, rate) values ('9','8','4');
+insert into rates (user_id, film_id, rate) values ('10','8','3');
+insert into rates (user_id, film_id, rate) values ('11','8','4');
+
+
+insert into rates (user_id, film_id, rate) values ('2','9','1');
+insert into rates (user_id, film_id, rate) values ('3','9','2');
+insert into rates (user_id, film_id, rate) values ('4','9','5');
+insert into rates (user_id, film_id, rate) values ('5','9','4');
+insert into rates (user_id, film_id, rate) values ('6','9','1');
+insert into rates (user_id, film_id, rate) values ('7','9','4');
+insert into rates (user_id, film_id, rate) values ('8','9','5');
+insert into rates (user_id, film_id, rate) values ('9','9','4');
+insert into rates (user_id, film_id, rate) values ('10','9','3');
+insert into rates (user_id, film_id, rate) values ('11','9','4');
+
+
+insert into rates (user_id, film_id, rate) values ('2','10','1');
+insert into rates (user_id, film_id, rate) values ('3','10','2');
+insert into rates (user_id, film_id, rate) values ('4','10','5');
+insert into rates (user_id, film_id, rate) values ('5','10','4');
+insert into rates (user_id, film_id, rate) values ('6','10','1');
+insert into rates (user_id, film_id, rate) values ('7','10','4');
+insert into rates (user_id, film_id, rate) values ('8','10','5');
+insert into rates (user_id, film_id, rate) values ('9','10','4');
+insert into rates (user_id, film_id, rate) values ('10','10','3');
+insert into rates (user_id, film_id, rate) values ('11','10','4');
+
+
+insert into rates (user_id, film_id, rate) values ('2','11','1');
+insert into rates (user_id, film_id, rate) values ('3','11','2');
+insert into rates (user_id, film_id, rate) values ('4','11','5');
+insert into rates (user_id, film_id, rate) values ('5','11','4');
+insert into rates (user_id, film_id, rate) values ('6','11','1');
+insert into rates (user_id, film_id, rate) values ('7','11','4');
+insert into rates (user_id, film_id, rate) values ('8','11','5');
+insert into rates (user_id, film_id, rate) values ('9','11','4');
+insert into rates (user_id, film_id, rate) values ('10','11','3');
+insert into rates (user_id, film_id, rate) values ('11','11','4');

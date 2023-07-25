@@ -3,6 +3,7 @@ package com.example.kinorate.dao.mapper;
 import com.example.kinorate.dao.CommentDao;
 import com.example.kinorate.dao.RateDao;
 import com.example.kinorate.model.*;
+import com.example.kinorate.utills.Calculating;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
@@ -25,22 +26,25 @@ public class FilmMapper {
             film.setTitle(resultSet.getString("title"));
             film.setDescription(resultSet.getString("description"));
             film.setImage(resultSet.getString("image"));
-            film.setRate(resultSet.getFloat("rate"));
+            float rate = resultSet.getFloat("rate");
 
 
             List<Comment> commentList = commentDao.findCommentsByFilmId(id);
             List<Rate> rateList = rateDao.findRatesByFilmId(id);
             if (commentList.size() != 0) {
                 film.setCommentsList(commentList);
-                System.out.println(commentList);
             }
             if (rateList.size() != 0) {
                 film.setRatesList(rateList);
-                System.out.println(rateList);
+                if (rate == 0) {
+                    film.setRate(Calculating.calculateFilmRating(rateList));
+
+                } else {
+                    film.setRate(rate);
+
+                }
 
             }
-
-            System.out.println(film);
 
 
         } catch (SQLException e) {
