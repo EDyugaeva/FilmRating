@@ -39,9 +39,9 @@ There is 4 models: User, Film, Comment, Rate and Enum for User.Role: 'ADMIN' or 
 For each model was made a Dao class to operate with Database. 
 
 There are several servlets to make main actions, like login, register, search for film and others. There are no
-options to edit a film or an user, it will be added later. 
+options to edit a film or a user, it could be added later. 
 
-There are also 3 filters to handle rights to user and admin.
+There are also 3 filters to handle rights to the user and admin.
 
 Not logged user can:
 1. register
@@ -52,7 +52,7 @@ Not logged user can:
 
 Logged user can also:
 1. rate the film (with an option to revote)
-2. send a comment (if it is not banned)
+2. send a comment (if user is not banned)
 3. get info about other users
 
 Admin can:
