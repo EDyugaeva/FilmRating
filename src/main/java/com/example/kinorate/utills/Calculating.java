@@ -57,10 +57,7 @@ public class Calculating {
             sum = sum + rateList.get(i).getRate();
 
         }
-        System.out.println(sum);
-        System.out.println(rateList.size());
 
-        System.out.println((float) sum / rateList.size());
 
         return (float) sum / rateList.size();
 
