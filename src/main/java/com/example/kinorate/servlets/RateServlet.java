@@ -19,7 +19,6 @@ import java.io.IOException;
 public class RateServlet extends HttpServlet {
     RateDao rateDao = new RateDao();
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Send new rate to film");

@@ -71,7 +71,6 @@ public class FilmMapper {
         if (film.getRate() == 0) {
             film.setRate(Calculating.calculateFilmRating(rateList));
         }
-        System.out.println(film);
 
         return film;
     }
