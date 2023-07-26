@@ -1,6 +1,5 @@
 package com.example.kinorate.servlets.films;
 
-import com.example.kinorate.dao.CommentDao;
 import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.dao.RateDao;
 import com.example.kinorate.model.Comment;
@@ -21,7 +20,6 @@ import java.util.List;
 @Slf4j
 public class FilmServlet extends HttpServlet {
     FilmDao filmDao = new FilmDao();
-    CommentDao commentDao = new CommentDao();
     RateDao rateDao = new RateDao();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +28,7 @@ public class FilmServlet extends HttpServlet {
 
         Film film = filmDao.findFilmById(filmId);
 
-        List<Comment> commentList = commentDao.findCommentsByFilmId(filmId);
+        List<Comment> commentList = film.getCommentsList();
 
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {

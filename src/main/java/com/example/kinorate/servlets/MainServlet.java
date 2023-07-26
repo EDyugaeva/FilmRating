@@ -2,6 +2,7 @@ package com.example.kinorate.servlets;
 
 import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.dao.UserDao;
+import com.example.kinorate.model.Film;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,11 @@ public class MainServlet extends HttpServlet {
 
         FilmDao filmDao = new FilmDao();
         req.setAttribute("topFilms", filmDao.findTop5Films());
+        System.out.println("-------------------");
+        for (Film film: filmDao.findTop5Films()) {
+            System.out.println(film);
+        }
+        System.out.println("-------------------");
 
         UserDao userDao = new UserDao();
         req.setAttribute("topUsers", userDao.findTop5Users() );
