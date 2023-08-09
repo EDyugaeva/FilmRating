@@ -35,7 +35,9 @@ public class FilmDao {
 
             preparedStatement.setLong(1, filmId);
             ResultSet rs = preparedStatement.executeQuery();
-            film = mapper.getFilm(rs);
+            while (rs.next()) {
+                film = mapper.getFilm(rs);
+            }
             return film;
 
         } catch (SQLException e) {
@@ -50,18 +52,24 @@ public class FilmDao {
         log.info("searching film by title");
         Film film = null;
         List<Film> list = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(FIND_BY_TITLE)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_BY_TITLE,
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY)) {
 
             statement.setString(1, "%" + searchString + "%");
+
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
                 film = mapper.getFilm(rs);
+                System.out.println(film);
+
                 list.add(film);
 
             }
             log.info("Film was found");
         } catch (SQLException e) {
+            e.printStackTrace();
             log.warn("SQL exception while finding film by title");
         }
         return list;

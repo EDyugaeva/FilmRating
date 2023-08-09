@@ -14,29 +14,30 @@ import java.util.List;
 public class FilmMapper {
 
     public Film getFilm(ResultSet resultSet) throws SQLException {
+        log.info("Mapping rs to find a film");
+
         Film film = new Film();
         List<Comment> commentList = new ArrayList<>();
         List<Rate> rateList = new ArrayList<>();
+
         long filmId = 0;
+        film = new Film();
+        filmId = resultSet.getLong(1);
+        film.setId(filmId);
+        film.setTitle(resultSet.getString(2));
+        film.setDescription(resultSet.getString(3));
+        film.setImage(resultSet.getString(4));
+        float rate = resultSet.getFloat(5);
+        film.setRate(rate);
 
         while (resultSet.next()) {
             log.info("Mapping rs to find a film");
-            if (filmId == 0) {
-                film = new Film();
-                filmId = resultSet.getLong(1);
-                film.setId(filmId);
-                film.setTitle(resultSet.getString(2));
-                film.setDescription(resultSet.getString(3));
-                film.setImage(resultSet.getString(4));
-                float rate = resultSet.getFloat(5);
-                film.setRate(rate);
-
-            }
 
             if (filmId != resultSet.getLong(1)) {
+                resultSet.previous();
                 break;
             }
-            
+
             Comment comment = new Comment();
             Long commentId = resultSet.getLong(6);
             comment.setId(commentId);
@@ -52,14 +53,14 @@ public class FilmMapper {
                 commentList.add(comment);
             }
 
-            Rate rate = new Rate();
+            Rate rateObject = new Rate();
             Long rateId = resultSet.getLong(11);
-            rate.setId(rateId);
-            if (rateId != 0 && !commentList.contains(rate)) {
-                rate.setFilm(filmId);
-                rate.setUser(resultSet.getLong(12));
-                rate.setRate(resultSet.getInt(13));
-                rateList.add(rate);
+            rateObject.setId(rateId);
+            if (rateId != 0 && !commentList.contains(rateObject)) {
+                rateObject.setFilm(filmId);
+                rateObject.setUser(resultSet.getLong(12));
+                rateObject.setRate(resultSet.getInt(13));
+                rateList.add(rateObject);
             }
 
 
