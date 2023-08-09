@@ -18,7 +18,7 @@ public class UserDao {
     private static final String FIND_BY_PASSWORD_AND_EMAIL = "SELECT * FROM users WHERE email = ? AND password = ?";
     private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name ILIKE ? OR last_name LIKE ?";
 
-    private static final String FIND_BY_ID = "SELECT u.id as user_id, u.name, u.last_name, u.email, u.password, u.birth_date, u.role, u.status, u.isbanned," +
+    private static final String FIND_BY_ID = "SELECT u.id as id, u.name, u.last_name, u.email, u.password, u.birth_date, u.role, u.status, u.isbanned," +
             "       c.id as c_id, c.film_id as c_film_id, c.comment, c.date_time_of_creation," +
             "       r.id as r_id, r.film_id as r_film_id, r.rate FROM users as u full join comments c on u.id = c.user_id" +
             "        full join rates r on u.id = r.user_id WHERE u.id = ?";
@@ -54,7 +54,7 @@ public class UserDao {
         try (ResultSet resultSet = getPreparedStatementForValidatingUser(email, password).executeQuery()) {
 
             while (resultSet.next()) {
-                user = mapper.getUser(resultSet);
+                user = mapper.getUserDetails(resultSet);
             }
 
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class UserDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                user = mapper.getUser(rs);
+                user = mapper.getUserDetails(rs);
                 list.add(user);
 
             }
@@ -145,7 +145,7 @@ public class UserDao {
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                User user = mapper.getUser(rs);
+                User user = mapper.getUserDetails(rs);
                 list.add(user);
             }
 

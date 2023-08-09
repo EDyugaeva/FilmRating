@@ -1,4 +1,4 @@
-package com.example.kinorate;
+package com.example.kinorate.utills;
 
 import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.dao.RateDao;
@@ -6,13 +6,12 @@ import com.example.kinorate.dao.UserDao;
 import com.example.kinorate.model.Film;
 import com.example.kinorate.model.Rate;
 import com.example.kinorate.model.User;
-import com.example.kinorate.utills.Calculating;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Slf4j
-public class RatingService {
+public class RateUtils {
 
 
     public static void setRating(Rate rate) {

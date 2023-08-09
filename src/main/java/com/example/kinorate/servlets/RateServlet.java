@@ -1,6 +1,6 @@
 package com.example.kinorate.servlets;
 
-import com.example.kinorate.RatingService;
+import com.example.kinorate.utills.RateUtils;
 import com.example.kinorate.dao.RateDao;
 import com.example.kinorate.model.Rate;
 import com.example.kinorate.model.User;
@@ -58,7 +58,7 @@ public class RateServlet extends HttpServlet {
         }
         log.info("New rate to film = {} is {}", film_id, rate);
 
-        RatingService.setRating(rate);
+        RateUtils.setRating(rate);
         resp.sendRedirect("film?id="+film_id);
 
 
