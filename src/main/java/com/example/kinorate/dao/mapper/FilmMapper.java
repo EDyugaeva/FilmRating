@@ -20,15 +20,9 @@ public class FilmMapper {
         List<Comment> commentList = new ArrayList<>();
         List<Rate> rateList = new ArrayList<>();
 
-        long filmId = 0;
         film = new Film();
-        filmId = resultSet.getLong(1);
-        film.setId(filmId);
-        film.setTitle(resultSet.getString(2));
-        film.setDescription(resultSet.getString(3));
-        film.setImage(resultSet.getString(4));
-        float rate = resultSet.getFloat(5);
-        film.setRate(rate);
+        final long filmId = getFilmId(resultSet, film);
+        resultSet.previous();
 
         while (resultSet.next()) {
             log.info("Mapping rs to find a film");
@@ -56,13 +50,12 @@ public class FilmMapper {
             Rate rateObject = new Rate();
             Long rateId = resultSet.getLong(11);
             rateObject.setId(rateId);
-            if (rateId != 0 && !commentList.contains(rateObject)) {
+            if (rateId != 0 && !rateList.contains(rateObject)) {
                 rateObject.setFilm(filmId);
                 rateObject.setUser(resultSet.getLong(12));
                 rateObject.setRate(resultSet.getInt(13));
                 rateList.add(rateObject);
             }
-
 
         }
 
@@ -75,7 +68,17 @@ public class FilmMapper {
 
         return film;
     }
-    
-    
+
+    public long getFilmId(ResultSet resultSet, Film film) throws SQLException {
+        long filmId = resultSet.getLong(1);
+        film.setId(filmId);
+        film.setTitle(resultSet.getString(2));
+        film.setDescription(resultSet.getString(3));
+        film.setImage(resultSet.getString(4));
+        float rate = resultSet.getFloat(5);
+        film.setRate(rate);
+        return filmId;
+    }
+
 
 }

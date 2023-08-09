@@ -481,12 +481,12 @@ hr {
     margin-left: 10rem;
     margin-bottom: 5rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     position: relative;
     overflow: hidden;
     width: 45%;
     border-collapse: collapse; /* Collapse borders */
-    border: 1px solid green; /* Add a grey border */
+    border: 1px solid #07683f; /* Add a green border */
     font-size: 18px; /* Increase font-size */
 }
 

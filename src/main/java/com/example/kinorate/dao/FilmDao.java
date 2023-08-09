@@ -31,7 +31,9 @@ public class FilmDao {
     public Film findFilmById(Long filmId) {
         log.info("searching film by id {}", filmId);
         Film film = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID,
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY)) {
 
             preparedStatement.setLong(1, filmId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -107,13 +109,8 @@ public class FilmDao {
 
             while (rs.next()) {
                 Film  film = new Film();
-                long filmId = rs.getLong(1);
-                film.setId(filmId);
-                film.setTitle(rs.getString(2));
-                film.setDescription(rs.getString(3));
-                film.setImage(rs.getString(4));
-                float rate = rs.getFloat(5);
-                film.setRate(rate);
+                long filmId = mapper.getFilmId(rs, film);
+                log.info("Film with id = {} is in top", filmId);
                 list.add(film);
             }
 
