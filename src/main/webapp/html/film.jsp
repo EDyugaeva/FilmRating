@@ -35,8 +35,8 @@
                     <input type="radio" name="star" value="2"> 2
                     <input type="radio" name="star" value="3"> 3
                     <input type="radio" name="star" value="4"> 4
-                    <input type="radio" name="star" value="5"> 5
-                    <button type="submit"> Submit</button>
+                    <input type="radio" name="star" value="5"> 5 <br>
+                    <button class="default btn back-green" type="submit"> Submit</button>
                     <br>
                     <c:if test="${rate!=null}">
                         Your grade to this film is: ${rate}
@@ -49,7 +49,7 @@
                 <c:if test="${role eq 'ADMIN'}">
                     <form action="film-deleting" method="POST">
                         <input type="hidden" name="film_id" value="${film.id}"/>
-                        <button type="submit">Delete this film</button>
+                        <button class="default btn back-red" type="submit">Delete this film</button>
                     </form>
                 </c:if>
             </div>
