@@ -1,7 +1,8 @@
 package com.example.kinorate.servlets.users;
 
-import com.example.kinorate.dao.UserDao;
+import com.example.kinorate.dao.impl.UserDaoImpl;
 import com.example.kinorate.model.User;
+import com.example.kinorate.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,18 +11,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @WebServlet("/ban")
 @Slf4j
 public class BanUserServlet extends HttpServlet {
-    UserDao userDao = new UserDao();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long userId = Long.valueOf(req.getParameter("id"));
         log.info("Change ban status to user with id = {}", userId);
 
-        User user = userDao.findUserById(userId);
+        User user = UserService.findById(userId).orElseThrow(()
+                -> new NoSuchElementException(String.format("There is no films with that id %d", userId)));
 
         int ban = Integer.parseInt(req.getParameter("ban"));
         if (ban == 1) {
@@ -34,7 +36,7 @@ public class BanUserServlet extends HttpServlet {
         }
 
 
-        int rowAffected = userDao.updateUser(user);
+        int rowAffected = UserService.update(user);
 
         if (rowAffected == 1) {
             resp.sendRedirect("user?id=" + userId);

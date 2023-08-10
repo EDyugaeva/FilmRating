@@ -1,7 +1,7 @@
 package com.example.kinorate.servlets.users;
 
-import com.example.kinorate.dao.UserDao;
 import com.example.kinorate.model.User;
+import com.example.kinorate.services.UserService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,12 +32,11 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        UserDao dao = new UserDao();
-        boolean isValid = dao.validateUser(email, password);
+        boolean isValid = UserService.validateUser(email, password);
 
         if (isValid) {
             log.info("User exist");
-            User user = dao.loginUser(email, password);
+            User user = UserService.loginUser(email, password);
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
