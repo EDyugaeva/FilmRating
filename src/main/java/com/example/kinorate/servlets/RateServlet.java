@@ -1,7 +1,6 @@
 package com.example.kinorate.servlets;
 
-import com.example.kinorate.utills.RateUtils;
-import com.example.kinorate.dao.RateDao;
+import com.example.kinorate.services.RateService;
 import com.example.kinorate.model.Rate;
 import com.example.kinorate.model.User;
 import jakarta.servlet.ServletException;
@@ -13,12 +12,11 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @WebServlet("/rate")
 @Slf4j
 public class RateServlet extends HttpServlet {
-    RateDao rateDao = new RateDao();
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Send new rate to film");
@@ -28,23 +26,26 @@ public class RateServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("user");
 
-        long film_id = Long.parseLong(req.getParameter("film_id"));
+        long filmId = Long.parseLong(req.getParameter("film_id"));
 
-        Rate rate = rateDao.findRatesByUserIdAndFilmId(film_id, user.getId());
+        Rate rate = RateService.findRatesByUserIdAndFilmId(filmId, user.getId()).orElseThrow(()
+                -> new NoSuchElementException
+                (String.format("There is no users with that user id %d and film id = %d", user.getId(), filmId)));
+
         int rowAffected = 0;
         if (rate == null) {
             log.info("Creating new rate");
             rate = new Rate();
             rate.setRate(grade);
-            rate.setFilm(film_id);
+            rate.setFilm(filmId);
             rate.setUser(user.getId());
 
-            rowAffected = rateDao.createRate(rate);
+            rowAffected = RateService.save(rate);
 
         } else {
             log.info("Rewriting old rate");
             rate.setRate(grade);
-            rowAffected = rateDao.updateRate(rate);
+            rowAffected = RateService.update(rate);
             req.setAttribute("rewriting", true);
 
         }
@@ -56,10 +57,10 @@ public class RateServlet extends HttpServlet {
             return;
 
         }
-        log.info("New rate to film = {} is {}", film_id, rate);
+        log.info("New rate to film = {} is {}", filmId, rate);
 
-        RateUtils.setRating(rate);
-        resp.sendRedirect("film?id="+film_id);
+        RateService.setRating(rate);
+        resp.sendRedirect("film?id="+filmId);
 
 
     }

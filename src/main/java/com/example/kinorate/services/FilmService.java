@@ -66,4 +66,7 @@ public class FilmService {
         return mimeType != null && mimeType.startsWith("image/");
     }
 
+    public static int updateRating(Film film) {
+        return DaoFactory.getInstance().getFilmDao().updateRating(film);
+    }
 }

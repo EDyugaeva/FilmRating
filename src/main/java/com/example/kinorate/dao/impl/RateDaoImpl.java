@@ -6,6 +6,7 @@ import com.example.kinorate.dao.mapper.RateMapper;
 import com.example.kinorate.model.Rate;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.swing.text.html.Option;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,7 +72,7 @@ public class RateDaoImpl implements RateDao {
     }
 
     @Override
-    public Rate findRatesByUserIdAndFilmId(long filmId, long userId) {
+    public Optional<Rate> findRatesByUserIdAndFilmId(long filmId, long userId) {
         log.info("Searching for rate with user id = {} and film id = {}", userId, filmId);
         Rate rate = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID_AND_FILM_ID)) {
@@ -90,7 +91,7 @@ public class RateDaoImpl implements RateDao {
             log.warn("Exception while searching for rate with user id = {} and film id = {}", userId, filmId);
             e.printStackTrace();
         }
-        return rate;
+        return Optional.ofNullable(rate);
 
     }
 
