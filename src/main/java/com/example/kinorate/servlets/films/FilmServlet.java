@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @WebServlet("/film")
 @Slf4j
@@ -32,11 +33,9 @@ public class FilmServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
             log.info("Find rate to film id = {} from user = {}", filmId, user.getId());
-            Rate rate = RateService.findRatesByUserIdAndFilmId(filmId, user.getId()).orElseThrow(()
-                    -> new NoSuchElementException
-                    (String.format("There is no users with that user id %d and film id = %d", user.getId(), filmId)));
-            if (rate != null) {
-                request.setAttribute("rate", rate.getRate());
+            Optional<Rate> rate = RateService.findRatesByUserIdAndFilmId(filmId, user.getId());
+            if (rate.isPresent()) {
+                request.setAttribute("rate", rate.get().getRate());
             }
 
         }

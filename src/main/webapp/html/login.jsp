@@ -37,7 +37,7 @@
         <c:if test="${!isAuthorised}">
             <div>You can create new account, if you do not have it</div>
             <br>
-            <a class="btn" href='register'>Register</a>
+            <a class="btn default" href='register'>Register</a>
         </c:if>
 
     </div>

@@ -26,11 +26,13 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
         String password = req.getParameter("password");
         String passwordRepeated = req.getParameter("password-repeat");
         LocalDate birthDate = LocalDate.parse(req.getParameter("birth-day"));
-//todo check here, look like it does not needed
         if (!password.equals(passwordRepeated)) {
             log.info("Passwords don't match");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("html/error.jsp");
-            dispatcher.include(req, resp);
+            req.setAttribute("error", "passwords don't match");
+
+            req.getRequestDispatcher("html/error.jsp").include(req,resp);
+            req.getRequestDispatcher("html/register.jsp").include(req, resp);
+            return;
         }
 
         User user = new User(name, lastName, email, password, birthDate);

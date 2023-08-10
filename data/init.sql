@@ -131,7 +131,7 @@ VALUES ('harry potter and the deathly hallows: part 2',
 
 
 insert into films (title, description, image)
-VALUES ('little Woman', 'Four sisters come of age in America during the aftermath of the Civil War.',
+VALUES ('little woman', 'Four sisters come of age in America during the aftermath of the Civil War.',
         'images\films\Little_Woman.jpg');
 
 

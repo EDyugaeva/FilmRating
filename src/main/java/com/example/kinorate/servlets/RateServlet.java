@@ -28,12 +28,10 @@ public class RateServlet extends HttpServlet {
 
         long filmId = Long.parseLong(req.getParameter("film_id"));
 
-        Rate rate = RateService.findRatesByUserIdAndFilmId(filmId, user.getId()).orElseThrow(()
-                -> new NoSuchElementException
-                (String.format("There is no users with that user id %d and film id = %d", user.getId(), filmId)));
+        Rate rate = RateService.findRatesByUserIdAndFilmId(filmId, user.getId()).orElse(new Rate());
 
         int rowAffected = 0;
-        if (rate == null) {
+        if (rate.getFilm() == null) {
             log.info("Creating new rate");
             rate = new Rate();
             rate.setRate(grade);
