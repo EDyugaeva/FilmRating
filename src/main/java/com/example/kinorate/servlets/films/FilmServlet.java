@@ -1,11 +1,11 @@
 package com.example.kinorate.servlets.films;
 
-import com.example.kinorate.dao.FilmDao;
-import com.example.kinorate.dao.RateDao;
+import com.example.kinorate.dao.impl.RateDaoImpl;
 import com.example.kinorate.model.Comment;
 import com.example.kinorate.model.Film;
 import com.example.kinorate.model.Rate;
 import com.example.kinorate.model.User;
+import com.example.kinorate.services.FilmService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,25 +15,25 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @WebServlet("/film")
 @Slf4j
 public class FilmServlet extends HttpServlet {
-    FilmDao filmDao = new FilmDao();
-    RateDao rateDao = new RateDao();
+    RateDaoImpl rateDaoImpl = new RateDaoImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long filmId = Integer.parseInt(request.getParameter("id"));
         log.info("Get info about film with id = {}", filmId);
 
-        Film film = filmDao.findFilmById(filmId);
+        Film film = FilmService.findById(filmId).orElseThrow(() -> new NoSuchElementException("There is no films with that id"));
 
         List<Comment> commentList = film.getCommentsList();
 
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
             log.info("Find rate to film id = {} from user = {}", filmId, user.getId());
-            Rate rate = rateDao.findRatesByUserIdAndFilmId(filmId, user.getId());
+            Rate rate = rateDaoImpl.findRatesByUserIdAndFilmId(filmId, user.getId());
             if (rate != null) {
                 request.setAttribute("rate", rate.getRate());
             }
