@@ -29,7 +29,7 @@
         <c:set var="isAuthorised" value="${sessionScope.isAuthorised}"/>
 
         <c:if test="${isAuthorised}">
-            <div>
+            <div class="text-green">
                 You successfully logged in! <br>
             </div>
         </c:if>

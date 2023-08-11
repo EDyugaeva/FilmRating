@@ -1,4 +1,7 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://example.com/functions" prefix="f" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +21,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 <!-- Section-->
 <section>
-    <div>
-        <c:if test="${film!=null}">
+
+
+    <c:if test="${film!=null}">
         <div class="text-black-center "> ${film.title} </div>
         <div class="section-film-card ">
             <img src="${film.image}" class="poster">
@@ -57,36 +61,46 @@
         </div>
 
 
-    </div>
-    <div>
-
-
-        <c:if test="${requestScope.comments!=null}">
-            <c:forEach items="${requestScope.comments}"
-                       var="comment" varStatus="Loop">
-                <div class="section-comment">
-                    <a class="text-black-left-comment"
-                       href="${pageContext.request.contextPath}/user?id=${comment.author}">
-                            ${comment.authorName} </a><br>
-                    <a class="text-blue-italic">${comment.date} <br> </a>
-                    <div class="text-black-left-comment">
-                            ${comment.text}<br></div>
-
-                </div>
-            </c:forEach>
-        </c:if>
-        <div class="text-center">You can send your thoughts about this movie!</div>
-        <div class="section-comment">
-            <form action="comment" method="POST">
-                <input type="hidden" name="film_id" value="${film.id}"/>
-                <label for="comment">Review of ${film.title}:</label> <br>
-                <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea> <br>
-                <input type="submit" value="Submit">
-            </form>
-
-            <p>Click the "Submit" button and your comment will be sent to a page.</p>
         </div>
-    </div>
+        <div>
+
+
+            <c:if test="${requestScope.comments!=null}">
+                <c:forEach items="${requestScope.comments}"
+                           var="comment" varStatus="Loop">
+                    <div class="section-comment">
+
+                        <a class="text-black-left-comment"
+                           href="${pageContext.request.contextPath}/user?id=${comment.author}">
+                                ${comment.authorName} </a><br>
+                        <c:set var="date" value="${comment.date}"/>
+
+                        <a class="text-blue-italic">
+
+                            <p>
+                            <p>${f:formatLocalDateTime(date, 'dd.MM.yyyy HH:mm')}</p>
+
+                            </p>
+
+                            <br> </a>
+                        <div class="text-black-left-comment">
+                                ${comment.text}<br></div>
+
+                    </div>
+                </c:forEach>
+            </c:if>
+            <div class="text-center">You can send your thoughts about this movie!</div>
+            <div class="section-comment">
+                <form action="comment" method="POST">
+                    <input type="hidden" name="film_id" value="${film.id}"/>
+                    <label for="comment">Review of ${film.title}:</label> <br>
+                    <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea> <br>
+                    <input type="submit" value="Submit">
+                </form>
+
+                <p>Click the "Submit" button and your comment will be sent to a page.</p>
+            </div>
+        </div>
 
     </c:if>
     <c:if test="${film==null}">
