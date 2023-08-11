@@ -15,7 +15,6 @@ public class Calculating {
      * @param countOfRatesFromFilm  - quantity of rates, if there is not enough rates, status will not be changed
      * @return new status level
      */
-
     public static int calculateStatus(int status, float rate, int grade, int countOfRatesFromFilm) {
         if (countOfRatesFromFilm < 10) {
             return status;

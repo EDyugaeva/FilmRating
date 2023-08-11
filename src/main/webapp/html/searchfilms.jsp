@@ -37,9 +37,9 @@
                 <div class="filmContainerItem  ">
                     <img src="${film.image}"
                          width="200" height="300">
-                    <div class="text-black-left">
-                        <p class="fa-2x"> ${film.title} </p><br>
-                            ${film.description}<br>
+                    <div class="text-black text-center sz-5-2" >
+                        <p class="fa-2x" > ${film.title} </p><br>
+                            ${film.description}<br><br>
                         Rate: ${film.rate} <br>
                         <c:set var="ratesList" value="${film.ratesList}" />
                         Numbers of votes: ${fn:length(ratesList)}<br>
@@ -47,9 +47,9 @@
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span> <br>
+                        <a class="py-5" href="${pageContext.request.contextPath}/film?id=${film.id}">Get more information </a>
                     </div>
-                    <a href="${pageContext.request.contextPath}/film?id=${film.id}">Get more information </a>
 
 
                 </div>

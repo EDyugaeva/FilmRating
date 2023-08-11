@@ -18,47 +18,49 @@
 <%@ include file="header.jsp" %>
 
 <section>
-    <div class="text-black-center "> ${user.name} ${user.lastName}</div>
-    </div>
-    <table class="table">
-        <tr>
-            <td>Status</td>
-            <td>${user.status}</td>
-        </tr>
-        <tr>
-            <td> Birthday :</td>
-            <td> ${user.birthDate} </td>
-        </tr>
-        <tr>
-            <td>Email :</td>
-            <td> ${user.email} </td>
-        </tr>
-    </table>
-
-    <c:if test="${user.banned==true}">
-        <div class="text-center">
-            You are banned! <br>
-        </div>
-    </c:if>
-
-    <c:set var="role" value="${sessionScope.role}"/>
-    <c:if test="${role eq 'ADMIN'}">
-        <div class="text-black-user">
-            <div id="adminpage">
-                <a href="film-creating" class="btn default">Create new film</a>
-                <br> <br>
-                <p>You can find user by name and lastname to get more information about him</p>
-                <br>
-                <form action="user-search" method="get">
-                </form>
-                <form action="user-search" method="get">
-                    <button type="submit" class="fa fa-search search-container"
-                            href='search' value="search"><i></i></button>
-                    <input type="search" class="search" name="search" placeholder="Search..">
-                </form>
+    <div class="text-black-center "> ${user.name} ${user.lastName} <br></div>
+    <div class="fs-18">
+        <c:if test="${user.banned==true}">
+            <div class="text-center text-red fs-18">
+                <br> You are banned!
             </div>
-        </div>
-    </c:if>
+        </c:if>
+
+        <table class="table">
+            <tr>
+                <td>Status</td>
+                <td>${user.status}</td>
+            </tr>
+            <tr>
+                <td> Birthday :</td>
+                <td> ${user.birthDate} </td>
+            </tr>
+            <tr>
+                <td>Email :</td>
+                <td> ${user.email} </td>
+            </tr>
+        </table>
+
+
+        <c:set var="role" value="${sessionScope.role}"/>
+        <c:if test="${role eq 'ADMIN'}">
+            <div class="text-black-user">
+                <div id="adminpage">
+                    <a href="film-creating" class="btn default">Create new film</a>
+                    <br> <br>
+                    <p>You can find user by name and lastname to get more information about him</p>
+                    <br>
+                    <form action="user-search" method="get">
+                    </form>
+                    <form action="user-search" method="get">
+                        <button type="submit" class="fa fa-search search-container"
+                                href='search' value="search"><i></i></button>
+                        <input type="search" class="search" name="search" placeholder="Search..">
+                    </form>
+                </div>
+            </div>
+        </c:if>
+    </div>
 
 </section>
 

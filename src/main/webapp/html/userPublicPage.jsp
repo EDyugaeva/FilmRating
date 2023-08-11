@@ -15,10 +15,13 @@
 
 <%@ include file="header.jsp" %>
 <section>
-    <div class="text-black-center " title="${user.name}"> ${user.name} ${user.lastName} </div>
-    <div class="text-black-left">
+    <div class="text-black-center mb-2" title="${user.name}"> ${user.name} ${user.lastName} </div>
+    <div class="text-black">
 
-
+        <c:if test="${user.banned==true}">
+            <div class="text-center fs-18 text-red">User is banned! <br>
+            </div>
+        </c:if>
 
         <table class="table">
             <tr>
@@ -35,10 +38,6 @@
             </tr>
         </table>
 
-        <c:if test="${user.banned==true}">
-            <div class="text-center" >User is banned! <br>
-            </div>
-        </c:if>
 
     </div>
 
@@ -48,26 +47,27 @@
         <c:if test="${userRole eq 'ADMIN'}">
 
             <div class="text-black-left">
-                <div>You can ban or remove the ban from the user.</div>
                 <form action="<c:url value="/ban"/>" method="post">
-                    <input type="hidden" name="id" value="${user.id}"/>
-                    <c:if test="${user.banned==false}">
-                        <button type="submit" name="ban" value="1" class="btn default">Ban</button>
-                    </c:if>
-                    <c:if test="${user.banned==true}">
-                        <button type="submit" name="ban" value="0" class="btn default">Remove ban</button>
-                    </c:if>
-                    <br> <br>
+                    <div>You can ban or remove the ban from the user.
+                        <input type="hidden" name="id" value="${user.id}"/>
+                        <c:if test="${user.banned==false}">
+                            <button type="submit" name="ban" value="1" class="btn-2 back-red default">Ban</button>
+                        </c:if>
+                        <c:if test="${user.banned==true}">
+                            <button type="submit" name="ban" value="0" class="btn-2 back-green default">Remove ban</button>
+                        </c:if>
+                    </div>
                 </form>
 
                 <form action="status" method="post">
-                    <div>You can change the user status:</div>
-                    <input type="hidden" name="id" value="${user.id}"/>
-                    <select id="status" name="status">
-                        <option name="status" value="1">Up</option>
-                        <option name="status" value="-1">Down</option>
-                    </select> <br>
-                    <button type="submit" class="btn default">Submit</button>
+                    <div>You can change the user status: <br>
+                        <input type="hidden" name="id" value="${user.id}"/>
+                        <select id="status" name="status">
+                            <option class="back-green" name="status" value="1">Up</option>
+                            <option class="back-red" name="status" value="-1">Down</option>
+                        </select>
+                        <button type="submit" class="btn-2 default">Submit</button>
+                    </div>
                 </form>
 
             </div>

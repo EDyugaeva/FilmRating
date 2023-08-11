@@ -1,8 +1,7 @@
 package com.example.kinorate.servlets;
 
-import com.example.kinorate.dao.FilmDao;
-import com.example.kinorate.dao.UserDao;
-import com.example.kinorate.model.Film;
+import com.example.kinorate.services.FilmService;
+import com.example.kinorate.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,16 +17,9 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("MainServlet get method");
 
-        FilmDao filmDao = new FilmDao();
-        req.setAttribute("topFilms", filmDao.findTop5Films());
-        System.out.println("-------------------");
-        for (Film film: filmDao.findTop5Films()) {
-            System.out.println(film);
-        }
-        System.out.println("-------------------");
+        req.setAttribute("topFilms", FilmService.findTop5Films());
 
-        UserDao userDao = new UserDao();
-        req.setAttribute("topUsers", userDao.findTop5Users() );
+        req.setAttribute("topUsers", UserService.findTop5Users());
 
 
         String requestURI = "/html/main.jsp";

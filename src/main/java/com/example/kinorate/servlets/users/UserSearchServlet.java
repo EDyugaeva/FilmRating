@@ -1,8 +1,7 @@
 package com.example.kinorate.servlets.users;
 
-import com.example.kinorate.dao.UserDao;
 import com.example.kinorate.model.User;
-import com.example.kinorate.utills.SearchString;
+import com.example.kinorate.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,10 +20,7 @@ public class UserSearchServlet extends HttpServlet {
         log.info("Searching for user");
         String searchString = req.getParameter("search");
 
-        UserDao userDao = new UserDao();
-        String[] searchArr = SearchString.divideString(searchString);
-
-        List<User> users = userDao.searchUserByNameOrLastName(searchArr[0], searchArr[1]);
+        List<User> users = UserService.findUserByNameOrLastName(searchString);
 
         req.setAttribute("users", users);
         req.getRequestDispatcher("/html/usersearch.jsp").forward(req, resp);

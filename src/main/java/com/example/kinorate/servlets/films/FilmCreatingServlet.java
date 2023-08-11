@@ -1,8 +1,7 @@
 package com.example.kinorate.servlets.films;
 
-import com.example.kinorate.dao.FilmDao;
-import com.example.kinorate.model.Film;
-import com.example.kinorate.utills.FileUtills;
+import com.example.kinorate.exceptions.IllegalImageFormatException;
+import com.example.kinorate.services.FilmService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -18,8 +17,6 @@ import java.io.IOException;
 @Slf4j
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 20 * 1024 * 1024)
 public class FilmCreatingServlet extends HttpServlet {
-    FilmDao dao = new FilmDao();
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,43 +27,35 @@ public class FilmCreatingServlet extends HttpServlet {
         Part filePart = req.getPart("file");
         RequestDispatcher dispatcher;
 
-        if (!isImage(filePart)) {
-            log.warn("Error, file is not an image");
+        try {
+            int affectedRow = FilmService.createFilm(filePart, title, getServletContext(), description);
+            if (affectedRow == 1) {
+                log.info("New film is saved");
+                req.setAttribute("info", "New film is saved!");
+                dispatcher = req.getRequestDispatcher("html/OK.jsp");
+                dispatcher.include(req, resp);
+            } else {
+                log.warn("Error while saving film, maybe it is saved before");
+                req.setAttribute("error", "Maybe film was saved before");
+                dispatcher = req.getRequestDispatcher("html/error.jsp");
+                dispatcher.include(req, resp);
+            }
+
+
+
+        } catch (IllegalImageFormatException e) {
             req.setAttribute("error", "File must be an image");
             dispatcher = req.getRequestDispatcher("html/error.jsp");
             dispatcher.include(req, resp);
-            return;
-        }
-        String type = "films";
-
-//         Save the file to the server
-        String path = FileUtills.saveImage(filePart, title, type, getServletContext().getRealPath("/images/" + type));
-        if (path == null) {
-            log.warn("Error during file upload");
-            dispatcher = req.getRequestDispatcher("html/error.jsp");
-            req.setAttribute("error", "Error during file upload");
-            dispatcher.include(req, resp);
-            return;
-        }
-
-        Film film = new Film(title, description, path);
-
-        int affectedRow = dao.createFilm(film);
-        if (affectedRow == 1) {
-            log.info("New film is saved");
-            req.setAttribute("info", "New film is saved!");
-            dispatcher = req.getRequestDispatcher("html/OK.jsp");
-            dispatcher.include(req, resp);
-        }
-        else {
-            log.warn("Error while saving film, maybe it is saved before");
-            req.setAttribute("error", "Maybe film was saved before");
+        } catch (IOException e) {
+            log.warn("Error while saving film");
+            req.setAttribute("error", "Exception while saving file");
             dispatcher = req.getRequestDispatcher("html/error.jsp");
             dispatcher.include(req, resp);
         }
-
         dispatcher = req.getRequestDispatcher("html/filmcreating.jsp");
         dispatcher.include(req, resp);
+
 
 
     }
@@ -78,10 +67,7 @@ public class FilmCreatingServlet extends HttpServlet {
         dispatcher.include(req, resp);
     }
 
-    private boolean isImage(Part part) {
-        String mimeType = getServletContext().getMimeType(part.getSubmittedFileName());
-        return mimeType != null && mimeType.startsWith("image/");
-    }
+
 
 
 }

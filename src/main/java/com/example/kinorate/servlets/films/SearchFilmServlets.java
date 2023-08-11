@@ -1,7 +1,7 @@
 package com.example.kinorate.servlets.films;
 
-import com.example.kinorate.dao.FilmDao;
 import com.example.kinorate.model.Film;
+import com.example.kinorate.services.FilmService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +15,6 @@ import java.util.List;
 @WebServlet(name = "search", value = "/search")
 @Slf4j
 public class SearchFilmServlets extends HttpServlet {
-    FilmDao filmDao = new FilmDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -24,7 +23,7 @@ public class SearchFilmServlets extends HttpServlet {
         log.info("Searching film by {} ", searchString);
 
 
-        List<Film> films = filmDao.searchFilmsByTitle(searchString);
+        List<Film> films = FilmService.findFilmByTitle(searchString);
         log.info("It was found {} films ", films.size());
 
         req.setAttribute("films", films);
