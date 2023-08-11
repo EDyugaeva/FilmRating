@@ -1,9 +1,7 @@
 package com.example.kinorate.servlets.films;
 
-import com.example.kinorate.dao.impl.FilmDaoImpl;
-import com.example.kinorate.model.Film;
+
 import com.example.kinorate.services.FilmService;
-import com.example.kinorate.utills.FileUtills;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 @WebServlet("/film-deleting")
 @Slf4j

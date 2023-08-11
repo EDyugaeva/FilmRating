@@ -1,6 +1,5 @@
 package com.example.kinorate.servlets.films;
 
-import com.example.kinorate.dao.impl.FilmDaoImpl;
 import com.example.kinorate.model.Film;
 import com.example.kinorate.services.FilmService;
 import jakarta.servlet.ServletException;

@@ -3,6 +3,9 @@ package com.example.kinorate.utills;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class to format LocalDateTime in JSP
+ */
 public final class Dates {
 
     public static String formatLocalDateTime(LocalDateTime localDateTime, String pattern) {

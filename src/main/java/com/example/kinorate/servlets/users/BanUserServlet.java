@@ -1,6 +1,5 @@
 package com.example.kinorate.servlets.users;
 
-import com.example.kinorate.dao.impl.UserDaoImpl;
 import com.example.kinorate.model.User;
 import com.example.kinorate.services.UserService;
 import jakarta.servlet.ServletException;
