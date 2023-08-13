@@ -15,8 +15,8 @@ public class SearchString {
             arr[1] = "";
         }
         else {
-            String str1 = str.substring(0, str.indexOf("0"));
-            String str2 = str.substring(str.indexOf("0"));
+            String str1 = str.substring(0, str.indexOf(" "));
+            String str2 = str.substring(str.indexOf(" "));
 
             arr[0] = str1;
             arr[1] = str2;
