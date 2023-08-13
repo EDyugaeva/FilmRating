@@ -16,7 +16,7 @@ public class UserDao {
 
     private static final String INSERT = "INSERT INTO users (name, last_name, email, password, birth_date) VALUES (?,?,?,?,?)";
     private static final String FIND_BY_PASSWORD_AND_EMAIL = "SELECT * FROM users WHERE email = ? AND password = ?";
-    private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name ILIKE ? OR last_name LIKE ?";
+    private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name ILIKE ? OR last_name ILIKE ?";
 
     private static final String FIND_BY_ID = "SELECT u.id as id, u.name, u.last_name, u.email, u.password, u.birth_date, u.role, u.status, u.isbanned," +
             "       c.id as c_id, c.film_id as c_film_id, c.comment, c.date_time_of_creation," +
@@ -98,7 +98,7 @@ public class UserDao {
 
 
             preparedStatement.setString(1, "%" + name + "%");
-            preparedStatement.setString(2, "%" + lastName + "%");
+            preparedStatement.setString(2, lastName);
 
             ResultSet rs = preparedStatement.executeQuery();
 

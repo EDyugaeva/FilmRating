@@ -49,7 +49,7 @@ insert into users (name, last_name, email, password, birth_date, role)
 VALUES ('Ekaterina', 'Radomskaya', 'ekaterina@mail.com', 'password', '1995-08-24', 'ADMIN');
 
 insert into users (name, last_name, email, password, birth_date, role)
-VALUES ('Iurii', 'Radomskaii', 'iurii@mail.com', 'password', '1994-06-30', 'USER');
+VALUES ('Iurii', 'Radomskii', 'iurii@mail.com', 'password', '1994-06-30', 'USER');
 
 insert into users (name, last_name, email, password, birth_date, role)
 VALUES ('Natalia', 'Zeller', 'natalia@mail.com', 'password', '1973-09-20', 'USER');
