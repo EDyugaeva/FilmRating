@@ -1,8 +1,8 @@
 package com.example.kinorate.servlets.films;
 
-import com.example.kinorate.dao.CommentDao;
 import com.example.kinorate.model.Comment;
 import com.example.kinorate.model.User;
+import com.example.kinorate.services.CommentService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +16,6 @@ import java.io.IOException;
 @Slf4j
 public class CommentServlet extends HttpServlet {
 
-    CommentDao commentDao = new CommentDao();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
@@ -34,7 +33,7 @@ public class CommentServlet extends HttpServlet {
         comment.setText(textComment);
         comment.setAuthorName(user.getName() + " " + user.getLastName());
 
-        commentDao.addComment(comment);
+        CommentService.save(comment);
 
         resp.sendRedirect("film?id=" + film_id);
 

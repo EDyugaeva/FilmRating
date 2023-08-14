@@ -1,6 +1,8 @@
 package com.example.kinorate.servlets.users;
 
 import com.example.kinorate.model.Role;
+import com.example.kinorate.model.User;
+import com.example.kinorate.services.UserService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,6 +23,10 @@ public class MyPageServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Role role = (Role) session.getAttribute("role");
         log.warn("User role = {}", role);
+        User user = (User) session.getAttribute("user");
+
+        user = UserService.findById(user.getId()).get();
+        session.setAttribute("user", user);
 
         log.info("Get info about user");
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/mypage.jsp");

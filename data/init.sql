@@ -84,7 +84,7 @@ VALUES ('avatar',
         'images\films\Avatar.jpg');
 
 insert into films (title, description, image)
-VALUES ('beauty and the Beast',
+VALUES ('beauty and the beast',
         'The story and characters you love come to life in the live-action adaptation of Disney''s animated classic, a cinematic event celebrating one of the most beloved tales ever told.',
         'images\films\Beauty_and_the_Beast.jpg');
 
@@ -131,7 +131,7 @@ VALUES ('harry potter and the deathly hallows: part 2',
 
 
 insert into films (title, description, image)
-VALUES ('little Woman', 'Four sisters come of age in America during the aftermath of the Civil War.',
+VALUES ('little woman', 'Four sisters come of age in America during the aftermath of the Civil War.',
         'images\films\Little_Woman.jpg');
 
 
