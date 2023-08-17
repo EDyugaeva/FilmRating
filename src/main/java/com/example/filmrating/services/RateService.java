@@ -24,7 +24,7 @@ public class RateService {
         Long userId = rate.getUser();
         log.info("Set new rate to film with id = {}", filmId);
 
-        Film film = FilmService.findById(userId).orElseThrow(()
+        Film film = FilmService.findById(filmId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no films with that id %d", userId)));
 
         User user = UserService.findById(userId).orElseThrow(()
