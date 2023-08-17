@@ -33,13 +33,13 @@
     <c:if test="${requestScope.users!=null}">
         <c:forEach items="${requestScope.users}"
                    var="user" varStatus="Loop">
-            <c:set var="ratesList" value="${user.ratesList}"/>
 
             <div class="user-container text-black-left">
 
                     ${user.name} ${user.lastName} <br>
                 Birthday: ${user.birthDate} <br>
-                Numbers of votes: ${fn:length(ratesList)} <br>
+<%--                        to do --%>
+<%--                Numbers of votes: ${fn:length(ratesList)} <br>--%>
                 email: ${user.email}
 
                 <a href="${pageContext.request.contextPath}/user?id=${user.id}">Get more information </a>

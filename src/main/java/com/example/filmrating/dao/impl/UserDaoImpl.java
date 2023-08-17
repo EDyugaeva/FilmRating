@@ -21,10 +21,8 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_BY_PASSWORD_AND_EMAIL = "SELECT * FROM users WHERE email = ? AND password = ?";
     private static final String FIND_BY_NAME_OR_LAST_NAME = "SELECT * FROM users WHERE name ILIKE ? OR last_name ILIKE ?";
 
-    private static final String FIND_BY_ID = "SELECT u.id as id, u.name, u.last_name, u.email, u.password, u.birth_date, u.role, u.status, u.isbanned," +
-            "       c.id as c_id, c.film_id as c_film_id, c.comment, c.date_time_of_creation," +
-            "       r.id as r_id, r.film_id as r_film_id, r.rate FROM users as u full join comments c on u.id = c.user_id" +
-            "        full join rates r on u.id = r.user_id WHERE u.id = ?";
+    private static final String FIND_BY_ID = "SELECT u.id as id, u.name, u.last_name, u.email, u.password, u.birth_date, u.role, u.status, u.isbanned from users u " +
+            "WHERE u.id = ?";
 
     private static final String FIND_TOP_5 = "SELECT * FROM users ORDER BY status DESC LIMIT 5";
     private static final String FIND_ALL = "SELECT * FROM users";
@@ -135,7 +133,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                user = mapper.getFullUserDetails(rs);
+                user = mapper.getUserDetails(rs);
             }
 
         } catch (SQLException e) {

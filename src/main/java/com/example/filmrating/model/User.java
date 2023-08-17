@@ -15,8 +15,7 @@ public class User {
     private String password;
     private LocalDate birthDate;
     private Role role;
-    private List<Comment> commentsList;
-    private List<Rate> ratesList;
+
     private int status;
     private boolean isBanned;
     public User() {
@@ -31,8 +30,6 @@ public class User {
         this.role = Role.USER;
         this.status = 1;
         this.isBanned = false;
-        this.commentsList = new ArrayList<>();
-        this.ratesList = new ArrayList<>();
 
 
     }
