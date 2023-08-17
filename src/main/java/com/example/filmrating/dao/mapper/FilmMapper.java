@@ -25,23 +25,21 @@ public class FilmMapper {
         resultSet.previous();
 
         while (resultSet.next()) {
-            if (filmId != resultSet.getLong(1)) {
+            if (filmId != resultSet.getLong("filmId")) {
                 resultSet.previous();
                 break;
             }
 
             Comment comment = new Comment();
-            Long commentId = resultSet.getLong(6);
+            Long commentId = resultSet.getLong("comment_id");
             comment.setId(commentId);
             if (commentId != 0 && !commentList.contains(comment)) {
-
                 getComment(resultSet, comment, filmId);
-
                 commentList.add(comment);
             }
 
             Rate rateObject = new Rate();
-            Long rateId = resultSet.getLong(11);
+            Long rateId = resultSet.getLong("rate_id");
             rateObject.setId(rateId);
             if (rateId != 0 && !rateList.contains(rateObject)) {
                 getRate(resultSet, rateObject, filmId, rateList);
@@ -61,27 +59,26 @@ public class FilmMapper {
 
     private static void getRate(ResultSet resultSet, Rate rateObject, long filmId, List<Rate> rateList) throws SQLException {
         rateObject.setFilm(filmId);
-        rateObject.setUser(resultSet.getLong(12));
-        rateObject.setRate(resultSet.getInt(13));
+        rateObject.setUser(resultSet.getLong("r_user_id"));
+        rateObject.setRate(resultSet.getInt("r_rate"));
         rateList.add(rateObject);
     }
 
     private static void getComment(ResultSet resultSet, Comment comment, long filmId) throws SQLException {
         comment.setFilm(filmId);
-        comment.setAuthor(resultSet.getLong(7));
-        comment.setText(resultSet.getString(8));
-        Timestamp timestamp = resultSet.getTimestamp(9);
+        comment.setAuthor(resultSet.getLong("comment_user_id"));
+        comment.setText(resultSet.getString("comment"));
+        Timestamp timestamp = resultSet.getTimestamp("date_time_of_creation");
         comment.setDate(timestamp.toLocalDateTime());
-        comment.setAuthorName(resultSet.getString(10));
     }
 
     public long getFilmId(ResultSet resultSet, Film film) throws SQLException {
-        long filmId = resultSet.getLong(1);
+        long filmId = resultSet.getLong("filmId");
         film.setId(filmId);
-        film.setTitle(resultSet.getString(2));
-        film.setDescription(resultSet.getString(3));
-        film.setImage(resultSet.getString(4));
-        float rate = resultSet.getFloat(5);
+        film.setTitle(resultSet.getString("title"));
+        film.setDescription(resultSet.getString("description"));
+        film.setImage(resultSet.getString("image"));
+        float rate = resultSet.getFloat("rate");
         film.setRate(rate);
         return filmId;
     }
