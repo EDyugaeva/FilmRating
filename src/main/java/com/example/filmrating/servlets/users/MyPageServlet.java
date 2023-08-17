@@ -2,7 +2,7 @@ package com.example.filmrating.servlets.users;
 
 import com.example.filmrating.model.Role;
 import com.example.filmrating.model.User;
-import com.example.filmrating.services.UserService;
+import com.example.filmrating.services.impl.UserServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,7 +25,7 @@ public class MyPageServlet extends HttpServlet {
         log.warn("User role = {}", role);
         User user = (User) session.getAttribute("user");
 
-        user = UserService.findById(user.getId()).get();
+        user = UserServiceImpl.findById(user.getId()).get();
         session.setAttribute("user", user);
 
         log.info("Get info about user");

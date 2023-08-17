@@ -2,6 +2,7 @@ package com.example.filmrating.servlets.films;
 
 import com.example.filmrating.exceptions.IllegalImageFormatException;
 import com.example.filmrating.services.FilmService;
+import com.example.filmrating.services.impl.FilmServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -17,7 +18,7 @@ import java.io.IOException;
 @Slf4j
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 20 * 1024 * 1024)
 public class FilmCreatingServlet extends HttpServlet {
-
+    private static final FilmService filmService = new FilmServiceImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -28,7 +29,7 @@ public class FilmCreatingServlet extends HttpServlet {
         RequestDispatcher dispatcher;
 
         try {
-            int affectedRow = FilmService.createFilm(filePart, title, getServletContext(), description);
+            int affectedRow = filmService.createFilm(filePart, title, getServletContext(), description);
             if (affectedRow == 1) {
                 log.info("New film is saved");
                 req.setAttribute("info", "New film is saved!");

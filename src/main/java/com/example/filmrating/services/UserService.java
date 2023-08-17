@@ -1,52 +1,27 @@
 package com.example.filmrating.services;
 
-import com.example.filmrating.dao.DaoFactory;
-import com.example.filmrating.dao.UserDao;
 import com.example.filmrating.model.User;
-import com.example.filmrating.utills.SearchString;
 
 import java.util.List;
 import java.util.Optional;
 
-public class UserService {
-    static UserDao dao = DaoFactory.getInstance().getUserDao();
+public interface UserService {
 
+    Optional<User> findById(long id);
+    //TODO rewrite with sending object
+    int save(User user);
+    //TODO rewrite with sending object
 
-    public static Optional<User> findById(long id) {
-        return DaoFactory.getInstance().getUserDao().findById(id);
-    }
+    int update(User user);
 
-    public static int save(User user) {
-        return dao.save(user);
-    }
+    void delete(long id);
 
-    public static int update(User user)  {
-        return dao.update(user);
-    }
+    List<User> findTop5Users();
 
-    public static void delete(long id) {
-        dao.delete(id);
+    List<User> findUserByNameOrLastName(String searchString);
 
-    }
+    User loginUser(String email, String password);
+    boolean validateUser(String email, String password);
 
-    public static List<User> findTop5Users() {
-        return dao.findTop5Users();
-    }
-
-    public static List<User> findUserByNameOrLastName(String searchString) {
-        String name = SearchString.divideString(searchString)[0];
-        String lastName = SearchString.divideString(searchString)[1];
-
-        return dao.searchUserByNameOrLastName(name, lastName);
-
-    }
-
-    public static User loginUser(String email, String password) {
-        return dao.loginUser(email, password);
-    }
-
-    public static boolean validateUser(String email, String password) {
-        return dao.validateUser(email, password);
-    }
 
 }

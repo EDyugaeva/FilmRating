@@ -1,6 +1,7 @@
 package com.example.filmrating.servlets;
 
 import com.example.filmrating.services.RateService;
+import com.example.filmrating.services.impl.RateServiceImpl;
 import com.example.filmrating.model.Rate;
 import com.example.filmrating.model.User;
 import jakarta.servlet.ServletException;
@@ -16,6 +17,8 @@ import java.io.IOException;
 @WebServlet("/rate")
 @Slf4j
 public class RateServlet extends HttpServlet {
+    private static final RateService rateService = new RateServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Send new rate to film");
@@ -27,7 +30,7 @@ public class RateServlet extends HttpServlet {
 
         long filmId = Long.parseLong(req.getParameter("film_id"));
 
-        Rate rate = RateService.findRatesByUserIdAndFilmId(filmId, user.getId()).orElse(new Rate());
+        Rate rate = rateService.findRatesByUserIdAndFilmId(filmId, user.getId()).orElse(new Rate());
 
         int rowAffected = 0;
         if (rate.getFilm() == null) {
@@ -37,12 +40,12 @@ public class RateServlet extends HttpServlet {
             rate.setFilm(filmId);
             rate.setUser(user.getId());
 
-            rowAffected = RateService.save(rate);
+            rowAffected = rateService.save(rate);
 
         } else {
             log.info("Rewriting old rate");
             rate.setRate(grade);
-            rowAffected = RateService.update(rate);
+            rowAffected = rateService.update(rate);
             req.setAttribute("rewriting", true);
 
         }
@@ -56,7 +59,7 @@ public class RateServlet extends HttpServlet {
         }
         log.info("New rate to film = {} is {}", filmId, rate);
 
-        RateService.setRating(rate);
+        rateService.setRating(rate);
         resp.sendRedirect("film?id="+filmId);
 
 

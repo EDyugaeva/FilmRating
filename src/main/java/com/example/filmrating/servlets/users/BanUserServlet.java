@@ -1,7 +1,7 @@
 package com.example.filmrating.servlets.users;
 
 import com.example.filmrating.model.User;
-import com.example.filmrating.services.UserService;
+import com.example.filmrating.services.impl.UserServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,7 +21,7 @@ public class BanUserServlet extends HttpServlet {
         Long userId = Long.valueOf(req.getParameter("id"));
         log.info("Change ban status to user with id = {}", userId);
 
-        User user = UserService.findById(userId).orElseThrow(()
+        User user = UserServiceImpl.findById(userId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no films with that id %d", userId)));
 
         int ban = Integer.parseInt(req.getParameter("ban"));
@@ -35,7 +35,7 @@ public class BanUserServlet extends HttpServlet {
         }
 
 
-        int rowAffected = UserService.update(user);
+        int rowAffected = UserServiceImpl.update(user);
 
         if (rowAffected == 1) {
             resp.sendRedirect("user?id=" + userId);

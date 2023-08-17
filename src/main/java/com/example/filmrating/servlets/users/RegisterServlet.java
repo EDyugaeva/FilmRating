@@ -1,7 +1,7 @@
 package com.example.filmrating.servlets.users;
 
 import com.example.filmrating.model.User;
-import com.example.filmrating.services.UserService;
+import com.example.filmrating.services.impl.UserServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,7 +37,7 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
 
         User user = new User(name, lastName, email, password, birthDate);
 
-        int row = UserService.save(user);
+        int row = UserServiceImpl.save(user);
         if (row == 1) {
             log.info("Register is OK");
             req.setAttribute("info", "You created account, now you can log in");

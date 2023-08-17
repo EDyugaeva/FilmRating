@@ -2,7 +2,7 @@ package com.example.filmrating.servlets.users;
 
 import com.example.filmrating.dao.impl.UserDaoImpl;
 import com.example.filmrating.model.User;
-import com.example.filmrating.services.UserService;
+import com.example.filmrating.services.impl.UserServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,7 +23,7 @@ public class UserPageServlet extends HttpServlet {
         long userId = Long.parseLong(req.getParameter("id"));
         log.info("Get information about user with id = {}", userId);
 
-        User user = UserService.findById(userId).orElseThrow(()
+        User user = UserServiceImpl.findById(userId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no films with that id %d", userId)));
 
         req.setAttribute("user", user);

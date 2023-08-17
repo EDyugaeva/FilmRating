@@ -2,7 +2,7 @@ package com.example.filmrating.servlets.films;
 
 import com.example.filmrating.model.Comment;
 import com.example.filmrating.model.User;
-import com.example.filmrating.services.CommentService;
+import com.example.filmrating.services.impl.CommentServiceImpl;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +32,7 @@ public class CommentServlet extends HttpServlet {
         comment.setAuthor(user.getId());
         comment.setText(textComment);
 
-        CommentService.save(comment);
+        CommentServiceImpl.save(comment);
 
         resp.sendRedirect("film?id=" + film_id);
 

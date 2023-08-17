@@ -2,6 +2,7 @@ package com.example.filmrating.servlets.users;
 
 import com.example.filmrating.model.User;
 import com.example.filmrating.services.UserService;
+import com.example.filmrating.services.impl.UserServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +17,8 @@ import java.io.IOException;
 @WebServlet("/login")
 @Slf4j
 public class LoginServlet extends HttpServlet {
+    private static final UserService userService = new UserServiceImpl();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,11 +35,11 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        boolean isValid = UserService.validateUser(email, password);
+        boolean isValid = userService.validateUser(email, password);
 
         if (isValid) {
             log.info("User exist");
-            User user = UserService.loginUser(email, password);
+            User user = userService.loginUser(email, password);
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
