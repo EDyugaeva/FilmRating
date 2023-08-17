@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>com.example.kinorate.servlets.MainServlet</servlet-class>
+        <servlet-class>com.example.filmrating.servlets.MainServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -22,7 +22,7 @@
 
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
-        <filter-class>com.example.kinorate.filters.AuthenticationFilter</filter-class>
+        <filter-class>com.example.filmrating.filters.AuthenticationFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -40,7 +40,7 @@
 
     <filter>
         <filter-name>BanFilter</filter-name>
-        <filter-class>com.example.kinorate.filters.BanFilter</filter-class>
+        <filter-class>com.example.filmrating.filters.BanFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -55,7 +55,7 @@
 
     <filter>
         <filter-name>AdminFilter</filter-name>
-        <filter-class>com.example.kinorate.filters.AdminFilter</filter-class>
+        <filter-class>com.example.filmrating.filters.AdminFilter</filter-class>
     </filter>
 
     <filter-mapping>
