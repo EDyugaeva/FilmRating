@@ -17,19 +17,20 @@ public class FilmDaoImpl implements FilmDao {
     private Connection connection = DBConnection.getConnectionToDataBase();
 
     private final FilmMapper mapper = new FilmMapper();
-    private static final String FIND_BY_ID = "SELECT f.id, f.title, f.description, f.image, f.rate, " +
-            "c.id, c.user_id, c.comment, c.date_time_of_creation, c.author_name," +
-            "r.id, r.user_id, r.rate FROM films as f  full join comments c on f.id = c.film_id " +
+    private static final String FIND_BY_ID = "SELECT f.id as filmId, f.title, f.description, f.image, f.rate, " +
+            "c.id as comment_id, c.user_id as comment_user_id, c.comment, c.date_time_of_creation, " +
+            "r.id as rate_id, r.user_id as r_user_id, r.rate as r_rate FROM films as f  full join comments c on f.id = c.film_id " +
             "full join rates r on f.id = r.film_id WHERE f.id=?";
-    private static final String FIND_BY_TITLE = "SELECT f.id, f.title, f.description, f.image, f.rate, " +
-            "c.id, c.user_id, c.comment, c.date_time_of_creation, c.author_name," +
-            "r.id, r.user_id, r.rate FROM films as f  full join comments c on f.id = c.film_id " +
+    private static final String FIND_BY_TITLE = "SELECT f.id as filmId, f.title, f.description, f.image, f.rate, " +
+            "c.id as comment_id, c.user_id as comment_user_id, c.comment, c.date_time_of_creation," +
+            "r.id as rate_id, r.user_id as r_user_id, r.rate as r_rate FROM films as f  full join comments c on f.id = c.film_id " +
             "full join rates r on f.id = r.film_id WHERE f.title ILIKE ?";
     private static final String INSERT = "INSERT INTO films (title, description, image) VALUES (?, ?, ?)";
-    private static final String FIND_TOP_5 = "SELECT f.id, f.title, f.description, f.image, f.rate from films f ORDER BY f.rate DESC LIMIT 5";
+    private static final String FIND_TOP_5 = "SELECT f.id as filmId, f.title, f.description, f.image, f.rate from films f ORDER BY f.rate DESC LIMIT 5";
     private static final String UPDATE_RATING = "UPDATE films SET rate = ? WHERE id = ?";
-    private static final String DELETE_FILM_BY_ID = "DELETE  from films WHERE id = ?";
-    private static final String FIND_ALL = "SELECT * from films";
+    private static final String DELETE_FILM_BY_ID = "DELETE from films WHERE id = ?";
+    private static final String FIND_ALL = "SELECT f.id as filmId, f.title, f.description, f.image, f.rate " +
+            "from films f";
 
     private static final String UPDATE = "UPDATE films SET title = ?, description = ?, image = ? where id = ?";
 
