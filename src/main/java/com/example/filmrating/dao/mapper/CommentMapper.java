@@ -21,7 +21,6 @@ public class CommentMapper {
             comment.setAuthor(resultSet.getLong("user_id"));
 
             comment.setFilm(resultSet.getLong("film_id"));
-            comment.setAuthorName(resultSet.getString("author_name"));
 
             Timestamp timestamp = resultSet.getTimestamp("date_time_of_creation");
             comment.setDate(timestamp.toLocalDateTime());

@@ -29,8 +29,7 @@ create table comments
     user_id               integer references users,
     film_id               integer references films ON DELETE CASCADE,
     comment               text,
-    date_time_of_creation timestamp default now(),
-    author_name           varchar(255)
+    date_time_of_creation timestamp default now()
 );
 
 create table rates

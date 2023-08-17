@@ -12,7 +12,6 @@ public class Film {
     private Long id;
     private String title;
     private String description;
-    private List<Comment> commentsList;
     private float rate;
     private List<Rate> ratesList;
     private String image;
@@ -23,7 +22,6 @@ public class Film {
         this.image = image;
 
         ratesList = new ArrayList<>();
-        commentsList = new ArrayList<>();
     }
 
 

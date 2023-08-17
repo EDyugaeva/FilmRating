@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class FilmMapper {
         log.info("Mapping rs to find a film");
 
         Film film = new Film();
-        List<Comment> commentList = new ArrayList<>();
         List<Rate> rateList = new ArrayList<>();
 
         film = new Film();
@@ -30,14 +28,6 @@ public class FilmMapper {
                 break;
             }
 
-            Comment comment = new Comment();
-            Long commentId = resultSet.getLong("comment_id");
-            comment.setId(commentId);
-            if (commentId != 0 && !commentList.contains(comment)) {
-                getComment(resultSet, comment, filmId);
-                commentList.add(comment);
-            }
-
             Rate rateObject = new Rate();
             Long rateId = resultSet.getLong("rate_id");
             rateObject.setId(rateId);
@@ -48,7 +38,6 @@ public class FilmMapper {
         }
 
         film.setRatesList(rateList);
-        film.setCommentsList(commentList);
 
         if (film.getRate() == 0) {
             film.setRate(Calculating.calculateFilmRating(rateList));
@@ -62,14 +51,6 @@ public class FilmMapper {
         rateObject.setUser(resultSet.getLong("r_user_id"));
         rateObject.setRate(resultSet.getInt("r_rate"));
         rateList.add(rateObject);
-    }
-
-    private static void getComment(ResultSet resultSet, Comment comment, long filmId) throws SQLException {
-        comment.setFilm(filmId);
-        comment.setAuthor(resultSet.getLong("comment_user_id"));
-        comment.setText(resultSet.getString("comment"));
-        Timestamp timestamp = resultSet.getTimestamp("date_time_of_creation");
-        comment.setDate(timestamp.toLocalDateTime());
     }
 
     public long getFilmId(ResultSet resultSet, Film film) throws SQLException {

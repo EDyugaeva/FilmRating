@@ -1,9 +1,11 @@
+<%--
   Created by IntelliJ IDEA.
   User: ekaterina
   Date: 16.07.2023
   Time: 17:08
   To change this template use File | Settings | File Templates.
 --%>
+
 <html>
 <head>
     <title>footer</title>

@@ -18,11 +18,9 @@ public class FilmDaoImpl implements FilmDao {
 
     private final FilmMapper mapper = new FilmMapper();
     private static final String FIND_BY_ID = "SELECT f.id as filmId, f.title, f.description, f.image, f.rate, " +
-            "c.id as comment_id, c.user_id as comment_user_id, c.comment, c.date_time_of_creation, " +
             "r.id as rate_id, r.user_id as r_user_id, r.rate as r_rate FROM films as f  full join comments c on f.id = c.film_id " +
             "full join rates r on f.id = r.film_id WHERE f.id=?";
     private static final String FIND_BY_TITLE = "SELECT f.id as filmId, f.title, f.description, f.image, f.rate, " +
-            "c.id as comment_id, c.user_id as comment_user_id, c.comment, c.date_time_of_creation," +
             "r.id as rate_id, r.user_id as r_user_id, r.rate as r_rate FROM films as f  full join comments c on f.id = c.film_id " +
             "full join rates r on f.id = r.film_id WHERE f.title ILIKE ?";
     private static final String INSERT = "INSERT INTO films (title, description, image) VALUES (?, ?, ?)";

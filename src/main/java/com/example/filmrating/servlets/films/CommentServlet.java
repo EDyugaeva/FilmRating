@@ -31,7 +31,6 @@ public class CommentServlet extends HttpServlet {
         comment.setFilm(film_id);
         comment.setAuthor(user.getId());
         comment.setText(textComment);
-        comment.setAuthorName(user.getName() + " " + user.getLastName());
 
         CommentService.save(comment);
 

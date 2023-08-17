@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://example.com/functions" prefix="f" %>
 
@@ -67,25 +66,17 @@
 
             <c:if test="${requestScope.comments!=null}">
                 <c:forEach items="${requestScope.comments}"
-                           var="comment" varStatus="Loop">
-                    <div class="section-comment">
+                           var="map" varStatus="Loop">
 
+
+                    <c:set var="comment" value="${map.key}"></c:set>
+                    <div class="section-comment">
                         <a class="text-black-left-comment"
                            href="${pageContext.request.contextPath}/user?id=${comment.author}">
-                                ${comment.authorName} </a><br>
+                                ${map.value} </a> <br>
                         <c:set var="date" value="${comment.date}"/>
-
-                        <a class="text-blue-italic">
-
-                            <p>
-                            <p>${f:formatLocalDateTime(date, 'dd.MM.yyyy HH:mm')}</p>
-
-                            </p>
-
-                            <br> </a>
-                        <div class="text-black-left-comment">
-                                ${comment.text}<br></div>
-
+                        <a class="text-blue-italic"> ${f:formatLocalDateTime(date, 'dd.MM.yyyy HH:mm')} </a> <br>
+                        <div class="text-black-left-comment">${comment.text}</div>
                     </div>
                 </c:forEach>
             </c:if>

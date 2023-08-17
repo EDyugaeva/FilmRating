@@ -17,23 +17,25 @@ public class CommentDaoImpl implements CommentDao {
     Connection connection = DBConnection.getConnectionToDataBase();
 
     private final CommentMapper mapper = new CommentMapper();
-    private static final String INSERT = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation, author_name) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation) VALUES (?, ?, ?, ?)";
     private static final String FIND_BY_ID = "SELECT * from comments where id =?";
     private static final String FIND_ALL = "SELECT * from comments";
     private static final String UPDATE = "UPDATE comments SET user_id = ?, film_id = ?, comment = ?, " +
-            "date_time_of_creation = ?, author_name = ? where id = ?";
+            "date_time_of_creation = ? where id = ?";
     private static final String DELETE_BY_ID = "DELETE  from comments WHERE id = ?";
+
+    private static final String FIND_NAMES_BY_COMMENT_ID = "SELECT u.name, u.last_name from comments c join users u on u.id = c.user_id where c.id = ?";
+    private static final String FIND_COMMENTS_BY_FILM_ID = "SELECT * from comments where film_id = ?";
 
     @Override
     public int save(Comment comment) {
         log.info("Creating new comment");
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT);) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT)) {
 
             preparedStatement.setLong(1, comment.getAuthor());
             preparedStatement.setLong(2, comment.getFilm());
             preparedStatement.setString(3, comment.getText());
             preparedStatement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
-            preparedStatement.setString(5, comment.getAuthorName());
 
             return preparedStatement.executeUpdate();
 
@@ -96,8 +98,7 @@ public class CommentDaoImpl implements CommentDao {
             statement.setLong(2, obj.getFilm());
             statement.setString(3, obj.getText());
             statement.setTimestamp(4, Timestamp.valueOf(obj.getDate()));
-            statement.setString(5, obj.getAuthorName());
-            statement.setLong(6, obj.getId());
+            statement.setLong(5, obj.getId());
 
             rowsAffected = statement.executeUpdate();
 
@@ -124,4 +125,50 @@ public class CommentDaoImpl implements CommentDao {
 
     }
 
+    @Override
+    public String getAuthorName(long id) {
+        log.info("searching author name to comment by id {}", id);
+        String name = "";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_NAMES_BY_COMMENT_ID)) {
+
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                name = rs.getString("name") + " " + rs.getString("last_name");
+            }
+
+        } catch (SQLException e) {
+            log.warn("SQL exception while finding author name to comment by id");
+            e.printStackTrace();
+        }
+
+
+        return name;
+    }
+
+    @Override
+    public List<Comment> findCommentsByFilmId(long filmId) {
+
+        log.info("searching for comments with film id {}", filmId);
+        List<Comment> comments = new ArrayList<>();
+        Comment comment;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_COMMENTS_BY_FILM_ID)) {
+
+            preparedStatement.setLong(1, filmId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                comment = mapper.getComment(rs);
+                comments.add(comment);
+            }
+
+        } catch (SQLException e) {
+            log.warn("SQL exception while finding comments to film with id = {}", filmId);
+            e.printStackTrace();
+        }
+
+
+        return comments;
+
+    }
 }
