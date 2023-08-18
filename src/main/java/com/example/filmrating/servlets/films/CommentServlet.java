@@ -17,6 +17,8 @@ import java.io.IOException;
 @Slf4j
 public class CommentServlet extends HttpServlet {
 
+    private static final CommentService commentService = new CommentServiceImpl();
+
 
 
     @Override
@@ -34,7 +36,7 @@ public class CommentServlet extends HttpServlet {
         comment.setAuthor(user.getId());
         comment.setText(textComment);
 
-        CommentServiceImpl.save(comment);
+        commentService.save(comment);
 
         resp.sendRedirect("film?id=" + film_id);
 

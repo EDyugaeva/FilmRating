@@ -5,8 +5,6 @@ import com.example.filmrating.model.Film;
 import com.example.filmrating.model.Rate;
 import com.example.filmrating.model.User;
 import com.example.filmrating.services.CommentService;
-import com.example.filmrating.services.FilmService;
-import com.example.filmrating.services.RateService;
 import com.example.filmrating.services.impl.CommentServiceImpl;
 import com.example.filmrating.services.impl.FilmServiceImpl;
 import com.example.filmrating.services.impl.RateServiceImpl;
@@ -26,6 +24,8 @@ import java.util.Optional;
 @Slf4j
 public class FilmServlet extends HttpServlet {
 
+    CommentService commentService = new CommentServiceImpl();
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long filmId = Integer.parseInt(request.getParameter("id"));
@@ -33,15 +33,13 @@ public class FilmServlet extends HttpServlet {
 
         Film film = FilmServiceImpl.findById(filmId).orElseThrow(() -> new NoSuchElementException("There is no films with that id"));
 
-        Map<Comment, String> commentMap = CommentServiceImpl.getCommentToFilmWithAuthorNameMap(filmId);
+        Map<Comment, String> commentMap = commentService.getCommentToFilmWithAuthorNameMap(filmId);
 
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
             log.info("Find rate to film id = {} from user = {}", filmId, user.getId());
             Optional<Rate> rate = RateServiceImpl.findRatesByUserIdAndFilmId(filmId, user.getId());
-            if (rate.isPresent()) {
-                request.setAttribute("rate", rate.get().getRate());
-            }
+            rate.ifPresent(value -> request.setAttribute("rate", value.getRate()));
 
         }
 
