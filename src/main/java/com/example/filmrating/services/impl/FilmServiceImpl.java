@@ -1,10 +1,8 @@
 package com.example.filmrating.services.impl;
 
 import com.example.filmrating.dao.DaoFactory;
-import com.example.filmrating.dao.FilmDao;
 import com.example.filmrating.exceptions.IllegalImageFormatException;
 import com.example.filmrating.model.Film;
-import com.example.filmrating.services.FilmService;
 import com.example.filmrating.utills.FileUtills;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Part;
@@ -16,38 +14,37 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
-public class FilmServiceImpl implements FilmService {
-    private FilmDao dao = DaoFactory.getInstance().getFilmDao();
+public class FilmServiceImpl  {
 
-    public Optional<Film> findById(long id) {
-        return dao.findById(id);
+    public static Optional<Film> findById(long id) {
+        return  DaoFactory.getInstance().getFilmDao().findById(id);
     }
 
-    public int save(Film film) {
-        return dao.save(film);
+    public static int save(Film film) {
+        return  DaoFactory.getInstance().getFilmDao().save(film);
     }
 
-    public int update(Film film) {
-        return dao.update(film);
+    public static int update(Film film) {
+        return  DaoFactory.getInstance().getFilmDao().update(film);
     }
 
-    public void delete(long id) {
+    public static void delete(long id) {
         Film film = findById(id).orElseThrow(() -> new NoSuchElementException("There is no films with that id"));
         DaoFactory.getInstance().getFilmDao().delete(id);
         FileUtills.deleteFile(film.getImage());
 
     }
 
-    public List<Film> findTop5Films() {
-        return dao.findTop5Films();
+    public static List<Film> findTop5Films() {
+        return  DaoFactory.getInstance().getFilmDao().findTop5Films();
     }
 
-    public List<Film> findFilmByTitle(String searchString) {
-        return dao.searchFilmsByTitle(searchString);
+    public static List<Film> findFilmByTitle(String searchString) {
+        return  DaoFactory.getInstance().getFilmDao().searchFilmsByTitle(searchString);
 
     }
 
-    public int createFilm(Part filePart, String title, ServletContext context, String description) throws IOException {
+    public static int createFilm(Part filePart, String title, ServletContext context, String description) throws IOException {
         if (!isImage(filePart, context)) {
             log.warn("Error, file is not an image");
             throw new IllegalImageFormatException("File is not an image");
@@ -64,12 +61,12 @@ public class FilmServiceImpl implements FilmService {
 
     }
 
-    private boolean isImage(Part part, ServletContext context) {
+    private static boolean isImage(Part part, ServletContext context) {
         String mimeType = context.getMimeType(part.getSubmittedFileName());
         return mimeType != null && mimeType.startsWith("image/");
     }
 
-    public int updateRating(Film film) {
-        return dao.updateRating(film);
+    public static int updateRating(Film film) {
+        return  DaoFactory.getInstance().getFilmDao().updateRating(film);
     }
 }

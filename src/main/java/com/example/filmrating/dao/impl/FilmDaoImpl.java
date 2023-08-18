@@ -1,6 +1,6 @@
 package com.example.filmrating.dao.impl;
 
-import com.example.filmrating.dao.DBConnection;
+import com.example.filmrating.dao.ConnectionPoolManager;
 import com.example.filmrating.dao.FilmDao;
 import com.example.filmrating.dao.mapper.FilmMapper;
 import com.example.filmrating.model.Film;
@@ -14,8 +14,14 @@ import java.util.Optional;
 @Slf4j
 public class FilmDaoImpl implements FilmDao {
 
-    private Connection connection = DBConnection.getConnectionToDataBase();
-
+    Connection connection;
+    {
+        try {
+            connection = ConnectionPoolManager.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private final FilmMapper mapper = new FilmMapper();
     private static final String FIND_BY_ID = "SELECT f.id as filmId, f.title, f.description, f.image, f.rate, " +
             "r.id as rate_id, r.user_id as r_user_id, r.rate as r_rate FROM films as f  full join comments c on f.id = c.film_id " +

@@ -15,7 +15,6 @@ public interface FilmService {
     //TODO rewrite with sending object
     int update(Film film);
     void delete(long id);
-    List<Film> findTop5Films();
     List<Film> findFilmByTitle(String searchString);
     //TODO rewrite with sending object
     int createFilm(Part filePart, String title, ServletContext context, String description) throws IOException;

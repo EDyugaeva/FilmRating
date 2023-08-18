@@ -1,6 +1,6 @@
 package com.example.filmrating.dao.impl;
 
-import com.example.filmrating.dao.DBConnection;
+import com.example.filmrating.dao.ConnectionPoolManager;
 import com.example.filmrating.dao.RateDao;
 import com.example.filmrating.dao.mapper.RateMapper;
 import com.example.filmrating.model.Rate;
@@ -17,8 +17,14 @@ import java.util.Optional;
 @Slf4j
 public class RateDaoImpl implements RateDao {
 
-    Connection connection = DBConnection.getConnectionToDataBase();
-
+    Connection connection;
+    {
+        try {
+            connection = ConnectionPoolManager.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private final RateMapper mapper = new RateMapper();
     private final static String INSERT = "INSERT INTO rates (user_id, film_id, rate) VALUES (?, ?, ?)";
     private final static String FIND_BY_FILM_ID = "SELECT * FROM rates WHERE film_id = ?";

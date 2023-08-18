@@ -10,35 +10,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl  {
 
-    static CommentDao dao = DaoFactory.getInstance().getCommentDao();
 
-    public Optional<Comment> findById(long id) {
-        return dao.findById(id);
+    public static Optional<Comment> findById(long id) {
+        return DaoFactory.getInstance().getCommentDao().findById(id);
     }
 
-    public int save(Comment comment) {
-        return dao.save(comment);
+    public static int save(Comment comment) {
+        return DaoFactory.getInstance().getCommentDao().save(comment);
     }
 
-    public int update(Comment comment)  {
-        return dao.update(comment);
+    public static int update(Comment comment)  {
+        return DaoFactory.getInstance().getCommentDao().update(comment);
     }
 
-    public void delete(long id) {
-        dao.delete(id);
+    public static void delete(long id) {
+        DaoFactory.getInstance().getCommentDao().delete(id);
     }
 
-    public List<Comment> getCommentsByFilmId(long filmId) {
-        return dao.findCommentsByFilmId(filmId);
+    public static List<Comment> getCommentsByFilmId(long filmId) {
+        return DaoFactory.getInstance().getCommentDao().findCommentsByFilmId(filmId);
     }
 
-    public String getAuthorName(long id) {
-        return dao.getAuthorName(id);
+    public static String getAuthorName(long id) {
+        return DaoFactory.getInstance().getCommentDao().getAuthorName(id);
     }
 
-    public Map<Comment, String> getCommentToFilmWithAuthorNameMap(long filmId) {
+    public static Map<Comment, String> getCommentToFilmWithAuthorNameMap(long filmId) {
         Map<Comment, String> commentStringMap = new HashMap<>();
         List<Comment> comments = getCommentsByFilmId(filmId);
         for (Comment comment:

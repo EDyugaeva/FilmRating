@@ -17,7 +17,6 @@ import java.io.IOException;
 @WebServlet("/login")
 @Slf4j
 public class LoginServlet extends HttpServlet {
-    private static final UserService userService = new UserServiceImpl();
 
 
     @Override
@@ -35,11 +34,11 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        boolean isValid = userService.validateUser(email, password);
+        boolean isValid = UserServiceImpl.validateUser(email, password);
 
         if (isValid) {
             log.info("User exist");
-            User user = userService.loginUser(email, password);
+            User user = UserServiceImpl.loginUser(email, password);
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());

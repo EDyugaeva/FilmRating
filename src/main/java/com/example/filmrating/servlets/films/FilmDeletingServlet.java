@@ -1,6 +1,7 @@
 package com.example.filmrating.servlets.films;
 
 
+import com.example.filmrating.services.FilmService;
 import com.example.filmrating.services.impl.FilmServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import java.io.IOException;
 @WebServlet("/film-deleting")
 @Slf4j
 public class FilmDeletingServlet extends HttpServlet {
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

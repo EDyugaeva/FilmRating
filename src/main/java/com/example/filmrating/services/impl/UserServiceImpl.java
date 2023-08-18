@@ -9,45 +9,44 @@ import com.example.filmrating.utills.SearchString;
 import java.util.List;
 import java.util.Optional;
 
-public class UserServiceImpl implements UserService {
-    static UserDao dao = DaoFactory.getInstance().getUserDao();
+public class UserServiceImpl {
 
 
-    public  Optional<User> findById(long id) {
+    public static  Optional<User> findById(long id) {
         return DaoFactory.getInstance().getUserDao().findById(id);
     }
 
-    public  int save(User user) {
-        return dao.save(user);
+    public static int save(User user) {
+        return DaoFactory.getInstance().getUserDao().save(user);
     }
 
-    public  int update(User user)  {
-        return dao.update(user);
+    public static int update(User user)  {
+        return DaoFactory.getInstance().getUserDao().update(user);
     }
 
-    public  void delete(long id) {
-        dao.delete(id);
+    public static void delete(long id) {
+        DaoFactory.getInstance().getUserDao().delete(id);
 
     }
 
-    public  List<User> findTop5Users() {
-        return dao.findTop5Users();
+    public static  List<User> findTop5Users() {
+        return DaoFactory.getInstance().getUserDao().findTop5Users();
     }
 
-    public  List<User> findUserByNameOrLastName(String searchString) {
+    public static  List<User> findUserByNameOrLastName(String searchString) {
         String name = SearchString.divideString(searchString)[0];
         String lastName = SearchString.divideString(searchString)[1];
 
-        return dao.searchUserByNameOrLastName(name, lastName);
+        return DaoFactory.getInstance().getUserDao().searchUserByNameOrLastName(name, lastName);
 
     }
 
-    public  User loginUser(String email, String password) {
-        return dao.loginUser(email, password);
+    public static  User loginUser(String email, String password) {
+        return DaoFactory.getInstance().getUserDao().loginUser(email, password);
     }
 
-    public  boolean validateUser(String email, String password) {
-        return dao.validateUser(email, password);
+    public static boolean validateUser(String email, String password) {
+        return DaoFactory.getInstance().getUserDao().validateUser(email, password);
     }
 
 }

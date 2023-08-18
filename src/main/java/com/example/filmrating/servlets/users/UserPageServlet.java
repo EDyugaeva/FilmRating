@@ -2,6 +2,7 @@ package com.example.filmrating.servlets.users;
 
 import com.example.filmrating.dao.impl.UserDaoImpl;
 import com.example.filmrating.model.User;
+import com.example.filmrating.services.UserService;
 import com.example.filmrating.services.impl.UserServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,7 +17,6 @@ import java.util.NoSuchElementException;
 @WebServlet("/user")
 @Slf4j
 public class UserPageServlet extends HttpServlet {
-    UserDaoImpl userDaoImpl = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

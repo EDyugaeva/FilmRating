@@ -1,7 +1,7 @@
 package com.example.filmrating.dao.impl;
 
 import com.example.filmrating.dao.CommentDao;
-import com.example.filmrating.dao.DBConnection;
+import com.example.filmrating.dao.ConnectionPoolManager;
 import com.example.filmrating.dao.mapper.CommentMapper;
 import com.example.filmrating.model.Comment;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,14 @@ import java.util.Optional;
 
 @Slf4j
 public class CommentDaoImpl implements CommentDao {
-    Connection connection = DBConnection.getConnectionToDataBase();
+    Connection connection;
+    {
+        try {
+            connection = ConnectionPoolManager.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private final CommentMapper mapper = new CommentMapper();
     private static final String INSERT = "INSERT INTO comments (user_id, film_id, comment, date_time_of_creation) VALUES (?, ?, ?, ?)";
@@ -26,6 +33,8 @@ public class CommentDaoImpl implements CommentDao {
 
     private static final String FIND_NAMES_BY_COMMENT_ID = "SELECT u.name, u.last_name from comments c join users u on u.id = c.user_id where c.id = ?";
     private static final String FIND_COMMENTS_BY_FILM_ID = "SELECT * from comments where film_id = ?";
+
+
 
     @Override
     public int save(Comment comment) {

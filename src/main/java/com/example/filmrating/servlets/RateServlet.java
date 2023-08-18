@@ -17,7 +17,6 @@ import java.io.IOException;
 @WebServlet("/rate")
 @Slf4j
 public class RateServlet extends HttpServlet {
-    private static final RateService rateService = new RateServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +29,7 @@ public class RateServlet extends HttpServlet {
 
         long filmId = Long.parseLong(req.getParameter("film_id"));
 
-        Rate rate = rateService.findRatesByUserIdAndFilmId(filmId, user.getId()).orElse(new Rate());
+        Rate rate = RateServiceImpl.findRatesByUserIdAndFilmId(filmId, user.getId()).orElse(new Rate());
 
         int rowAffected = 0;
         if (rate.getFilm() == null) {
@@ -40,12 +39,12 @@ public class RateServlet extends HttpServlet {
             rate.setFilm(filmId);
             rate.setUser(user.getId());
 
-            rowAffected = rateService.save(rate);
+            rowAffected = RateServiceImpl.save(rate);
 
         } else {
             log.info("Rewriting old rate");
             rate.setRate(grade);
-            rowAffected = rateService.update(rate);
+            rowAffected = RateServiceImpl.update(rate);
             req.setAttribute("rewriting", true);
 
         }
@@ -59,7 +58,7 @@ public class RateServlet extends HttpServlet {
         }
         log.info("New rate to film = {} is {}", filmId, rate);
 
-        rateService.setRating(rate);
+        RateServiceImpl.setRating(rate);
         resp.sendRedirect("film?id="+filmId);
 
 

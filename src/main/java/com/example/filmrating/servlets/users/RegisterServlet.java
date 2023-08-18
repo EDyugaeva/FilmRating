@@ -1,6 +1,7 @@
 package com.example.filmrating.servlets.users;
 
 import com.example.filmrating.model.User;
+import com.example.filmrating.services.UserService;
 import com.example.filmrating.services.impl.UserServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;

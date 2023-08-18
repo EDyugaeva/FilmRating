@@ -1,8 +1,9 @@
 package com.example.filmrating.dao.impl;
 
-import com.example.filmrating.dao.DBConnection;
+import com.example.filmrating.dao.ConnectionPoolManager;
 import com.example.filmrating.dao.UserDao;
 import com.example.filmrating.dao.mapper.UserMapper;
+import com.example.filmrating.exceptions.IllegalImageFormatException;
 import com.example.filmrating.model.User;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,8 +14,14 @@ import java.util.Optional;
 
 @Slf4j
 public class UserDaoImpl implements UserDao {
-    Connection connection = DBConnection.getConnectionToDataBase();
-
+    Connection connection;
+    {
+        try {
+            connection = ConnectionPoolManager.getConnection();
+        } catch (SQLException e) {
+            throw new IllegalImageFormatException("hfajkhfjkaehlf");
+        }
+    }
     private final UserMapper mapper = new UserMapper();
 
     private static final String INSERT = "INSERT INTO users (name, last_name, email, password, birth_date) VALUES (?,?,?,?,?)";

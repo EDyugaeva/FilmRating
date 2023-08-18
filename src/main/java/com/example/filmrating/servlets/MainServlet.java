@@ -14,16 +14,14 @@ import java.io.IOException;
 
 @Slf4j
 public class MainServlet extends HttpServlet {
-    private static final FilmService filmService = new FilmServiceImpl();
-    private static final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("MainServlet get method");
 
-        req.setAttribute("topFilms", filmService.findTop5Films());
+        req.setAttribute("topFilms", FilmServiceImpl.findTop5Films());
 
-        req.setAttribute("topUsers", userService.findTop5Users());
+        req.setAttribute("topUsers", UserServiceImpl.findTop5Users());
 
 
         String requestURI = "/html/main.jsp";

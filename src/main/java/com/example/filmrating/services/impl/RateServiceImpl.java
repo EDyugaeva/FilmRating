@@ -4,7 +4,6 @@ import com.example.filmrating.dao.DaoFactory;
 import com.example.filmrating.model.Film;
 import com.example.filmrating.model.Rate;
 import com.example.filmrating.model.User;
-import com.example.filmrating.services.FilmService;
 import com.example.filmrating.services.RateService;
 import com.example.filmrating.utills.Calculating;
 import lombok.extern.slf4j.Slf4j;
@@ -14,20 +13,19 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
-public class RateServiceImpl implements RateService {
-    private static final FilmService filmService = new FilmServiceImpl();
+public class RateServiceImpl {
 
-    public List<Rate> findRatesByFilmId(long filmId) {
+    public static List<Rate> findRatesByFilmId(long filmId) {
         return DaoFactory.getInstance().getRateDao().findRatesByFilmId(filmId);
     }
 
 
-    public void setRating(Rate rate) {
+    public static void setRating(Rate rate) {
         Long filmId = rate.getFilm();
         Long userId = rate.getUser();
         log.info("Set new rate to film with id = {}", filmId);
 
-        Film film = filmService.findById(filmId).orElseThrow(()
+        Film film = FilmServiceImpl.findById(filmId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no films with that id %d", userId)));
 
         User user = UserServiceImpl.findById(userId).orElseThrow(()
@@ -51,7 +49,7 @@ public class RateServiceImpl implements RateService {
         film.setRate(newGrade);
 
 
-        int rowAffectedInFilm = filmService.updateRating(film);
+        int rowAffectedInFilm = FilmServiceImpl.updateRating(film);
 
         if (rowAffectedInFilm != 1) {
             throw new RuntimeException("exception in setting new rating to film");
@@ -64,16 +62,16 @@ public class RateServiceImpl implements RateService {
 
     }
 
-    public Optional<Rate> findRatesByUserIdAndFilmId(long filmId, long userId) {
+    public static Optional<Rate> findRatesByUserIdAndFilmId(long filmId, long userId) {
         return DaoFactory.getInstance().getRateDao().findRatesByUserIdAndFilmId(filmId, userId);
     }
 
-    public int save(Rate rate) {
+    public static int save(Rate rate) {
         return DaoFactory.getInstance().getRateDao().save(rate);
 
     }
 
-    public int update(Rate rate) {
+    public static int update(Rate rate) {
         return DaoFactory.getInstance().getRateDao().update(rate);
     }
 }
