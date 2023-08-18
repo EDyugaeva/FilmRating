@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 @WebServlet("/status")
 @Slf4j
 public class StatusChangingServlet extends HttpServlet {
+    private static final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +24,7 @@ public class StatusChangingServlet extends HttpServlet {
         Long userId = Long.valueOf(req.getParameter("id"));
         log.info("Change status to user with id = {}", userId);
 
-        User user = UserServiceImpl.findById(userId).orElseThrow(()
+        User user = userService.findById(userId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no users with that id %d", userId)));
 
         int changedStatus = Integer.parseInt(req.getParameter("status"));
@@ -37,7 +38,7 @@ public class StatusChangingServlet extends HttpServlet {
 
         user.setStatus(newStatus);
 
-        int rowAffected = UserServiceImpl.update(user);
+        int rowAffected = userService.update(user);
 
         if (rowAffected == 1) {
             resp.sendRedirect("user?id=" + userId);

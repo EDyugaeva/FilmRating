@@ -16,6 +16,7 @@ import java.util.List;
 @WebServlet(name = "search", value = "/search")
 @Slf4j
 public class SearchFilmServlets extends HttpServlet {
+    private static final FilmService filmService = new FilmServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -24,7 +25,7 @@ public class SearchFilmServlets extends HttpServlet {
         log.info("Searching film by {} ", searchString);
 
 
-        List<Film> films = FilmServiceImpl.findFilmByTitle(searchString);
+        List<Film> films = filmService.findFilmByTitle(searchString);
         log.info("It was found {} films ", films.size());
 
         req.setAttribute("films", films);

@@ -16,13 +16,15 @@ import java.util.NoSuchElementException;
 @WebServlet("/ban")
 @Slf4j
 public class BanUserServlet extends HttpServlet {
+    private static final UserService userService = new UserServiceImpl();
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long userId = Long.valueOf(req.getParameter("id"));
         log.info("Change ban status to user with id = {}", userId);
 
-        User user = UserServiceImpl.findById(userId).orElseThrow(()
+        User user = userService.findById(userId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no films with that id %d", userId)));
 
         int ban = Integer.parseInt(req.getParameter("ban"));
@@ -36,7 +38,7 @@ public class BanUserServlet extends HttpServlet {
         }
 
 
-        int rowAffected = UserServiceImpl.update(user);
+        int rowAffected = userService.update(user);
 
         if (rowAffected == 1) {
             resp.sendRedirect("user?id=" + userId);

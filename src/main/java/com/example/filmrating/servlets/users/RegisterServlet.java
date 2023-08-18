@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @WebServlet(name = "register", value = "/register")
 @Slf4j
 public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
+    private static final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,7 +39,7 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
 
         User user = new User(name, lastName, email, password, birthDate);
 
-        int row = UserServiceImpl.save(user);
+        int row = userService.save(user);
         if (row == 1) {
             log.info("Register is OK");
             req.setAttribute("info", "You created account, now you can log in");

@@ -18,6 +18,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginServlet extends HttpServlet {
 
+    private static final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,11 +35,11 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        boolean isValid = UserServiceImpl.validateUser(email, password);
+        boolean isValid = userService.validateUser(email, password);
 
         if (isValid) {
             log.info("User exist");
-            User user = UserServiceImpl.loginUser(email, password);
+            User user = userService.loginUser(email, password);
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());

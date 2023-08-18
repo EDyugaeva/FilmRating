@@ -16,6 +16,8 @@ public interface UserService {
 
     void delete(long id);
 
+    List<User> findTop5Users();
+
     List<User> findUserByNameOrLastName(String searchString);
 
     User loginUser(String email, String password);

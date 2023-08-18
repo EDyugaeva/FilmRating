@@ -1,10 +1,13 @@
 package com.example.filmrating.services.impl;
 
 import com.example.filmrating.dao.DaoFactory;
+import com.example.filmrating.dao.RateDao;
 import com.example.filmrating.model.Film;
 import com.example.filmrating.model.Rate;
 import com.example.filmrating.model.User;
+import com.example.filmrating.services.FilmService;
 import com.example.filmrating.services.RateService;
+import com.example.filmrating.services.UserService;
 import com.example.filmrating.utills.Calculating;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,22 +16,26 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
-public class RateServiceImpl {
+public class RateServiceImpl implements RateService {
 
-    public static List<Rate> findRatesByFilmId(long filmId) {
+    private static final RateDao rateDao = DaoFactory.getInstance().getRateDao();
+    private static final FilmService filmService = new FilmServiceImpl();
+    private static final UserService userService = new UserServiceImpl();
+
+    public List<Rate> findRatesByFilmId(long filmId) {
         return DaoFactory.getInstance().getRateDao().findRatesByFilmId(filmId);
     }
 
 
-    public static void setRating(Rate rate) {
+    public void setRating(Rate rate) {
         Long filmId = rate.getFilm();
         Long userId = rate.getUser();
         log.info("Set new rate to film with id = {}", filmId);
 
-        Film film = FilmServiceImpl.findById(filmId).orElseThrow(()
+        Film film = filmService.findById(filmId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no films with that id %d", userId)));
 
-        User user = UserServiceImpl.findById(userId).orElseThrow(()
+        User user = userService.findById(userId).orElseThrow(()
                 -> new NoSuchElementException(String.format("There is no users with that id %d", userId)));
 
         float grade = film.getRate();
@@ -49,29 +56,29 @@ public class RateServiceImpl {
         film.setRate(newGrade);
 
 
-        int rowAffectedInFilm = FilmServiceImpl.updateRating(film);
+        int rowAffectedInFilm = filmService.updateRating(film);
 
         if (rowAffectedInFilm != 1) {
             throw new RuntimeException("exception in setting new rating to film");
         }
 
-        int rowAffectedInUsers = UserServiceImpl.update(user);
+        int rowAffectedInUsers = userService.update(user);
         if (rowAffectedInUsers != 1) {
             throw new RuntimeException("exception in setting new status to user");
         }
 
     }
 
-    public static Optional<Rate> findRatesByUserIdAndFilmId(long filmId, long userId) {
-        return DaoFactory.getInstance().getRateDao().findRatesByUserIdAndFilmId(filmId, userId);
+    public Optional<Rate> findRatesByUserIdAndFilmId(long filmId, long userId) {
+        return rateDao.findRatesByUserIdAndFilmId(filmId, userId);
     }
 
-    public static int save(Rate rate) {
-        return DaoFactory.getInstance().getRateDao().save(rate);
+    public int save(Rate rate) {
+        return rateDao.save(rate);
 
     }
 
-    public static int update(Rate rate) {
-        return DaoFactory.getInstance().getRateDao().update(rate);
+    public int update(Rate rate) {
+        return rateDao.update(rate);
     }
 }

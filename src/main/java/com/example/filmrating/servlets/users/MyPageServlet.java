@@ -19,6 +19,9 @@ import java.io.IOException;
 @Slf4j
 public class MyPageServlet extends HttpServlet {
 
+    private static final UserService userService = new UserServiceImpl();
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -26,7 +29,7 @@ public class MyPageServlet extends HttpServlet {
         log.warn("User role = {}", role);
         User user = (User) session.getAttribute("user");
 
-        user = UserServiceImpl.findById(user.getId()).get();
+        user = userService.findById(user.getId()).get();
         session.setAttribute("user", user);
 
         log.info("Get info about user");
