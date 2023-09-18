@@ -10,9 +10,7 @@ import java.sql.SQLException;
 public class RateMapper {
 
     public Rate getRate(ResultSet resultSet) {
-
         log.info("Mapping rate from the result set");
-
         Rate rate = null;
         try {
             rate = new Rate();
@@ -23,10 +21,8 @@ public class RateMapper {
             rate.setFilm(resultSet.getLong("film_id"));
             rate.setUser(resultSet.getLong("user_id"));
         } catch (SQLException e) {
-            log.warn("Exception while mapping rate rs");
-            e.printStackTrace();
+            log.warn("Exception while mapping rate rs", e);
         }
         return rate;
-
     }
 }

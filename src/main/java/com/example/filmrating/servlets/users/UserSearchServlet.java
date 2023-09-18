@@ -17,7 +17,6 @@ import java.util.List;
 @Slf4j
 public class UserSearchServlet extends HttpServlet {
     private static final UserService userService = new UserServiceImpl();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Searching for user");

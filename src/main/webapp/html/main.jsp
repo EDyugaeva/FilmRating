@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
-    <!-- Favicon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<!-- Section-->
 <section class="text-center colored">
     <div class=" row">
         <div class="column">
@@ -25,7 +23,6 @@
                     <a href="${pageContext.request.contextPath}/film?id=${film.id}">
                             ${Loop.count}. ${film.title} </a>
                 </p>
-
             </div>
             </c:forEach>
             </c:if>
@@ -41,7 +38,6 @@
                     <a href="${pageContext.request.contextPath}/user?id=${user.id}">
                             ${Loop.count}. ${user.name} ${user.lastName} </a>
                 </p>
-
             </div>
             </c:forEach>
             </c:if>
@@ -49,11 +45,7 @@
             </p>
         </div>
     </div>
-
 </section>
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
 </body>
 </html>

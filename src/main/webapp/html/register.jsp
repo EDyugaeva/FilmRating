@@ -7,15 +7,11 @@
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-
-<!-- Header-->
 <%@ include file="header.jsp" %>
 <section>
-
     <form action="register" method="post">
         <div class="container">
             <h1>Register</h1>
@@ -44,28 +40,13 @@
 
                 <hr>
                 <button type="submit" class="registerbtn">Register</button>
-
             </form>
-
         </div>
-
-
     </form>
-
     <div class="container signin">
         <p>Already have an account? <a href="#">Sign in</a>.</p>
     </div>
-
-
-    </div>
-
-
 </section>
-
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
-
 </body>
 </html>

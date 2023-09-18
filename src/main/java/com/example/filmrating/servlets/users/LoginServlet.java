@@ -17,21 +17,19 @@ import java.io.IOException;
 @WebServlet("/login")
 @Slf4j
 public class LoginServlet extends HttpServlet {
-
     private static final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/login.jsp");
         dispatcher.include(req, resp);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        log.info("Login with email = {}" ,email);
+        log.info("Login with email = {}", email);
 
         HttpSession session = req.getSession();
 
@@ -43,18 +41,12 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("isAuthorised", true);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
-
             log.warn("User role = {}", user.getRole());
-
         } else {
             log.warn("User doesn't exist");
-
             req.setAttribute("error", "Please check your credentials");
             req.getRequestDispatcher("html/error.jsp").include(req, resp);
-
         }
         req.getRequestDispatcher("html/login.jsp").include(req, resp);
-
-
     }
 }

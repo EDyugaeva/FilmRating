@@ -10,18 +10,10 @@
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- Header-->
 <%@ include file="header.jsp" %>
-
-<!-- Section-->
 <form>
     <div class="text-black-center container"> You log out successfully!</div>
 </form>
-
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
-
 </body>
 </html>

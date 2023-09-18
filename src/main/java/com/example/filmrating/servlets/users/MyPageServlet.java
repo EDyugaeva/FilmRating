@@ -18,9 +18,7 @@ import java.io.IOException;
 @WebServlet("/mypage")
 @Slf4j
 public class MyPageServlet extends HttpServlet {
-
     private static final UserService userService = new UserServiceImpl();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +33,5 @@ public class MyPageServlet extends HttpServlet {
         log.info("Get info about user");
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/mypage.jsp");
         dispatcher.include(req, resp);
-
-
     }
 }

@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://example.com/functions" prefix="f" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,19 +8,13 @@
     <meta name="description" content=""/>
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
-    <!-- Core theme CSS-->
     <link rel="stylesheet" href="css/style.css"/>
-    <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<!-- Header-->
 <jsp:include page="header.jsp"></jsp:include>
-<!-- Section-->
 <section>
-
-
     <c:if test="${film!=null}">
         <div class="text-black-center "> ${film.title} </div>
         <div class="section-film-card ">
@@ -29,11 +22,9 @@
             <div class="p-l-10">
                     ${film.description} <br>
                 Rating: ${film.rate}<br>
-                    <%--               Количество голосов : <br>--%>
                 <form action="rate" method="post">
                     <div>Give your grade to the film!</div>
                     <input type="hidden" name="film_id" value="${film.id}"/>
-
                     <input type="radio" name="star" value="1"> 1
                     <input type="radio" name="star" value="2"> 2
                     <input type="radio" name="star" value="3"> 3
@@ -44,10 +35,7 @@
                     <c:if test="${rate!=null}">
                         Your grade to this film is: ${rate}
                     </c:if>
-
-
                 </form>
-
                 <c:set var="role" value="${sessionScope.role}"/>
                 <c:if test="${role eq 'ADMIN'}">
                     <form action="film-deleting" method="POST">
@@ -56,27 +44,17 @@
                     </form>
                 </c:if>
             </div>
-
         </div>
-
-
         </div>
         <div>
-
-
             <c:if test="${requestScope.comments!=null}">
-                <c:forEach items="${requestScope.comments}"
-                           var="map" varStatus="Loop">
-
-
-                    <c:set var="comment" value="${map.key}"></c:set>
+                <c:forEach items="${commentMap}" var="entry">
                     <div class="section-comment">
                         <a class="text-black-left-comment"
-                           href="${pageContext.request.contextPath}/user?id=${comment.author}">
-                                ${map.value} </a> <br>
-                        <c:set var="date" value="${comment.date}"/>
+                           href="${pageContext.request.contextPath}/user?id=${entry.key.author}"> ${entry.value} </a><br>
+                        <c:set var="date" value="${entry.key.date}"/>
                         <a class="text-blue-italic"> ${f:formatLocalDateTime(date, 'dd.MM.yyyy HH:mm')} </a> <br>
-                        <div class="text-black-left-comment">${comment.text}</div>
+                        <div class="text-black-left-comment">${key.text}</div>
                     </div>
                 </c:forEach>
             </c:if>
@@ -88,23 +66,14 @@
                     <textarea id="comment" name="comment" rows="4" cols="50"> Such a great movie! </textarea> <br>
                     <input type="submit" value="Submit">
                 </form>
-
                 <p>Click the "Submit" button and your comment will be sent to a page.</p>
             </div>
         </div>
-
     </c:if>
     <c:if test="${film==null}">
         <div class="text-black-center sz ">We do not have this film</div>
     </c:if>
-
-
 </section>
-
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
-
 </body>
 </html>

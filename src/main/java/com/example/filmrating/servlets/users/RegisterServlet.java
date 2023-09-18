@@ -31,36 +31,29 @@ public class RegisterServlet extends jakarta.servlet.http.HttpServlet {
         if (!password.equals(passwordRepeated)) {
             log.info("Passwords don't match");
             req.setAttribute("error", "passwords don't match");
-
             req.getRequestDispatcher("html/error.jsp").include(req,resp);
             req.getRequestDispatcher("html/register.jsp").include(req, resp);
             return;
         }
-
         User user = new User(name, lastName, email, password, birthDate);
-
         int row = userService.save(user);
         if (row == 1) {
             log.info("Register is OK");
             req.setAttribute("info", "You created account, now you can log in");
             req.getRequestDispatcher("html/OK.jsp").include(req, resp);
             req.getRequestDispatcher("html/login.jsp").include(req, resp);
-
         } else {
             log.warn("Some error occurred during the registration");
             req.setAttribute("error", "Maybe you are registered before");
             req.getRequestDispatcher("html/error.jsp").include(req, resp);
             req.getRequestDispatcher("html/register.jsp").include(req, resp);
         }
-
     }
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("RegisterServlet doGet");
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/register.jsp");
         dispatcher.include(req, resp);
-
     }
 }

@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,6 @@
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-
 <%@ include file="header.jsp" %>
 <section>
     <div class="text-black-center mb-2" title="${user.name}"> ${user.name} ${user.lastName} </div>
@@ -37,15 +35,10 @@
                 <td> ${user.email} </td>
             </tr>
         </table>
-
-
     </div>
-
     <c:set var="userRole" value="${sessionScope.role}"/>
-
     <c:if test="${userRole!=null}">
         <c:if test="${userRole eq 'ADMIN'}">
-
             <div class="text-black-left">
                 <form action="<c:url value="/ban"/>" method="post">
                     <div>You can ban or remove the ban from the user.
@@ -58,7 +51,6 @@
                         </c:if>
                     </div>
                 </form>
-
                 <form action="status" method="post">
                     <div>You can change the user status: <br>
                         <input type="hidden" name="id" value="${user.id}"/>
@@ -69,17 +61,10 @@
                         <button type="submit" class="btn-2 default">Submit</button>
                     </div>
                 </form>
-
             </div>
         </c:if>
     </c:if>
-
 </section>
-
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
-
 </body>
 </html>

@@ -28,6 +28,5 @@ public class UserPageServlet extends HttpServlet {
 
         req.setAttribute("user", user);
         req.getRequestDispatcher("html/userPublicPage.jsp").include(req, resp);
-
     }
 }

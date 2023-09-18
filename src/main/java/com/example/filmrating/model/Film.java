@@ -1,11 +1,14 @@
 package com.example.filmrating.model;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-@Data
+
+@Getter
+@Setter
 @NoArgsConstructor
 public class Film {
 
@@ -20,9 +23,7 @@ public class Film {
         this.title = title;
         this.description = description;
         this.image = image;
-
         ratesList = new ArrayList<>();
     }
-
 
 }

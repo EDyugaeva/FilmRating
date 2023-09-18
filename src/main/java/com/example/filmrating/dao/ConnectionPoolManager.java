@@ -22,7 +22,9 @@ public class ConnectionPoolManager {
 
         dataSource = new HikariDataSource(config);
     }
-    private ConnectionPoolManager() {}
+
+    private ConnectionPoolManager() {
+    }
 
     public static Connection getConnection() throws SQLException {
         return dataSource.getConnection();

@@ -9,12 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @WebServlet("/about")
 public class AboutServlet extends jakarta.servlet.http.HttpServlet{
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/about.jsp");
         dispatcher.include(req, resp);
-
     }
 }

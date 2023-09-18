@@ -43,7 +43,6 @@
     .bg-new {
         --bs-bg-opacity: 1;
         background-image: url('images/background.jpg');
-
     }
 
     .px-4 {
@@ -93,6 +92,7 @@
         text-align: center !important;
         font-family: bs;
     }
+
     .text-black {
         font-size: 1rem;
         color: black;
@@ -229,7 +229,6 @@
     background-size: cover;
 
 }
-
 
 
 /* Style the links inside the navigation bar */
@@ -469,7 +468,7 @@ hr {
     overflow: hidden;
     width: 45%;
     border-collapse: collapse; /* Collapse borders */
-    border: 1px solid #07683f;/* Add a green border */
+    border: 1px solid #07683f; /* Add a green border */
     flex-wrap: nowrap;
     flex-direction: row;
     align-content: stretch;

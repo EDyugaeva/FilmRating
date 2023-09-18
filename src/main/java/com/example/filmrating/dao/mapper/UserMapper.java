@@ -1,13 +1,11 @@
 package com.example.filmrating.dao.mapper;
 
-import com.example.filmrating.model.*;
+import com.example.filmrating.model.Role;
+import com.example.filmrating.model.User;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 public class UserMapper {
@@ -19,13 +17,9 @@ public class UserMapper {
             user = new User();
             long id = getUser(resultSet, user);
             log.info("User with id = {} is found ", id);
-
-
         } catch (SQLException e) {
-            log.warn("Exception while mapping user rs");
-            e.printStackTrace();
+            log.warn("Exception while mapping user rs", e);
         }
-
         return user;
     }
 
@@ -42,7 +36,4 @@ public class UserMapper {
         user.setBanned(resultSet.getBoolean("isBanned"));
         return id;
     }
-
-
-
 }

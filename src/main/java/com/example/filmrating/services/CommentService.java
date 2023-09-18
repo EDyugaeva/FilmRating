@@ -9,13 +9,16 @@ import java.util.Optional;
 public interface CommentService {
 
     Optional<Comment> findById(long id);
-    //TODO rewrite with sending object
-    int save(Comment comment);
-    //TODO rewrite with sending object
-    int update(Comment comment);
-    void delete(long id);
-    List<Comment> getCommentsByFilmId(long filmId);
-    String getAuthorName(long id);
-    Map<Comment, String> getCommentToFilmWithAuthorNameMap(long filmId);
 
+    int save(Comment comment);
+
+    int update(Comment comment);
+
+    void delete(long id);
+
+    List<Comment> getCommentsByFilmId(long filmId);
+
+    String getAuthorName(long id);
+
+    Map<Comment, String> getCommentToFilmWithAuthorNameMap(long filmId);
 }

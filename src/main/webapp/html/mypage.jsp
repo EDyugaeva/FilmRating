@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +8,10 @@
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- Navigation-->
-<!-- Header-->
 <%@ include file="header.jsp" %>
-
 <section>
     <div class="text-black-center "> ${user.name} ${user.lastName} <br></div>
     <div class="fs-18">
@@ -25,7 +20,6 @@
                 <br> You are banned!
             </div>
         </c:if>
-
         <table class="table">
             <tr>
                 <td>Status</td>
@@ -40,8 +34,6 @@
                 <td> ${user.email} </td>
             </tr>
         </table>
-
-
         <c:set var="role" value="${sessionScope.role}"/>
         <c:if test="${role eq 'ADMIN'}">
             <div class="text-black-user">
@@ -61,23 +53,7 @@
             </div>
         </c:if>
     </div>
-
 </section>
-
-
-</div>
-
-
-</section>
-<!-- #products -->
-
-
-</section>
-
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
-
 </body>
 </html>

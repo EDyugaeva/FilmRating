@@ -5,7 +5,7 @@ import com.example.filmrating.dao.FilmDao;
 import com.example.filmrating.exceptions.IllegalImageFormatException;
 import com.example.filmrating.model.Film;
 import com.example.filmrating.services.FilmService;
-import com.example.filmrating.utills.FileUtills;
+import com.example.filmrating.utills.FileUtils;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ public class FilmServiceImpl  implements FilmService{
     public  void delete(long id) {
         Film film = findById(id).orElseThrow(() -> new NoSuchElementException("There is no films with that id"));
         filmDao.delete(id);
-        FileUtills.deleteFile(film.getImage());
+        FileUtils.deleteFile(film.getImage());
 
     }
 
@@ -56,7 +56,7 @@ public class FilmServiceImpl  implements FilmService{
 
         String type = "films";
 
-        String path = FileUtills.saveImage(filePart, title, type, context.getRealPath("/images/" + type));
+        String path = FileUtils.saveImage(filePart, title, type, context.getRealPath("/images/" + type));
 
         Film film = new Film(title, description, path);
 

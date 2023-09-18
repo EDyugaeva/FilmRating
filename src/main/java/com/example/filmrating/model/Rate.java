@@ -1,17 +1,19 @@
 package com.example.filmrating.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Rate {
 
     private Long id;
     private Long user;
     private Long film;
     private int rate;
-
 
     @Override
     public boolean equals(Object o) {

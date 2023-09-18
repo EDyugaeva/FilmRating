@@ -9,11 +9,9 @@ public interface DaoInterface<T> {
 
     Optional<T> findById(long id);
 
-    List<T> getAll() ;
+    List<T> getAll();
 
-    int update(T obj) ;
+    int update(T obj);
 
-    void delete(long id) ;
-
-
+    void delete(long id);
 }

@@ -18,7 +18,6 @@ import java.util.NoSuchElementException;
 public class BanUserServlet extends HttpServlet {
     private static final UserService userService = new UserServiceImpl();
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long userId = Long.valueOf(req.getParameter("id"));
@@ -29,25 +28,18 @@ public class BanUserServlet extends HttpServlet {
 
         int ban = Integer.parseInt(req.getParameter("ban"));
         if (ban == 1) {
-            log.info("Ban user");
+            log.info("Ban user with id = {}", userId);
             user.setBanned(true);
-        }
-        else {
-            log.info("Unban user");
+        } else {
+            log.info("Unban user with id = {}", userId);
             user.setBanned(false);
         }
-
-
         int rowAffected = userService.update(user);
-
         if (rowAffected == 1) {
             resp.sendRedirect("user?id=" + userId);
         } else {
             log.warn("Error during updating user");
             req.getRequestDispatcher("/html/error.jsp").include(req, resp);
-
         }
-
     }
-
 }

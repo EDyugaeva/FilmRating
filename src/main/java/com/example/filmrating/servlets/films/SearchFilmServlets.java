@@ -24,13 +24,10 @@ public class SearchFilmServlets extends HttpServlet {
         String searchString = req.getParameter("search");
         log.info("Searching film by {} ", searchString);
 
-
         List<Film> films = filmService.findFilmByTitle(searchString);
         log.info("It was found {} films ", films.size());
 
         req.setAttribute("films", films);
         req.getRequestDispatcher("/html/searchfilms.jsp").include(req, resp);
-
-
     }
 }

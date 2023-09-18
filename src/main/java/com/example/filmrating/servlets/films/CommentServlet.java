@@ -16,13 +16,10 @@ import java.io.IOException;
 @WebServlet("/comment")
 @Slf4j
 public class CommentServlet extends HttpServlet {
-
     private static final CommentService commentService = new CommentServiceImpl();
 
-
-
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         log.info("Send new comment to film");
 
         String textComment = req.getParameter("comment");
@@ -39,7 +36,6 @@ public class CommentServlet extends HttpServlet {
         commentService.save(comment);
 
         resp.sendRedirect("film?id=" + film_id);
-
     }
 }
 

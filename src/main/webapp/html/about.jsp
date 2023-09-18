@@ -6,20 +6,14 @@
     <meta name="description" content=""/>
     <meta name="Ekaterina Radomskaya" content=""/>
     <title>Films rating app</title>
-    <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- Header-->
 <%@ include file="header.jsp" %>
-
-
 <section>
     <div class="text-center fa-2x my-3"> About this site</div>
-
     <div class="text-black-about">
 
         This is a capstone project for Epam-training. <br>
@@ -31,23 +25,14 @@
         The administrator manages users: raises or lowers the status, puts bans.<br>
 
     </div>
-
     <div class="text-center fa-2x my-3"> About me</div>
-
     <div class="text-black-about">
 
         My name is Ekaterina Radomskaya. I am a Junior Java Developer.
         You can find me on <a href="redirect">LinkedIn</a>
 
     </div>
-
 </section>
-<!-- #products -->
-
-
-</section>
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
 </body>
 </html>

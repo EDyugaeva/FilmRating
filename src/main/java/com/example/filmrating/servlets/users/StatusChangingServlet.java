@@ -35,11 +35,8 @@ public class StatusChangingServlet extends HttpServlet {
             req.getRequestDispatcher("html/error.jsp").include(req, resp);
             return;
         }
-
         user.setStatus(newStatus);
-
         int rowAffected = userService.update(user);
-
         if (rowAffected == 1) {
             resp.sendRedirect("user?id=" + userId);
         } else {
@@ -47,8 +44,5 @@ public class StatusChangingServlet extends HttpServlet {
             req.setAttribute("error", "Error while saving data in database");
             req.getRequestDispatcher("html/error.jsp").include(req, resp);
         }
-
     }
-
-
 }

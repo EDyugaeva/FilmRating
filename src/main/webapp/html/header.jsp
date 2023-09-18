@@ -1,19 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: ekaterina
-  Date: 16.07.2023
-  Time: 17:08
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>header</title>
 </head>
 <body>
-
-<!-- Navigation-->
 <nav class="topnav">
     <a href='about'>About</a>
     <a href='home'>Main</a>
@@ -23,8 +14,6 @@
                     href='search' value="search"><i></i></button>
             <input type="search" class="search" name="search" placeholder="Search..">
         </form>
-
-
     </div>
     <c:set var="isAuthorised" value="${sessionScope.isAuthorised}"/>
     <c:if test="${!isAuthorised}">
@@ -39,8 +28,6 @@
         </c:if>
     </c:if>
 </nav>
-
-<!-- Header-->
 <header class="bg-new py-5 background">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
@@ -49,7 +36,5 @@
         </div>
     </div>
 </header>
-
-
 </body>
 </html>

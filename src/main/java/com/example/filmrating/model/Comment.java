@@ -1,11 +1,15 @@
 package com.example.filmrating.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Comment {
 
     private Long id;

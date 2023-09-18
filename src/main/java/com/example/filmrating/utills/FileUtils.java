@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.*;
 
 @Slf4j
-public class FileUtills {
+public class FileUtils {
 
     /**
      * Saving images to the filesystem.
@@ -19,26 +19,19 @@ public class FileUtills {
      * @return url to save in database
      * @throws IOException
      */
-    public static String saveImage(Part part, String title, String type, String absoluteSavePath ) throws IOException {
+    public static String saveImage(Part part, String title, String type, String absoluteSavePath) throws IOException {
         log.info("Saving images to folder {} ", type);
-
         String fileName = replaceExtras(title) + ".jpg";
-
-
-        // Create the save directory if it does not exist
         File fileSaveDir = new File(absoluteSavePath);
+
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdirs();
         }
 
         String filePath = absoluteSavePath + File.separator + fileName;
-
         String imageUrl = "images" + File.separator + type + File.separator + fileName;
-
         part.write(filePath);
-
         log.info("url to save is: {} ", imageUrl);
-
         return imageUrl;
     }
 
@@ -49,26 +42,21 @@ public class FileUtills {
 
     /**
      * Delete file by relative path
+     *
      * @param path relative path
      */
     public static void deleteFile(String path) {
         String baseDirectory = System.getProperty("user.dir");
-
         try {
-            // Combine the base directory and the relative file path to get the absolute file path
             Path fileToDelete = Paths.get(baseDirectory, path);
-
-            // Delete the file
             Files.delete(fileToDelete);
-
-            System.out.println("File deleted successfully.");
+            log.info("File deleted successfully.");
         } catch (NoSuchFileException e) {
-            System.err.println("File not found: " + e.getMessage());
+            log.warn("File not found", e);
         } catch (DirectoryNotEmptyException e) {
-            System.err.println("Cannot delete: Directory is not empty.");
+            log.warn("Cannot delete: Directory is not empty", e);
         } catch (IOException e) {
-            System.err.println("Error deleting file: " + e.getMessage());
+            log.warn("Error deleting file", e);
         }
     }
-
 }

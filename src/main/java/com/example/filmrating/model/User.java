@@ -1,13 +1,15 @@
 package com.example.filmrating.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-@Data
-public class User {
 
+@Getter
+@Setter
+@NoArgsConstructor
+public class User {
     private Long id;
     private String name;
     private String lastName;
@@ -15,11 +17,8 @@ public class User {
     private String password;
     private LocalDate birthDate;
     private Role role;
-
     private int status;
     private boolean isBanned;
-    public User() {
-    }
 
     public User(String name, String lastName, String email, String password, LocalDate birthDate) {
         this.name = name;
@@ -30,22 +29,5 @@ public class User {
         this.role = Role.USER;
         this.status = 1;
         this.isBanned = false;
-
-
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", birthDate=" + birthDate +
-                ", role=" + role +
-                ", status=" + status +
-                ", isBanned=" + isBanned +
-                '}';
     }
 }

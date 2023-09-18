@@ -45,7 +45,6 @@ public class CommentServiceImpl implements CommentService {
              comments) {
             String author = getAuthorName(comment.getId());
             commentStringMap.put(comment, author);
-
         }
         return commentStringMap;
     }

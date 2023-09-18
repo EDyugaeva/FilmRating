@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface RateDao extends DaoInterface<Rate> {
 
     List<Rate> findRatesByFilmId(long filmId);
+
     Optional<Rate> findRatesByUserIdAndFilmId(long filmId, long userId);
 }

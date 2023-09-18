@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +11,7 @@
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- Header-->
 <%@ include file="header.jsp" %>
-
-<!-- Section-->
 <section>
     <p class="text-black-center"> Log in</p>
     <div class="text-black-left">
@@ -27,27 +23,18 @@
             <button type="submit" class="btn default">Log in</button>
         </form>
         <c:set var="isAuthorised" value="${sessionScope.isAuthorised}"/>
-
         <c:if test="${isAuthorised}">
             <div class="text-green">
                 You successfully logged in! <br>
             </div>
         </c:if>
-
         <c:if test="${!isAuthorised}">
             <div>You can create new account, if you do not have it</div>
             <br>
             <a class="btn default" href='register'>Register</a>
         </c:if>
-
     </div>
-
 </section>
-<!-- Footer-->
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
-
 </body>
 </html>

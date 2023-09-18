@@ -25,7 +25,5 @@ public class FilmDeletingServlet extends HttpServlet {
         req.setAttribute("info", "film was deleted");
         req.getRequestDispatcher("html/OK.jsp").include(req, resp);
         req.getRequestDispatcher("/mypage").include(req, resp);
-
-
     }
 }

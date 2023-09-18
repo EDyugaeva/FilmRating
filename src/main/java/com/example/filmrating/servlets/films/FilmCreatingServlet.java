@@ -15,16 +15,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-
 @WebServlet("/film-creating")
 @Slf4j
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 20 * 1024 * 1024)
 public class FilmCreatingServlet extends HttpServlet {
 
     private static final FilmService filmService = new FilmServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         log.info("Creating new film");
         String title = req.getParameter("title");
         String description = req.getParameter("description");
@@ -44,34 +43,24 @@ public class FilmCreatingServlet extends HttpServlet {
                 dispatcher = req.getRequestDispatcher("html/error.jsp");
                 dispatcher.include(req, resp);
             }
-
-
-
         } catch (IllegalImageFormatException e) {
+            log.warn("Format of file is not image", e);
             req.setAttribute("error", "File must be an image");
             dispatcher = req.getRequestDispatcher("html/error.jsp");
             dispatcher.include(req, resp);
         } catch (IOException e) {
-            log.warn("Error while saving film");
+            log.warn("Error while saving film", e);
             req.setAttribute("error", "Exception while saving file");
             dispatcher = req.getRequestDispatcher("html/error.jsp");
             dispatcher.include(req, resp);
         }
         dispatcher = req.getRequestDispatcher("html/filmcreating.jsp");
         dispatcher.include(req, resp);
-
-
-
     }
-
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("html/filmcreating.jsp");
         dispatcher.include(req, resp);
     }
-
-
-
-
 }

@@ -22,9 +22,7 @@ public class MainServlet extends HttpServlet {
         log.info("MainServlet get method");
 
         req.setAttribute("topFilms", filmService.findTop5Films());
-
         req.setAttribute("topUsers", userService.findTop5Users());
-
 
         String requestURI = "/html/main.jsp";
         req.getRequestDispatcher(requestURI).forward(req, resp);

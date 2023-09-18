@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +12,7 @@
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-<!-- Header-->
 <%@ include file="header.jsp" %>
-<!-- Section-->
-
 <section id="search" class="text-black-left">
     <header></header>
     <div>
@@ -33,27 +29,15 @@
     <c:if test="${requestScope.users!=null}">
         <c:forEach items="${requestScope.users}"
                    var="user" varStatus="Loop">
-
             <div class="user-container text-black-left">
-
                     ${user.name} ${user.lastName} <br>
                 Birthday: ${user.birthDate} <br>
-<%--                        to do --%>
-<%--                Numbers of votes: ${fn:length(ratesList)} <br>--%>
                 email: ${user.email}
-
                 <a href="${pageContext.request.contextPath}/user?id=${user.id}">Get more information </a>
-
             </div>
         </c:forEach>
     </c:if>
-
-
 </section>
-
-<!-- Footer-->
 <%@ include file="footer.jsp" %>
-
-
 </body>
 </html>
